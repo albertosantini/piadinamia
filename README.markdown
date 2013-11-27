@@ -9,6 +9,10 @@ On mobile side I have been considering the following approach:
 - [trigger.io](https://trigger.io/)
 - [ionic](http://ionicframework.com/)
 
+
+Frameworks in the radar:
+- [select2](http://ivaynberg.github.io/select2/) - for catalog/tag/cart select/search
+
 Abstract
 --------
 
