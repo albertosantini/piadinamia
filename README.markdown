@@ -5,6 +5,10 @@ Piadinamia is a shopping cart app.
 
 It is a good candidate app for AngularJS and Firebase: [AngularJS Tutorial: Learn to Rapidly Build Real-time Web Apps with Firebase](http://www.thinkster.io/pick/eHPCs7s87O/angularjs-tutorial-learn-to-rapidly-build-real-time-web-apps-with-firebase).
 
+On mobile side I have been considering the following approach:
+- [trigger.io](https://trigger.io/)
+- [ionic](http://ionicframework.com/)
+
 Abstract
 --------
 
