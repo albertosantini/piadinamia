@@ -71,14 +71,14 @@ Model
             "items": [
                 {"item": "item1", "price": "0.75"},
                 {"item": "item2", "price": "2.35"},
-                {"item": "item3", "price": "1.05"},
+                {"item": "item3", "price": "1.05"}
             ],
             "consumers": [
                 "user2"
             ],
             "cart": [
                 {"item": "item1", "quantity": "2"},
-                {"item": "item2", "quantity": "3"},
+                {"item": "item2", "quantity": "3"}
             ]
         }
     }
@@ -104,6 +104,8 @@ Model
 
 - catalog item id?
 - private/public catalog?
+
+Read [Denormalizing Your Data is Normal](https://www.firebase.com/blog/2013-04-12-denormalizing-is-normal.html).
 
 Example
 =======
