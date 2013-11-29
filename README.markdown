@@ -10,8 +10,9 @@ On mobile side I have been considering the following approach:
 - [ionic](http://ionicframework.com/)
 
 
-Frameworks in the radar:
+Resources in the radar:
 - [select2](http://ivaynberg.github.io/select2/) - for catalog/cart select/search
+- [Font Awesome](http://fontawesome.io/) - for the carts icons
 
 Abstract
 --------
