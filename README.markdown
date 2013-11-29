@@ -61,73 +61,75 @@ Use cases
 Model
 -----
 
-`me` _catalog publisher_
 ```
 {
-    "user": "user1",
-    "default": "mycat1",
-    "catalogs": {
-        "mycat1": {
-            "private": false,
-            "items": 
-                "id1": {
-                    "item": "item1", 
-                    "price": "0.75"
-                },
-                "id2": {
-                    "item": "item2", 
-                    "price": "2.35"
-                },
-                "id3": {
-                    "item": "item3", 
-                    "price": "1.05"
-                }
-            ],
-            "consumers": {
-                "user2": {
-                    "total-quantity": 6,
-                    "total-price": 8.90
-                }
-            },
-            "cart": {
-                rows: {
-                    "row1": {
-                        "item": "item1", 
-                        "quantity": "2"
+    "users": {
+        "user1": {
+            "name": "my user",
+            "default": "mycat1",
+            "catalogs": {
+                "mycat1": {
+                    "name": "my catalog",
+                    "private": false,
+                    "items": {
+                        "item-id1": {
+                            "name": "item1", 
+                            "price": "0.75"
+                        },
+                        "item-id2": {
+                            "name": "item2", 
+                            "price": "2.35"
+                        },
+                        "item-id3": {
+                            "name": "item3", 
+                            "price": "1.05"
+                        }
                     },
-                    "row2": {
-                        "item": "item2", 
-                        "quantity": "3"
+                    "customers": {
+                        "user2": {
+                            "total-quantity": 6,
+                            "total-price": 8.90
+                        }
+                    },
+                    "cart": {
+                        "items": {
+                            "row-id1": {
+                                "item": "item-id1", 
+                                "quantity": "2"
+                            },
+                            "row-id2": {
+                                "item": "item-id2", 
+                                "quantity": "3"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        
+        "user2" { 
+            "name": "another user",
+            "default": "mycat1",
+            "catalogs": {
+                "mycat1": {
+                    "publisher": "user1",
+                    "cart": {
+                        "items": {
+                            "row-id1": {
+                                "item": "item-id2", 
+                                "quantity": "2"
+                            },
+                            "row-id2": {
+                                "item": "item-id3", 
+                                "quantity": "4"
+                            }
+                        }
                     }
                 }
             }
         }
     }
-}
-```
-
-`another user` _catalog consumer_
-```
-{
-    "user": "user2",
-    "default": "mycat1",
-    "catalogs": {
-        "mycat1": {
-            "publisher": "user1",
-            "cart": {
-                "rows": {
-                    "row1": {
-                        "item": "item2", 
-                        "quantity": "2"
-                    },
-                    "row2": {
-                        "item": "item3", 
-                        "quantity": "4"
-                    }
-                }
-            }
-        }
-    }
+    
 }
 ```
 
