@@ -11,7 +11,7 @@ On mobile side I have been considering the following approach:
 
 
 Frameworks in the radar:
-- [select2](http://ivaynberg.github.io/select2/) - for catalog/tag/cart select/search
+- [select2](http://ivaynberg.github.io/select2/) - for catalog/cart select/search
 
 Abstract
 --------
@@ -28,42 +28,82 @@ Requirements
     
 - `Catalog` 
     - list my catalogs (with stats - copies, carts, etc.)
-    - select my catalog 
+    - select catalog 
     - create new catalog
     - search (and copy) your catalogs
+    - modify (or delete) catalog
 
-- `Tag`
-    - list my tags (with stats)
-    - select my tag
-    - search (and select) your tags
-    - create new tag
-    
 - `Cart` 
-    - create my cart
-    - modify my cart
+    - modify my cart (add, remove items)
 
 - `Reports`
-    - report carts by items
-    - report carts by users
+    - report carts by items (per default catalog)
+    - report carts by users (per default catalog)
 
 Defaults, constraints
 ---------------------
 
 - set last used catalog as default (or piadinamia system catalog)
-- set last used tag as default
-- set last used cart as default
-- `One user - many catalogs` > `One catalog - many tags` > `One tag - many carts`
-- `One cart` > `One tag` > `One catalog` > `One user`
-- Add a due date to the tag?
+- after selecting a catalog, if it is the first time, an empty cart is attached
+- `One user - many catalogs` > `One catalog - many carts`
+- `One cart` > `One catalog` > `One user`
+- Add a due date to the cart (to purge them)?
 
 Use cases
 ---------
 
-- `user/first time` > `create new catalog` > `create new tag` > `create my cart` > `modify my cart` > `report carts by items`
-- `user/next time` > `select my tag` > `modify my cart` > `report carts by items`
-- `user/another user` > `search your tags` > `create my cart` > `report carts by users`
-- `user/next time` > `select my tag` > `report carts by users`
-- `user/another user` > `search your tags` > `modify my cart` > `report carts by items`
+- `user/first time` > `create new catalog` > `modify my cart` > `report carts by items`
+- `user/next time` > `select catalog` > `modify my cart` > `report carts by items`
+- `user/another user` > `search your catalogs` > `report carts by users`
+- `user/next time` > `select catalog` > `report carts by users`
+- `user/another user` > `select catalog` > `modify my cart` > `report carts by items`
+
+Model
+-----
+
+`me` _catalog publisher_
+```
+{
+    "user": "user1",
+    "default": "mycat1",
+    "catalog": {
+        "mycat1": {
+            "items": [
+                {"item": "item1", "price": "0.75"},
+                {"item": "item2", "price": "2.35"},
+                {"item": "item3", "price": "1.05"},
+            ],
+            "consumers": [
+                "user2"
+            ],
+            "cart": [
+                {"item": "item1", "quantity": "2"},
+                {"item": "item2", "quantity": "3"},
+            ]
+        }
+    }
+}
+```
+
+`another user` _catalog consumer_
+```
+{
+    "user": "user2",
+    "default": "mycat1",
+    "catalog": {
+        "mycat1": {
+            "publisher": "user1",
+            "cart": [
+                {"item": "item2", "quantity": "2"},
+                {"item": "item3", "quantity": "4"},
+            ]
+        }
+    }
+}
+```
+
+- catalog item id?
+- private/public catalog?
 
 Example
 =======
