@@ -19,6 +19,11 @@
     "onevar": true,
     "plusplus": true,
     "regexp": true,
-    "white": true
+    "white": true,
+
+    "globals": {
+        "angular": false,
+        "Firebase": false
+    }
 }
 

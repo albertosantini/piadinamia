@@ -5,6 +5,8 @@
         "components-bootstrap-default": "3.0.2",
         "components-font-awesome": "4.0.3",
         "angular": "1.2.3",
+        "angular-route": "1.2.3",
+        "angular-bootstrap": "0.7.0",
         "angular-fire": "latest"
     },
     "resolutions": {
