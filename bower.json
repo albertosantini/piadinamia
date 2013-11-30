@@ -7,5 +7,7 @@
         "angular": "1.2.3",
         "angular-fire": "latest"
     },
-    "directory" : "app/lib"
+    "resolutions": {
+        "angular": "1.2.3"
+    }
 }
