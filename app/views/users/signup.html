@@ -2,14 +2,14 @@
 
     <form class="form-signin ng-pristine ng-valid">
         <h2 class="form-signin-heading">Please sign up</h2>
-        <input type="text" class="form-control"
+        <input type="text" class="form-control" ng-model="name"
             placeholder="Full name" required autofocus>
-        <input type="text" class="form-control"
+        <input type="text" class="form-control" ng-model="email"
             placeholder="Email address" required>
-        <input type="password" class="form-control"
+        <input type="password" class="form-control" ng-model="pass"
             placeholder="Password" required>
 
-        <button class="btn btn-lg btn-primary btn-block"
+        <button class="btn btn-lg btn-primary btn-block btn-success"
             type="submit" ng-click="createAccount()">
             Sign up
         </button>
