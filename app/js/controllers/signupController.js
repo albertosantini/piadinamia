@@ -27,7 +27,7 @@ angular.module("piadinamia.controllers.signup", [])
 
             $scope.createAccount = function () {
                 if (!$scope.email) {
-                    $scope.err = "Please enter an email address";
+                    $scope.err = "Please enter a valid email address";
                 } else if (!$scope.pass) {
                     $scope.err = "Please enter a password";
                 } else {
