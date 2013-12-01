@@ -1,6 +1,6 @@
 <div class="row" data-ng-controller="SignupCtrl">
     <form class="form-horizontal ng-pristine ng-valid">
-        <p class="error"></p>
+        <p></p>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="name">Full name</label>
             <div class="col-sm-4">
@@ -28,9 +28,13 @@
             <div class="col-sm-offset-2 col-sm-4">
                 <button type="submit" class="btn btn-primary"
                     ng-click="createAccount()">Sign up</button>
-                &nbsp;or&nbsp;<a href="#/signin" class="show-login">Login</a>
+                &nbsp;or&nbsp;
+                <a href="#/signin" class="btn btn-default">Sign in</a>
             </div>
         </div>
     </form>
-    <p ng-show="err" class="error">{{err}}</p>
+
+    <div ng-show="err" class="alert alert-danger text-center col-sm-offset-2 col-sm-4">
+        <strong>{{err}}</strong>
+    </div>
 </div>
