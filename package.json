@@ -2,7 +2,10 @@
     "name": "piadinamia",
     "version": "1.0.0",
     "description": "Shopping cart app",
-    "main": "index",
+    "main": "server",
+    "scripts": {
+        "start": "node server.js"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/albertosantini/node-piadinamia.git"
@@ -17,8 +20,6 @@
         "node": ">=0.10.x"
     },
     "dependencies": {
-        "express": "~3.1.2",
-        "request": "~2.16.6"
+        "express": "~3.4.5"
     }
 }
-
