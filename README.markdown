@@ -5,6 +5,8 @@ Piadinamia is a shopping cart app.
 
 It is a good candidate app for AngularJS and Firebase: [AngularJS Tutorial: Learn to Rapidly Build Real-time Web Apps with Firebase](http://www.thinkster.io/pick/eHPCs7s87O/angularjs-tutorial-learn-to-rapidly-build-real-time-web-apps-with-firebase).
 
+See also [an angular login example](https://github.com/mrgamer/angular-login-example).
+
 On mobile side I have been considering the following approach:
 - [trigger.io](https://trigger.io/)
 - [ionic](http://ionicframework.com/)
@@ -26,15 +28,15 @@ Requirements
     - create account
     - login
     - logout
-    
-- `Catalog` 
+
+- `Catalog`
     - list my catalogs (with stats - copies, carts, etc.)
-    - select catalog 
+    - select catalog
     - create new catalog
     - search (and copy) your catalogs
     - modify (or delete) catalog
 
-- `Cart` 
+- `Cart`
     - modify my cart (add, remove items)
 
 - `Reports`
@@ -74,15 +76,15 @@ Model
                     "private": false,
                     "items": {
                         "item-id1": {
-                            "name": "item1", 
+                            "name": "item1",
                             "price": "0.75"
                         },
                         "item-id2": {
-                            "name": "item2", 
+                            "name": "item2",
                             "price": "2.35"
                         },
                         "item-id3": {
-                            "name": "item3", 
+                            "name": "item3",
                             "price": "1.05"
                         }
                     },
@@ -95,11 +97,11 @@ Model
                     "cart": {
                         "items": {
                             "row-id1": {
-                                "item": "item-id1", 
+                                "item": "item-id1",
                                 "quantity": "2"
                             },
                             "row-id2": {
-                                "item": "item-id2", 
+                                "item": "item-id2",
                                 "quantity": "3"
                             }
                         }
@@ -107,8 +109,8 @@ Model
                 }
             }
         },
-        
-        "user2" { 
+
+        "user2" {
             "name": "another user",
             "default": "mycat1",
             "catalogs": {
@@ -117,11 +119,11 @@ Model
                     "cart": {
                         "items": {
                             "row-id1": {
-                                "item": "item-id2", 
+                                "item": "item-id2",
                                 "quantity": "2"
                             },
                             "row-id2": {
-                                "item": "item-id3", 
+                                "item": "item-id3",
                                 "quantity": "4"
                             }
                         }
@@ -130,7 +132,7 @@ Model
             }
         }
     }
-    
+
 }
 ```
 
