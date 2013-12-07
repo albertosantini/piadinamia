@@ -22,6 +22,6 @@
     "commit": "e9f199afae39c8a46dc34e607833dd9a8c0bf79c"
   },
   "_source": "git://github.com/components/bootstrap-default.git",
-  "_target": "3.0.2",
+  "_target": "~3.0.2",
   "_originalSource": "components-bootstrap-default"
 }
