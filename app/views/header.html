@@ -14,7 +14,10 @@
                 <i class="fa fa-plus-square fa-fw"></i>Sign up
             </a></li>
             <li><a href="#/signin">
-                <i class="fa fa-sign-in fa-fw"></i>Sign in
+                <i class="fa"
+                    ng-class="isLogging ? 'fa-spinner fa-spin' : 'fa-sign-in'">
+                </i>
+                Sign in
             </a></li>
         </ul>
 
