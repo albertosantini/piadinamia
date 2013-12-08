@@ -2,9 +2,6 @@
     "use strict";
 
     var app = angular.module("piadinamia", [
-            "piadinamia.controllers.header",
-            "piadinamia.controllers.signin",
-            "piadinamia.controllers.signup",
             "firebase",
             "ui.bootstrap",
             "ngRoute"
