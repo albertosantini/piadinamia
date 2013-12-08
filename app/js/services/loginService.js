@@ -2,9 +2,8 @@
 
 angular.module("piadinamia.services.login",
     ["piadinamia.services.profileService"])
-    .factory("loginService", ["angularFireAuth", "profileService",
-        "$location", "$rootScope",
-        function (angularFireAuth, profileService, $location, $rootScope) {
+    .factory("loginService", ["angularFireAuth", "profileService", "$location",
+        function (angularFireAuth, profileService, $location) {
             return {
                 login: function (email, pass, redirect, callback) {
                     var p = angularFireAuth.login("password", {
@@ -30,11 +29,10 @@ angular.module("piadinamia.services.login",
                 },
 
                 createAccount: function (name, email, pass, callback) {
-                    angularFireAuth._authClient.createUser(email, pass,
+                    angularFireAuth.createUser(email, pass,
                         function (err, user) {
                             if (callback) {
                                 callback(err, user);
-                                $rootScope.$apply();
                             }
                         });
                 },

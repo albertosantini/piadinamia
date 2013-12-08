@@ -1,8 +1,8 @@
 "use strict";
 
 angular.module("piadinamia.services.profileService", [])
-    .factory("profileService", ["Firebase", "FBURL", "$rootScope",
-        function (Firebase, FBURL, $rootScope) {
+    .factory("profileService", ["Firebase", "FBURL",
+        function (Firebase, FBURL) {
             return function (id, name, email, callback) {
                 new Firebase(FBURL).child("users/" + id).set({
                     email: email,
@@ -10,7 +10,6 @@ angular.module("piadinamia.services.profileService", [])
                 }, function (err) {
                     if (callback) {
                         callback(err);
-                        $rootScope.$apply();
                     }
                 });
             };
