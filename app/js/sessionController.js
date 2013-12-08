@@ -7,6 +7,7 @@ angular.module("piadinamia").controller("SessionCtrl",
         $scope.email = null;
         $scope.pass = null;
         $scope.name = null;
+        $scope.isLogging = false;
 
         if (!!$scope.auth) {
             $location.path("/");
@@ -16,6 +17,7 @@ angular.module("piadinamia").controller("SessionCtrl",
             $location.path("/");
             angularFire(new Firebase(FBURL + "/users/" + $scope.auth.id),
                 $scope, "user");
+            $scope.isLogging = false;
         });
 
         $scope.logout = function () {
@@ -24,6 +26,8 @@ angular.module("piadinamia").controller("SessionCtrl",
 
         $scope.login = function (callback) {
             $scope.err = null;
+            $scope.isLogging = true;
+
             sessionService.login($scope.email, $scope.pass, "/",
                 function (err, user) {
                     $scope.err = err || null;
