@@ -3,11 +3,14 @@
 angular.module("piadinamia").controller("SessionCtrl",
     ["$scope", "sessionService", "$location", "angularFire", "FBURL",
     function ($scope, sessionService, $location, angularFire, FBURL) {
-        $scope.err = null;
-        $scope.email = null;
-        $scope.pass = null;
-        $scope.name = null;
-        $scope.isLogging = false;
+        $scope.session = {
+            err: null,
+            email: null,
+            pass: null,
+            name: null,
+            isLogging: false
+        };
+
 
         if (!!$scope.auth) {
             $location.path("/");
@@ -17,7 +20,6 @@ angular.module("piadinamia").controller("SessionCtrl",
             $location.path("/");
             angularFire(new Firebase(FBURL + "/users/" + $scope.auth.id),
                 $scope, "user");
-            $scope.isLogging = false;
         });
 
         $scope.logout = function () {
@@ -25,35 +27,37 @@ angular.module("piadinamia").controller("SessionCtrl",
         };
 
         $scope.login = function (callback) {
-            $scope.err = null;
-            $scope.isLogging = true;
+            $scope.session.err = null;
+            $scope.session.isLogging = true;
 
-            sessionService.login($scope.email, $scope.pass, "/",
+            sessionService.login($scope.session.email, $scope.session.pass, "/",
                 function (err, user) {
-                    $scope.err = err || null;
+                    $scope.session.err = err || null;
                     if (typeof(callback) === "function") {
                         callback(err, user);
                     }
+                    $scope.session.isLogging = false;
                 });
         };
 
         $scope.createAccount = function () {
-            $scope.err = null;
+            $scope.session.err = null;
 
-            if (!$scope.email) {
-                $scope.err = "Please enter a valid email address";
-            } else if (!$scope.pass) {
-                $scope.err = "Please enter a password";
+            if (!$scope.session.email) {
+                $scope.session.err = "Please enter a valid email address";
+            } else if (!$scope.session.pass) {
+                $scope.session.err = "Please enter a password";
             } else {
-                sessionService.createAccount($scope.name,
-                    $scope.email, $scope.pass, function (err, user) {
+                sessionService.createAccount($scope.session.name,
+                    $scope.session.email, $scope.session.pass,
+                    function (err, user) {
                     if (err) {
-                        $scope.err = err.message;
+                        $scope.session.err = err.message;
                     } else {
                         $scope.login(function (err) {
                             if (!err) {
                                 sessionService.createProfile(user.id,
-                                    $scope.name, user.email);
+                                    $scope.session.name, user.email);
                             }
                         });
                     }
