@@ -31,23 +31,22 @@ angular.module("piadinamia").factory("sessionService",
             },
 
             createAccount: function (name, email, pass, callback) {
-                angularFireAuth.createUser(email, pass,
-                    function (err, user) {
-                        if (callback) {
-                            callback(err, user);
-                        }
-                    });
+                angularFireAuth.createUser(email, pass, function (err, user) {
+                    if (callback) {
+                        callback(err, user);
+                    }
+                });
             },
 
             createProfile: function (id, name, email, callback) {
-                    new Firebase(FBURL).child("users/" + id).set({
-                        email: email,
-                        name: name
-                    }, function (err) {
-                        if (callback) {
-                            callback(err);
-                        }
-                    });
-                }
+                new Firebase(FBURL).child("users/" + id).set({
+                    email: email,
+                    name: name
+                }, function (err) {
+                    if (callback) {
+                        callback(err);
+                    }
+                });
+            }
         };
     }]);
