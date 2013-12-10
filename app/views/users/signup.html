@@ -1,12 +1,12 @@
-<div class="row" data-ng-controller="SessionCtrl">
+<div class="row">
 
     <form class="form-signin ng-pristine ng-valid">
         <h2 class="form-signin-heading">Please sign up</h2>
-        <input type="text" class="form-control" ng-model="name"
+        <input type="text" class="form-control" ng-model="session.name"
             placeholder="Full name" required autofocus>
-        <input type="text" class="form-control" ng-model="email"
+        <input type="text" class="form-control" ng-model="session.email"
             placeholder="Email address" required>
-        <input type="password" class="form-control" ng-model="pass"
+        <input type="password" class="form-control" ng-model="session.pass"
             placeholder="Password" required>
 
         <button class="btn btn-lg btn-primary btn-block btn-success"
@@ -14,8 +14,8 @@
             Sign up
         </button>
 
-        <div ng-show="err" class="alert alert-danger text-center">
-            <strong>{{err}}</strong>
+        <div ng-show="session.err" class="alert alert-danger text-center">
+            <strong>{{session.err}}</strong>
         </div>
     </form>
 
