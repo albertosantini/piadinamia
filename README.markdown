@@ -5,7 +5,7 @@ Piadinamia is a shopping cart app.
 
 It is a good candidate app for AngularJS and Firebase: [AngularJS Tutorial: Learn to Rapidly Build Real-time Web Apps with Firebase](http://www.thinkster.io/pick/eHPCs7s87O/angularjs-tutorial-learn-to-rapidly-build-real-time-web-apps-with-firebase).
 
-See also [an angular login example](https://github.com/mrgamer/angular-login-example).
+See also the following [angular login example](https://github.com/mrgamer/angular-login-example).
 
 On mobile side I have been considering the following approach:
 - [trigger.io](https://trigger.io/)
@@ -19,7 +19,7 @@ Resources in the radar:
 Abstract
 --------
 
-Social shopping cart website.
+Social shopping cart website based on AngularJS and Firebase.
 
 Requirements
 ------------
@@ -138,33 +138,15 @@ Model
 
 Read [Denormalizing Your Data is Normal](https://www.firebase.com/blog/2013-04-12-denormalizing-is-normal.html).
 
-Example
-=======
-
-    var piadinamia = require("piadinamia");
-
-    var config = {
-        port: 8081
-        pubdir: "/public/piadinamia",
-        crm: {
-            liveDomain: "x.y.z",
-            liveUrl: "http://user1:pass1" +
-                "@a.b.c",
-            liveDb: "piadinamia",
-            testingUrl: "http://user2:pass2" +
-                "@a.b.c",
-            testingDb: "piadinamia-staging",
-            design: "piadinamia"
-        }
-    };
-
-    piadinamia.startApp(config);
-
 Installation
 ============
 
-To install with [npm](http://github.com/isaacs/npm):
+    $ git clone git@github.com:albertosantini/node-piadinamia.git
+    $ cd node-piadinamia
+    $ npm install
+    
+    Edit `FBURL` constant in `app/js/app.js`.
 
-    npm install piadinamia
+    $ node server.js
 
 Tested with node 0.10.x.
