@@ -1,17 +1,25 @@
 "use strict";
 
 angular.module("piadinamia").factory("sessionService",
-    ["angularFireAuth", "$location", "Firebase", "FBURL",
-    function (angularFireAuth, $location, Firebase, FBURL) {
+    ["$rootScope", "$firebaseAuth", "$location", "Firebase", "FBURL",
+    function ($rootScope, $firebaseAuth, $location, Firebase, FBURL) {
+        var auth = $rootScope.auth;
+
         return {
+            init: function (path) {
+                auth = $firebaseAuth(new Firebase(FBURL), {
+                    path: path
+                });
+
+                return auth;
+            },
+
             login: function (email, pass, redirect, callback) {
-                var p = angularFireAuth.login("password", {
+                auth.$login("password", {
                     email: email,
                     password: pass,
                     rememberMe: true
-                });
-
-                p.then(function (user) {
+                }).then(function (user) {
                     if (redirect) {
                         $location.path(redirect);
                     }
@@ -23,7 +31,7 @@ angular.module("piadinamia").factory("sessionService",
             },
 
             logout: function (redirectPath) {
-                angularFireAuth.logout();
+                auth.$logout();
 
                 if (redirectPath) {
                     $location.path(redirectPath);
@@ -31,7 +39,7 @@ angular.module("piadinamia").factory("sessionService",
             },
 
             createAccount: function (name, email, pass, callback) {
-                angularFireAuth.createUser(email, pass, function (err, user) {
+                auth.$createUser(email, pass, function (err, user) {
                     if (callback) {
                         callback(err, user);
                     }

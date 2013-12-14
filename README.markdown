@@ -3,9 +3,13 @@ PIADINAMIA
 
 Piadinamia is a shopping cart app.
 
-It is a good candidate app for AngularJS and Firebase: [AngularJS Tutorial: Learn to Rapidly Build Real-time Web Apps with Firebase](http://www.thinkster.io/pick/eHPCs7s87O/angularjs-tutorial-learn-to-rapidly-build-real-time-web-apps-with-firebase).
+It is a good candidate app for AngularJS and Firebase.
+
+See [AngularJS Tutorial: Learn to Rapidly Build Real-time Web Apps with Firebase](http://www.thinkster.io/pick/eHPCs7s87O/angularjs-tutorial-learn-to-rapidly-build-real-time-web-apps-with-firebase).
 
 See also the following [angular login example](https://github.com/mrgamer/angular-login-example).
+
+See also the [AngularFire seed](https://github.com/firebase/angularFire-seed).
 
 On mobile side I have been considering the following approach:
 - [trigger.io](https://trigger.io/)
@@ -144,7 +148,7 @@ Installation
     $ git clone git@github.com:albertosantini/node-piadinamia.git
     $ cd node-piadinamia
     $ npm install
-    
+
     Edit `FBURL` constant in `app/js/app.js`.
 
     $ node server.js

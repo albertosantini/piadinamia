@@ -17,13 +17,9 @@
         .otherwise({ redirectTo: "/" });
     }]);
 
-    app.run(["angularFireAuth", "FBURL", "$rootScope",
-        function (angularFireAuth, FBURL, $rootScope) {
-        angularFireAuth.initialize(new Firebase(FBURL), {
-            scope: $rootScope,
-            name: "auth",
-            path: "/signin"
-        });
+    app.run(["sessionService", "$rootScope", "FBURL",
+        function (sessionService, $rootScope, FBURL) {
+        $rootScope.auth = sessionService.init("/signin");
         $rootScope.FBURL = FBURL;
     }]);
 }());

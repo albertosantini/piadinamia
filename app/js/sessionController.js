@@ -1,8 +1,8 @@
 "use strict";
 
 angular.module("piadinamia").controller("SessionCtrl",
-    ["$scope", "sessionService", "$location", "angularFire", "FBURL",
-    function ($scope, sessionService, $location, angularFire, FBURL) {
+    ["$scope", "sessionService", "$location", "$firebase", "FBURL",
+    function ($scope, sessionService, $location, $firebase, FBURL) {
         $scope.session = {
             err: null,
             email: null,
@@ -16,10 +16,13 @@ angular.module("piadinamia").controller("SessionCtrl",
             $location.path("/");
         }
 
-        $scope.$on("angularFireAuth:login", function () {
+        $scope.$on("$firebaseAuth:login", function (e, user) {
             $location.path("/");
-            angularFire(new Firebase(FBURL + "/users/" + $scope.auth.id),
-                $scope, "user");
+
+            $firebase(new Firebase(FBURL + "/users/" + user.id))
+                .$on("loaded", function (snapshot) {
+                    $scope.session.name = snapshot.name;
+                });
         });
 
         $scope.logout = function () {
