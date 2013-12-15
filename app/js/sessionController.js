@@ -35,7 +35,7 @@ angular.module("piadinamia").controller("SessionCtrl",
 
             sessionService.login($scope.session.email, $scope.session.pass, "/",
                 function (err, user) {
-                    $scope.session.err = err || null;
+                    $scope.session.err = err.message || null;
                     if (typeof(callback) === "function") {
                         callback(err, user);
                     }
