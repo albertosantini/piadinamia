@@ -1,7 +1,7 @@
 PIADINAMIA
 ==========
 
-Piadinamia is a shopping cart app.
+Piadinamia is a (working in progress) shopping cart app.
 
 It is a good candidate app for AngularJS and Firebase.
 
