@@ -5,9 +5,15 @@
         Create your catalog and share the carts between your friends.
     </p>
 
-    <p ng-hide="auth.user"><a class="btn btn-lg btn-success" href="#/signup" role="button">
-        Sign up today
-    </a></p>
+    <p ng-show="auth.user">
+        Welcome back {{ session.name }}!
+    </p>
+
+    <p ng-hide="auth.user">
+        <a class="btn btn-lg btn-success" href="#/signup" role="button">
+            Sign up today
+        </a>
+    </p>
 </div>
 
 <div class="row marketing" ng-hide="auth.user">
