@@ -1,8 +1,8 @@
 "use strict";
 
 angular.module("piadinamia").factory("sessionService",
-    ["$rootScope", "$firebaseAuth", "$location", "Firebase", "FBURL",
-    function ($rootScope, $firebaseAuth, $location, Firebase, FBURL) {
+    ["$firebaseAuth", "$location", "Firebase", "FBURL",
+    function ($firebaseAuth, $location, Firebase, FBURL) {
         var auth = null;
 
         return {
