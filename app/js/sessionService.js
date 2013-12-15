@@ -3,7 +3,7 @@
 angular.module("piadinamia").factory("sessionService",
     ["$rootScope", "$firebaseAuth", "$location", "Firebase", "FBURL",
     function ($rootScope, $firebaseAuth, $location, Firebase, FBURL) {
-        var auth = $rootScope.auth;
+        var auth = null;
 
         return {
             init: function (path) {
