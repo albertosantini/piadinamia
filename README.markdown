@@ -142,6 +142,8 @@ Model
 
 Read [Denormalizing Your Data is Normal](https://www.firebase.com/blog/2013-04-12-denormalizing-is-normal.html).
 
+Consider also [Firesafe](https://github.com/tomlarkworthy/firesafe).
+
 Installation
 ============
 
