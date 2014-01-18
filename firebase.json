@@ -1,0 +1,5 @@
+{
+    "firebase": "piadinamia",
+    "public": "app",
+    "rules": "config/security-rules.json"
+}
