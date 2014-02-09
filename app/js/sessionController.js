@@ -1,8 +1,18 @@
 "use strict";
 
-angular.module("piadinamia").controller("SessionCtrl",
-    ["$scope", "sessionService", "$location", "$firebase", "FBURL",
-    function ($scope, sessionService, $location, $firebase, FBURL) {
+angular.module("piadinamia").controller("SessionCtrl", [
+    "$scope",
+    "sessionService",
+    "catalogService",
+    "$location",
+    "$firebase",
+    "FBURL",
+    function ($scope,
+              sessionService,
+              catalogService,
+              $location,
+              $firebase,
+              FBURL) {
         $scope.session = {
             err: null,
             email: null,
@@ -23,6 +33,11 @@ angular.module("piadinamia").controller("SessionCtrl",
                 .$on("loaded", function (snapshot) {
                     $scope.session.name = snapshot.name;
                 });
+
+            catalogService.load(user.id, function (catalog) {
+                console.log(catalog);
+                $scope.catalog = catalog;
+            });
         });
 
         $scope.logout = function () {

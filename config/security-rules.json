@@ -1,6 +1,8 @@
 {
     "rules": {
         ".read": true,
-        ".write": true
+        "$user": {
+            ".write": "auth.id !== null"
+        }
     }
 }
