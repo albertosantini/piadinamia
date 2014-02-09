@@ -16,7 +16,7 @@ angular.module("piadinamia").controller("SessionCtrl",
             $location.path("/");
         }
 
-        $scope.$on("$firebaseAuth:login", function (e, user) {
+        $scope.$on("$firebaseSimpleLogin:login", function (e, user) {
             $location.path("/");
 
             $firebase(new Firebase(FBURL + "/users/" + user.id))
