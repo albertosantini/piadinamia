@@ -10,20 +10,29 @@
         App under construction.
     </p>
 
-    <p ng-show="catalog">Catalog: {{catalog.description}}</p>
-    <dl class="dl-horizontal" ng-show="catalog">
-        <span ng-repeat="(key, value) in catalog.items">
-            <dt>{{key}}</dt>
-            <dd>{{value}}</dd>
-        </span>
-    </dl>
-
     <p ng-hide="auth.user">
         <a class="btn btn-lg btn-success" href="#/signup" role="button">
             Sign up today
         </a>
     </p>
 </div>
+
+<p ng-show="catalog">Catalog: {{catalog.description}}</p>
+<div class="simpleCart_shelfItem" ng-show="catalog"
+     ng-repeat="(item, price) in catalog.items">
+            <a class="item_add" href="javascript:;">+</a>
+            <span class="item_price badge">{{price}} &euro;</span>
+            <span class="item_name" title="{{item}}"> {{item}}</span>
+</div>
+
+<p ng-show="catalog">
+    <span class="label label-info">Total quantity</span>
+    <span class="simpleCart_quantity badge"></span>
+    <span class="label label-info">Total order</span>
+    <span class="simpleCart_total badge"></span>
+</p>
+
+<div class="simpleCart_items"></div>
 
 <div class="row marketing" ng-hide="auth.user">
     <div class="col-lg-6">

@@ -81,3 +81,23 @@ body {
         border-bottom: 0;
     }
 }
+
+.simpleCart_items table {
+    border: 1px solid #ccc;
+}
+
+.simpleCart_items th {
+    background: #ededed;
+    border-bottom: 1px solid #ccc;
+    color: #333;
+    text-align: left;
+    padding-right: 16px;
+}
+
+.simpleCart_items td {
+    vertical-align: middle;
+    border-bottom: 1px solid #ccc;
+    text-align: right;
+    padding-right: 10px;
+}
+
