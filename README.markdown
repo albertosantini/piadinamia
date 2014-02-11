@@ -76,38 +76,22 @@ Model
             "default": "mycat1",
             "catalogs": {
                 "mycat1": {
-                    "name": "my catalog",
+                    "name": "mycat1",
+                    "description": "my catalog",
                     "private": false,
                     "items": {
-                        "item-id1": {
-                            "name": "item1",
-                            "price": "0.75"
-                        },
-                        "item-id2": {
-                            "name": "item2",
-                            "price": "2.35"
-                        },
-                        "item-id3": {
-                            "name": "item3",
-                            "price": "1.05"
-                        }
+                        "item-id1": 0.75,
+                        "item-id2": 2.35,
+                        "item-id3": 1.05
                     },
                     "customers": {
-                        "user2": {
-                            "total-quantity": 6,
-                            "total-price": 8.90
-                        }
+                        "user2": "First2 Last2",
+                        "user3": "First3 Last3"
                     },
                     "cart": {
                         "items": {
-                            "row-id1": {
-                                "item": "item-id1",
-                                "quantity": "2"
-                            },
-                            "row-id2": {
-                                "item": "item-id2",
-                                "quantity": "3"
-                            }
+                            "item-id1": 2,
+                            "item-id2": 3
                         }
                     }
                 }
@@ -119,17 +103,12 @@ Model
             "default": "mycat1",
             "catalogs": {
                 "mycat1": {
+                    "name": "mycat1",
                     "publisher": "user1",
                     "cart": {
                         "items": {
-                            "row-id1": {
-                                "item": "item-id2",
-                                "quantity": "2"
-                            },
-                            "row-id2": {
-                                "item": "item-id3",
-                                "quantity": "4"
-                            }
+                            "item-id2": 2,
+                            "item-id3": 4
                         }
                     }
                 }
