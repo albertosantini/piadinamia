@@ -17,22 +17,24 @@
     </p>
 </div>
 
-<p ng-show="catalog">Catalog: {{catalog.description}}</p>
-<div class="simpleCart_shelfItem" ng-show="catalog"
-     ng-repeat="(item, price) in catalog.items">
-            <a class="item_add" href="javascript:;">+</a>
-            <span class="item_price badge">{{price}} &euro;</span>
-            <span class="item_name" title="{{item}}"> {{item}}</span>
+<div ng-show="catalog && auth.user">
+    <p>Catalog: {{catalog.description}}</p>
+    <div class="simpleCart_shelfItem" ng-show="catalog"
+         ng-repeat="(item, price) in catalog.items">
+                <a class="item_add" href="javascript:;">+</a>
+                <span class="item_price badge">{{price}} &euro;</span>
+                <span class="item_name" title="{{item}}"> {{item}}</span>
+    </div>
+
+    <p>
+        <span class="label label-info">Total quantity</span>
+        <span class="simpleCart_quantity badge"></span>
+        <span class="label label-info">Total order</span>
+        <span class="simpleCart_total badge"></span>
+    </p>
+
+    <div class="simpleCart_items"></div>
 </div>
-
-<p ng-show="catalog">
-    <span class="label label-info">Total quantity</span>
-    <span class="simpleCart_quantity badge"></span>
-    <span class="label label-info">Total order</span>
-    <span class="simpleCart_total badge"></span>
-</p>
-
-<div class="simpleCart_items"></div>
 
 <div class="row marketing" ng-hide="auth.user">
     <div class="col-lg-6">
