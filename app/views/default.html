@@ -17,7 +17,7 @@
     </p>
 </div>
 
-<div ng-show="catalog && auth.user">
+<div ng-show="auth.user && catalog">
     <p>Catalog: {{catalog.description}}</p>
     <div class="simpleCart_shelfItem" ng-show="catalog"
          ng-repeat="(item, price) in catalog.items">

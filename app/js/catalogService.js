@@ -12,6 +12,7 @@ angular.module("piadinamia").factory("catalogService",
                             name: "piadinamia"
                         },
                         piadinamia: {
+                            name: "piadinamia",
                             description: "Piadina Mia",
                             private: false,
                             items: {
