@@ -30,15 +30,14 @@ angular.module("piadinamia").factory("catalogService",
                 $firebase(cats)
                     .$on("loaded", function (snapshot) {
                         if (!snapshot) {
-                            console.log("init catalog for user id", id);
                             cats.set(defaultCat, function (err) {
                                 if (err) {
                                     console.log(err);
+                                } else {
+                                    callback(defaultCat.piadinamia);
                                 }
                             });
-                            callback(defaultCat.piadinamia);
                         } else {
-                            console.log("loaded catalog", snapshot);
                             callback(snapshot[snapshot.default.name]);
                         }
                     });

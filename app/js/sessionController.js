@@ -1,3 +1,5 @@
+/*global simpleCart */
+
 "use strict";
 
 angular.module("piadinamia").controller("SessionCtrl", [
@@ -35,8 +37,8 @@ angular.module("piadinamia").controller("SessionCtrl", [
                 });
 
             catalogService.load(user.id, function (catalog) {
-                console.log(catalog);
                 $scope.catalog = catalog;
+                simpleCart.load();
             });
         });
 
@@ -82,4 +84,5 @@ angular.module("piadinamia").controller("SessionCtrl", [
                 });
             }
         };
-    }]);
+    }
+]);
