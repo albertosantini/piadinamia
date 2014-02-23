@@ -18,22 +18,38 @@
 </div>
 
 <div ng-show="auth.user && catalog">
-    <p>Catalog: {{catalog.description}}</p>
-    <div class="simpleCart_shelfItem" ng-show="catalog"
-         ng-repeat="(item, price) in catalog.items">
-                <a class="item_add" href="javascript:;">+</a>
-                <span class="item_price badge">{{price}} &euro;</span>
-                <span class="item_name" title="{{item}}"> {{item}}</span>
+    <div class="row">
+        <div class="col-lg-6">
+            <h4>{{session.name}} / {{catalog.description}}</h4>
+            <div class="simpleCart_shelfItem" ng-show="catalog"
+                 ng-repeat="(item, price) in catalog.items">
+                        <a class="item_add" href="javascript:;">+</a>
+                        <span class="item_price badge">{{price}} &euro;</span>
+                        <span class="item_name" title="{{item}}"> {{item}}</span>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <p>
+                <span class="label label-info">Total quantity</span>
+                <span class="simpleCart_quantity badge"></span>
+
+                <span class="label label-info">Total order</span>
+                <span class="simpleCart_total badge"></span>
+            </p>
+            <p class="simpleCart_items"></p>
+        </div>
     </div>
 
-    <p>
-        <span class="label label-info">Total quantity</span>
-        <span class="simpleCart_quantity badge"></span>
-        <span class="label label-info">Total order</span>
-        <span class="simpleCart_total badge"></span>
-    </p>
+    <div class="row">
+        <div class="col-lg-6">
+            <h4>Shared Cart by Item</h4>
+        </div>
+        <div class="col-lg-6">
+            <h4>Shared Cart by User</h4>
+        </div>
+    </div>
 
-    <div class="simpleCart_items"></div>
 </div>
 
 <div class="row marketing" ng-hide="auth.user">
