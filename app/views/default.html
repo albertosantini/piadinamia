@@ -23,8 +23,8 @@
             <h4>{{session.name}} / {{catalog.description}}</h4>
             <div class="simpleCart_shelfItem" ng-show="catalog"
                  ng-repeat="(item, price) in catalog.items">
-                        <a class="item_add" href="javascript:;">+</a>
-                        <span class="item_price badge">{{price}} &euro;</span>
+                        <a class="item_add" href=""><i class="fa fa-plus"></i></a>
+                <span class="item_price badge">{{price}} &euro;</span>
                         <span class="item_name" title="{{item}}"> {{item}}</span>
             </div>
         </div>

@@ -39,5 +39,10 @@
         } else {
             $(".simpleCart_items").show();
         }
+
+        simpleCart.each(function (item) {
+            console.log(item.get("name"), item.get("quantity"));
+        });
     });
+
 }());
