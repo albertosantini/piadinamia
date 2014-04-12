@@ -1,25 +1,26 @@
 {
-    "name": "piadinamia",
-    "version": "1.0.0",
-    "description": "Shopping cart app",
-    "main": "server",
-    "scripts": {
-        "start": "node server.js"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/albertosantini/node-piadinamia.git"
-    },
-    "keywords": [
-        "shopping",
-        "cart"
-    ],
-    "author": "Alberto Santini",
-    "license": "MIT",
-    "engines": {
-        "node": ">=0.10.x"
-    },
-    "dependencies": {
-        "express": "~3.5.0"
-    }
+  "name": "piadinamia",
+  "version": "1.0.0",
+  "description": "Shopping cart app",
+  "main": "server",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/albertosantini/node-piadinamia.git"
+  },
+  "keywords": [
+    "shopping",
+    "cart"
+  ],
+  "author": "Alberto Santini",
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.10.x"
+  },
+  "dependencies": {
+    "express": "~4.0.0",
+    "static-favicon": "^1.0.2"
+  }
 }

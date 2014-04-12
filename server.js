@@ -2,17 +2,15 @@
 
 var path = require("path");
 
-var express = require("express");
+var express = require("express"),
+    favicon = require("static-favicon");
 
 var app = express(),
     port = 8000,
     pubdir = path.join(__dirname, "/app");
 
-app.configure(function () {
-    app.use(express.static(pubdir));
-    app.use(express.favicon(__dirname + pubdir + "/favicon.ico"));
-    app.use(express.errorHandler());
-});
+app.use(express.static(pubdir));
+app.use(favicon(__dirname + pubdir + "/favicon.ico"));
 
 app.listen(port, function () {
     console.log("piadinamia listening on port %s", port);
