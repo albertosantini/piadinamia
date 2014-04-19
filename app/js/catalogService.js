@@ -16,14 +16,22 @@ angular.module("piadinamia").factory("catalogService",
                             description: "Piadina Mia",
                             private: false,
                             items: {
-                                "Piadina crudo": "4,00",
-                                "Piadina farcita": "4,80",
-                                "Piadina con nutella": "3,00",
-                                "Piadina integrale crudo": "4,80",
-                                "Acqua naturale": "1,50",
-                                "Acqua frizzante": "2,00",
-                                "Bibita": "2,50"
-                            }
+                                "Piadina crudo": 4.00,
+                                "Piadina farcita": 4.80,
+                                "Piadina con nutella": 3.00,
+                                "Piadina integrale crudo": 4.80,
+                                "Acqua naturale": 1.50,
+                                "Acqua frizzante": 2.00,
+                                "Bibita": 2.50
+                            },
+                            cart: [
+                                {
+                                    item: "Piadina crudo",
+                                    price: 4.00,
+                                    qty: 2.00,
+                                    total: 8.00
+                                }
+                            ]
                         }
                     };
 

@@ -1,17 +1,17 @@
-/*global simpleCart */
-
 "use strict";
 
 angular.module("piadinamia").controller("SessionCtrl", [
     "$scope",
     "sessionService",
     "catalogService",
+    "cartService",
     "$location",
     "$firebase",
     "FBURL",
     function ($scope,
               sessionService,
               catalogService,
+              cartService,
               $location,
               $firebase,
               FBURL) {
@@ -37,8 +37,14 @@ angular.module("piadinamia").controller("SessionCtrl", [
                 });
 
             catalogService.load(user.id, function (catalog) {
+                var forceRefresh = !$scope.catalog;
+
                 $scope.catalog = catalog;
-                simpleCart.load();
+                $scope.cart = cartService;
+
+                if (forceRefresh) {
+                    $scope.$apply();
+                }
             });
         });
 

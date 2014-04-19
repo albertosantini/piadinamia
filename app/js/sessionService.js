@@ -49,7 +49,8 @@ angular.module("piadinamia").factory("sessionService",
             createProfile: function (id, name, email, callback) {
                 new Firebase(FBURL).child("users/" + id).set({
                     email: email,
-                    name: name
+                    name: name,
+                    catalogs: ""
                 }, function (err) {
                     if (callback) {
                         callback(err);

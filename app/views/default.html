@@ -21,23 +21,62 @@
     <div class="row">
         <div class="col-lg-6">
             <h4>{{session.name}} / {{catalog.description}}</h4>
-            <div class="simpleCart_shelfItem" ng-show="catalog"
-                 ng-repeat="(item, price) in catalog.items">
-                        <a class="item_add" href=""><i class="fa fa-plus"></i></a>
-                <span class="item_price badge">{{price}} &euro;</span>
-                        <span class="item_name" title="{{item}}"> {{item}}</span>
+
+            <div ng-show="catalog" ng-repeat="(item, price) in catalog.items">
+
+                <a href="" ng-click="cart.addItem(item, price)">
+                    <i class="fa fa-plus"></i>
+                </a>
+                <span class="badge">{{price | currency: "&euro;"}}</span>
+                <span title="{{item}}"> {{item}}</span>
+
             </div>
+
         </div>
 
         <div class="col-lg-6">
             <p>
                 <span class="label label-info">Total quantity</span>
-                <span class="simpleCart_quantity badge"></span>
+                <span class="badge">{{cart.getTotalCount()}}</span>
 
                 <span class="label label-info">Total order</span>
-                <span class="simpleCart_total badge"></span>
+                <span class="badge">{{cart.getTotalPrice() | currency: "&euro;"}}</span>
             </p>
-            <p class="simpleCart_items"></p>
+
+            <table class="table table-condensed" ng-show="cart.getTotalCount()">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th></th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="product in cart.getItems()">
+                        <td>{{product.item}}</td>
+                        <td class="text-right">{{product.price | currency: "&euro;"}}</td>
+                        <td class="text-right">{{product.qty}}</td>
+                        <td>
+                            <a href="" ng-click="cart.addItem(product.item, product.price)">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <a href="" ng-click="cart.addItem(product.item, product.price, -1)">
+                                <i class="fa fa-minus"></i>
+                            </a>
+                        </td>
+                        <td class="text-right">{{product.total | currency: "&euro;"}}</td>
+                        <td>
+                            <a href="" ng-click="cart.clearItem(product.item)">
+                                <i class="fa fa-minus"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
     </div>
 
