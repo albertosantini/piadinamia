@@ -15,6 +15,7 @@ angular.module("piadinamia").controller("SessionCtrl", [
               $location,
               $firebase,
               FBURL) {
+
         $scope.session = {
             err: null,
             email: null,
@@ -22,7 +23,6 @@ angular.module("piadinamia").controller("SessionCtrl", [
             name: null,
             isLogging: false
         };
-
 
         if (!!$scope.auth) {
             $location.path("/");
@@ -90,5 +90,6 @@ angular.module("piadinamia").controller("SessionCtrl", [
                 });
             }
         };
+
     }
 ]);

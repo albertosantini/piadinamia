@@ -69,7 +69,7 @@
                         </td>
                         <td class="text-right">{{product.total | currency: "&euro;"}}</td>
                         <td>
-                            <a href="" ng-click="cart.clearItem(product.item)">
+                            <a href="" ng-click="cart.clearItem($index)">
                                 <i class="fa fa-minus"></i>
                             </a>
                         </td>

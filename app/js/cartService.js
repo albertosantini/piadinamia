@@ -24,7 +24,7 @@ angular.module("piadinamia").factory("cartService",
                 var total = 0;
 
                 myCart.forEach(function (item) {
-                    total += item.price;
+                    total += item.price * item.qty;
                 });
 
                 return total;
@@ -50,6 +50,8 @@ angular.module("piadinamia").factory("cartService",
 
                         return false;
                     }
+
+                    return true;
                 });
 
                 if (!found) {
