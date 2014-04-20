@@ -7,6 +7,7 @@ angular.module("piadinamia").controller("SessionCtrl", [
     "cartService",
     "$location",
     "$firebase",
+    "Firebase",
     "FBURL",
     function ($scope,
               sessionService,
@@ -14,6 +15,7 @@ angular.module("piadinamia").controller("SessionCtrl", [
               cartService,
               $location,
               $firebase,
+              Firebase,
               FBURL) {
 
         $scope.session = {
@@ -36,10 +38,10 @@ angular.module("piadinamia").controller("SessionCtrl", [
                     $scope.session.name = snapshot.name;
                 });
 
-            catalogService.load(user.id, function (catalog) {
+            catalogService.load(user.id, function (catalog, catalogName) {
                 $scope.catalog = catalog;
 
-                cartService.init(catalog.cart);
+                cartService.init(catalog.cart, catalogName, user.id);
                 $scope.cart = cartService;
 
                 $scope.$apply();

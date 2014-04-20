@@ -42,11 +42,13 @@ angular.module("piadinamia").factory("catalogService",
                                 if (err) {
                                     console.log(err);
                                 } else {
-                                    callback(defaultCat.piadinamia);
+                                    callback(defaultCat.piadinamia,
+                                        "piadinamia");
                                 }
                             });
                         } else {
-                            callback(snapshot[snapshot.default.name]);
+                            callback(snapshot[snapshot.default.name],
+                                snapshot.default.name);
                         }
                     });
             }

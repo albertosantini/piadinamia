@@ -2,16 +2,30 @@
 
 angular.module("piadinamia").factory("cartService",
     ["$firebase", "Firebase", "FBURL",
-    function () {
-        var myCart = [];
+    function ($firebase, Firebase, FBURL) {
+        var myCart = [],
+            myCatalogName = "",
+            myUserId;
 
         return {
-            init: function (cart) {
+            init: function (cart, catalogName, userId) {
                 myCart = cart;
+                myCatalogName = catalogName;
+                myUserId = userId;
             },
 
             getItems: function () {
                 return myCart;
+            },
+
+            saveItems: function () {
+                var fburl = FBURL + "/users/" + myUserId +
+                        "/catalogs/" + myCatalogName + "/cart";
+
+                $firebase(new Firebase(fburl)).$set(myCart);
+                if (myCart.length === 0) {
+                    $firebase(new Firebase(fburl)).$set("");
+                }
             },
 
             getTotalCount: function () {
@@ -66,10 +80,13 @@ angular.module("piadinamia").factory("cartService",
                         total: price
                     });
                 }
+
+                this.saveItems();
             },
 
             clearItem: function (index) {
                 myCart.splice(index, 1);
+                this.saveItems();
             }
         };
 
