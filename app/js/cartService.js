@@ -20,11 +20,13 @@ angular.module("piadinamia").factory("cartService",
 
             saveItems: function () {
                 var fburl = FBURL + "/users/" + myUserId +
-                        "/catalogs/" + myCatalogName + "/cart";
+                        "/catalogs/" + myCatalogName + "/cart",
+                    cartRef = new Firebase(fburl);
 
-                $firebase(new Firebase(fburl)).$set(myCart);
+                $firebase(cartRef).$set(myCart);
+
                 if (myCart.length === 0) {
-                    $firebase(new Firebase(fburl)).$set("");
+                    $firebase(cartRef).$set("");
                 }
             },
 
