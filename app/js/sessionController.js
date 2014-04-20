@@ -37,14 +37,12 @@ angular.module("piadinamia").controller("SessionCtrl", [
                 });
 
             catalogService.load(user.id, function (catalog) {
-                var forceRefresh = !$scope.catalog;
-
                 $scope.catalog = catalog;
+
+                cartService.init(catalog.cart);
                 $scope.cart = cartService;
 
-                if (forceRefresh) {
-                    $scope.$apply();
-                }
+                $scope.$apply();
             });
         });
 

@@ -6,6 +6,10 @@ angular.module("piadinamia").factory("cartService",
         var myCart = [];
 
         return {
+            init: function (cart) {
+                myCart = cart;
+            },
+
             getItems: function () {
                 return myCart;
             },
