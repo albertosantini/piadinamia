@@ -4,14 +4,27 @@ angular.module("piadinamia").factory("cartService",
     ["$firebase", "Firebase", "FBURL",
     function ($firebase, Firebase, FBURL) {
         var myCart = [],
-            myCatalogName = "",
-            myUserId;
+            fburl;
 
         return {
             init: function (cart, catalogName, userId) {
+                var cartRef;
+
                 myCart = cart;
-                myCatalogName = catalogName;
-                myUserId = userId;
+                fburl = FBURL + "/users/" + userId +
+                    "/catalogs/" + catalogName + "/cart";
+
+                cartRef = new Firebase(fburl);
+
+                $firebase(cartRef).$on("change", function() {
+                    $firebase(cartRef).$on("loaded", function (cart) {
+                        myCart = [];
+
+                        angular.forEach(cart, function(item) {
+                            myCart.push(item);
+                        });
+                    });
+                });
             },
 
             getItems: function () {
@@ -19,9 +32,7 @@ angular.module("piadinamia").factory("cartService",
             },
 
             saveItems: function () {
-                var fburl = FBURL + "/users/" + myUserId +
-                        "/catalogs/" + myCatalogName + "/cart",
-                    cartRef = new Firebase(fburl);
+                var cartRef = new Firebase(fburl);
 
                 $firebase(cartRef).$set(myCart);
 
