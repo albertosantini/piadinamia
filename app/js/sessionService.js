@@ -39,9 +39,13 @@ angular.module("piadinamia").factory("sessionService",
             },
 
             createAccount: function (name, email, pass, callback) {
-                auth.$createUser(email, pass, function (err, user) {
+                auth.$createUser(email, pass).then(function (user) {
                     if (callback) {
-                        callback(err, user);
+                        callback(null, user);
+                    }
+                }, function (err) {
+                    if (callback) {
+                        callback(err);
                     }
                 });
             },
