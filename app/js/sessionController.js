@@ -5,6 +5,7 @@ angular.module("piadinamia").controller("SessionCtrl", [
     "sessionService",
     "catalogService",
     "cartService",
+    "sharedCartService",
     "$location",
     "$firebase",
     "Firebase",
@@ -13,6 +14,7 @@ angular.module("piadinamia").controller("SessionCtrl", [
               sessionService,
               catalogService,
               cartService,
+              sharedCartService,
               $location,
               $firebase,
               Firebase,
@@ -43,6 +45,8 @@ angular.module("piadinamia").controller("SessionCtrl", [
 
                 cartService.init(catalog.cart, catalogName, user.id);
                 $scope.cart = cartService;
+
+                sharedCartService.init(catalog.customers, catalogName, user.id);
 
                 $scope.$apply();
             });

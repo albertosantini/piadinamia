@@ -31,6 +31,11 @@ angular.module("piadinamia").factory("catalogService",
                                     qty: 2.00,
                                     total: 8.00
                                 }
+                            ],
+                            customers: [
+                                {
+                                    id: id
+                                }
                             ]
                         }
                     };
