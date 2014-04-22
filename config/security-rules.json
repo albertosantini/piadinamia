@@ -2,7 +2,7 @@
     "rules": {
         ".read": true,
         "$user": {
-            ".write": "auth.id !== null"
+            ".write": "auth.id !== $user"
         }
     }
 }
