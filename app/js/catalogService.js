@@ -32,7 +32,7 @@ angular.module("piadinamia").factory("catalogService",
                                     total: 8.00
                                 }
                             ],
-                            customers: [
+                            subscribers: [
                                 {
                                     id: id
                                 }
