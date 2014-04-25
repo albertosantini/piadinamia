@@ -3,28 +3,28 @@
 angular.module("piadinamia").factory("sharedCartService",
     ["cartService", "$firebase", "Firebase", "FBURL",
     function (cartService, $firebase, Firebase, FBURL) {
-        var myCustomers = [],
+        var mySubscribers = [],
             myCatalogName,
             fburl;
 
         return {
-            init: function (customers, catalogName, userId) {
-                var customersRef;
+            init: function (subscribers, catalogName, userId) {
+                var subscribersRef;
 
-                myCustomers = customers;
+                mySubscribers = subscribers;
                 myCatalogName = catalogName;
 
                 fburl = FBURL + "/users/" + userId +
-                    "/catalogs/" + catalogName + "/customers";
+                    "/catalogs/" + catalogName + "/subscribers";
 
-                customersRef = new Firebase(fburl);
+                subscribersRef = new Firebase(fburl);
 
-                $firebase(customersRef).$on("change", function () {
-                    $firebase(customersRef).$on("loaded", function (customers) {
-                        myCustomers = [];
+                $firebase(subscribersRef).$on("change", function () {
+                    $firebase(subscribersRef).$on("loaded", function (subs) {
+                        mySubscribers = [];
 
-                        angular.forEach(customers, function (item) {
-                            myCustomers.push(item);
+                        angular.forEach(subs, function (item) {
+                            mySubscribers.push(item);
                         });
                     });
                 });
@@ -35,7 +35,7 @@ angular.module("piadinamia").factory("sharedCartService",
             getCartByUser: function () {
                 var cartByUser = {};
 
-                myCustomers.forEach(function (userId) {
+                mySubscribers.forEach(function (userId) {
                     var cartRef,
                         url = FBURL + "/users/" + userId +
                             "/catalogs/" + myCatalogName + "/cart",
