@@ -46,7 +46,9 @@ angular.module("piadinamia").controller("SessionCtrl", [
                 cartService.init(catalog.cart, catalogName, user.id);
                 $scope.cart = cartService;
 
-                sharedCartService.init(catalog.customers, catalogName, user.id);
+                sharedCartService.init(catalog.subscribers,
+                    catalogName, user.id);
+                $scope.sharedCart = sharedCartService;
 
                 $scope.$apply();
             });

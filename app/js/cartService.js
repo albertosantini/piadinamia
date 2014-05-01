@@ -16,11 +16,11 @@ angular.module("piadinamia").factory("cartService",
 
                 cartRef = new Firebase(fburl);
 
-                $firebase(cartRef).$on("change", function() {
+                $firebase(cartRef).$on("change", function () {
                     $firebase(cartRef).$on("loaded", function (cart) {
                         myCart = [];
 
-                        angular.forEach(cart, function(item) {
+                        angular.forEach(cart, function (item) {
                             myCart.push(item);
                         });
                     });
