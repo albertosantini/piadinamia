@@ -87,25 +87,31 @@
         <div class="col-lg-6" ng-show="sharedCart">
             <h4>Shared Cart by User</h4>
 
-                <table class="table table-condensed"
+                <div class="panel panel-default"
                     ng-repeat="(userId, userCart) in sharedCart.getCartByUser()">
-                    <thead>
-                        <tr>
-                            <th>Item per id {{userCart.name}}</th>
-                            <th>Price</th>
-                            <th>Qty</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="product in userCart.cart">
-                            <td>{{product.item}}</td>
-                            <td class="text-right">{{product.price | currency: "&euro;"}}</td>
-                            <td class="text-right">{{product.qty}}</td>
-                            <td class="text-right">{{product.total | currency: "&euro;"}}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    <div class="panel-heading">Cart by {{userCart.name}}</div>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="product in userCart.cart">
+                                <td>{{product.item}}</td>
+                                <td class="text-right">{{product.qty}}</td>
+                                <td class="text-right">{{product.price | currency: "&euro;"}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="panel-footer text-right">
+                        <span class="label label-info">Total cart</span>
+                        <span class="badge">{{userCart.total | currency: "&euro;"}}</span>
+                    </div>
+                </div>
 
         </div>
     </div>

@@ -7,6 +7,23 @@ angular.module("piadinamia").factory("sharedCartService",
             myCatalogName,
             cartByUser = {};
 
+        function setCartByUser (user, cart) {
+            var myCart = [],
+                total = 0;
+
+            angular.forEach(cart, function (item) {
+                myCart.push(item);
+                total += item.qty * item.price;
+            });
+
+            cartByUser[user.id] = {
+                name: user.name,
+                total: total,
+                cart: myCart
+            };
+
+        }
+
         return {
             init: function (subscribers, catalogName, userId) {
                 var subscribersRef,
@@ -37,36 +54,12 @@ angular.module("piadinamia").factory("sharedCartService",
                     cartRef = new Firebase(url);
 
                     $firebase(cartRef).$on("loaded", function (cart) {
-                        var myCart = [];
-
-                        angular.forEach(cart, function (item) {
-                            myCart.push(item);
-                        });
-
-                        cartByUser[user.id] = {
-                            name: user.name,
-                            cart: myCart
-                        };
+                        setCartByUser(user, cart);
                     });
 
                     $firebase(cartRef).$on("change", function () {
-                        var cartRef,
-                            url = FBURL + "/users/" + user.id +
-                                "/catalogs/" + myCatalogName + "/cart";
-
-                        cartRef = new Firebase(url);
-
                         $firebase(cartRef).$on("loaded", function (cart) {
-                            var myCart = [];
-
-                            angular.forEach(cart, function (item) {
-                                myCart.push(item);
-                            });
-
-                            cartByUser[user.id] = {
-                                name: user.name,
-                                cart: myCart
-                            };
+                            setCartByUser(user, cart);
                         });
                     });
 
