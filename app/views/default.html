@@ -92,7 +92,7 @@
                     </tbody>
                 </table>
 
-                <div class="panel-footer">
+                <div class="panel-footer text-right">
                     <span class="label label-info">Total quantity</span>
                     <span class="badge">{{cart.getTotalCount()}}</span>
 
@@ -138,7 +138,7 @@
                 ng-repeat="(userId, userCart) in sharedCart.getCartByUser()">
                 <div class="panel-heading">
                     <strong>Shared Cart by {{userCart.name}}</strong>
-                    <span class="badge">
+                    <span class="badge pull-right">
                         {{userCart.total | currency: "&euro;"}}
                     </span>
                 </div>
