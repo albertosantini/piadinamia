@@ -4,7 +4,6 @@ angular.module("piadinamia").factory("sharedCartService",
     ["cartService", "$firebase", "Firebase", "FBURL",
     function (cartService, $firebase, Firebase, FBURL) {
         var mySubscribers = [],
-            myCatalogName,
             cartByUser = {},
             cartByItem = {};
 
@@ -45,6 +44,29 @@ angular.module("piadinamia").factory("sharedCartService",
             });
         }
 
+        function subscribeCarts(catalogName) {
+            mySubscribers.forEach(function (user) {
+                var cartRef,
+                    url = FBURL + "/users/" + user.id +
+                        "/catalogs/" + catalogName + "/cart";
+
+                cartRef = new Firebase(url);
+
+                $firebase(cartRef).$on("loaded", function (cart) {
+                    calcCartByUser(user, cart);
+                    calcCartByItem();
+                });
+
+                $firebase(cartRef).$on("change", function () {
+                    $firebase(cartRef).$on("loaded", function (cart) {
+                        calcCartByUser(user, cart);
+                        calcCartByItem();
+                    });
+                });
+
+            });
+        }
+
         return {
             init: function (subscribers, catalogName, userId) {
                 var subscribersRef,
@@ -52,41 +74,21 @@ angular.module("piadinamia").factory("sharedCartService",
                         "/catalogs/" + catalogName + "/subscribers";
 
                 mySubscribers = subscribers;
-                myCatalogName = catalogName;
 
                 subscribersRef = new Firebase(url);
 
-                $firebase(subscribersRef).$on("loaded", function (subs) {
-                    mySubscribers = [];
-                    angular.forEach(subs, function (item) {
-                        mySubscribers.push(item);
-                    });
-                });
-
                 $firebase(subscribersRef).$on("change", function () {
-                });
-
-                mySubscribers.forEach(function (user) {
-                    var cartRef,
-                        url = FBURL + "/users/" + user.id +
-                            "/catalogs/" + myCatalogName + "/cart";
-
-                    cartRef = new Firebase(url);
-
-                    $firebase(cartRef).$on("loaded", function (cart) {
-                        calcCartByUser(user, cart);
-                        calcCartByItem();
-                    });
-
-                    $firebase(cartRef).$on("change", function () {
-                        $firebase(cartRef).$on("loaded", function (cart) {
-                            calcCartByUser(user, cart);
-                            calcCartByItem();
+                    $firebase(subscribersRef).$on("loaded", function (subs) {
+                        // TODO: off loaded/change old subscribers?
+                        mySubscribers = [];
+                        angular.forEach(subs, function (item) {
+                            mySubscribers.push(item);
                         });
+                        subscribeCarts(catalogName);
                     });
-
                 });
 
+                subscribeCarts(catalogName);
             },
 
             getCartByItem: function () {
