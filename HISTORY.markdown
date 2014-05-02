@@ -1,4 +1,4 @@
-1.0.0 / 2014-05-02
+2.0.0 / 2014-05-02
 ==================
 
 * Initial release based on Firebase.
