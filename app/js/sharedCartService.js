@@ -5,15 +5,29 @@ angular.module("piadinamia").factory("sharedCartService",
     function (cartService, $firebase, Firebase, FBURL) {
         var mySubscribers = [],
             myCatalogName,
-            cartByUser = {};
+            cartByUser = {},
+            cartByItem = {};
 
-        function setCartByUser (user, cart) {
+        function updateCart (user, cart) {
             var myCart = [],
-                total = 0;
+                total = 0,
+                counter = 0;
 
             angular.forEach(cart, function (item) {
                 myCart.push(item);
+
                 total += item.qty * item.price;
+
+                if (cartByItem[item.item]) {
+                    counter = cartByItem[item.item].total + item.qty;
+                } else {
+                    counter = item.qty;
+                }
+
+                cartByItem[item.item] = {
+                    total: counter
+                };
+                console.log(user.name, item.item, item.qty);
             });
 
             cartByUser[user.id] = {
@@ -21,7 +35,6 @@ angular.module("piadinamia").factory("sharedCartService",
                 total: total,
                 cart: myCart
             };
-
         }
 
         return {
@@ -54,12 +67,14 @@ angular.module("piadinamia").factory("sharedCartService",
                     cartRef = new Firebase(url);
 
                     $firebase(cartRef).$on("loaded", function (cart) {
-                        setCartByUser(user, cart);
+                        console.log(user.name, "-- loaded");
+                        updateCart(user, cart);
                     });
 
                     $firebase(cartRef).$on("change", function () {
                         $firebase(cartRef).$on("loaded", function (cart) {
-                            setCartByUser(user, cart);
+                            console.log(user.name, "-- change");
+                            updateCart(user, cart);
                         });
                     });
 
@@ -67,7 +82,9 @@ angular.module("piadinamia").factory("sharedCartService",
 
             },
 
-            getCartByItem: function () {},
+            getCartByItem: function () {
+                return cartByItem;
+            },
 
             getCartByUser: function () {
                 return cartByUser;
