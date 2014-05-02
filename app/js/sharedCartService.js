@@ -8,26 +8,14 @@ angular.module("piadinamia").factory("sharedCartService",
             cartByUser = {},
             cartByItem = {};
 
-        function updateCart (user, cart) {
+
+        function updateCartByUser (user, cart) {
             var myCart = [],
-                total = 0,
-                counter = 0;
+                total = 0;
 
             angular.forEach(cart, function (item) {
                 myCart.push(item);
-
                 total += item.qty * item.price;
-
-                if (cartByItem[item.item]) {
-                    counter = cartByItem[item.item].total + item.qty;
-                } else {
-                    counter = item.qty;
-                }
-
-                cartByItem[item.item] = {
-                    total: counter
-                };
-                console.log(user.name, item.item, item.qty);
             });
 
             cartByUser[user.id] = {
@@ -68,13 +56,13 @@ angular.module("piadinamia").factory("sharedCartService",
 
                     $firebase(cartRef).$on("loaded", function (cart) {
                         console.log(user.name, "-- loaded");
-                        updateCart(user, cart);
+                        updateCartByUser(user, cart);
                     });
 
                     $firebase(cartRef).$on("change", function () {
                         $firebase(cartRef).$on("loaded", function (cart) {
                             console.log(user.name, "-- change");
-                            updateCart(user, cart);
+                            updateCartByUser(user, cart);
                         });
                     });
 
@@ -83,6 +71,25 @@ angular.module("piadinamia").factory("sharedCartService",
             },
 
             getCartByItem: function () {
+                cartByItem = {};
+
+                angular.forEach(cartByUser, function (user) {
+                    user.cart.forEach(function (item) {
+                        var counter = 0;
+
+                        if (cartByItem[item.item]) {
+                            counter = cartByItem[item.item].total + item.qty;
+                        } else {
+                            counter = item.qty;
+                        }
+
+                        cartByItem[item.item] = {
+                            total: counter
+                        };
+                        console.log(user.name, item.item, item.qty);
+                    });
+                });
+
                 return cartByItem;
             },
 
