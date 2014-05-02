@@ -1,24 +1,13 @@
 PIADINAMIA
 ==========
 
-Piadinamia is a (working in progress) shopping cart app.
-
-It is a good candidate app for AngularJS and Firebase.
-
-See [AngularJS Tutorial: Learn to Rapidly Build Real-time Web Apps with Firebase](http://www.thinkster.io/pick/eHPCs7s87O/angularjs-tutorial-learn-to-rapidly-build-real-time-web-apps-with-firebase).
-
-See also the following [angular login example](https://github.com/mrgamer/angular-login-example).
-
-See also the [AngularFire seed](https://github.com/firebase/angularFire-seed).
+Piadinamia is a (working in progress) social shopping cart app based on
+[AngularJS](https://angularjs.org/) and [Firebase](https://www.firebase.com/).
 
 On mobile side I have been considering the following approach:
 - [trigger.io](https://trigger.io/)
 - [ionic](http://ionicframework.com/)
-
-Abstract
---------
-
-Social shopping cart website based on AngularJS and Firebase.
+- [Ratchet](http://goratchet.com/)
 
 Requirements
 ------------
@@ -39,16 +28,15 @@ Requirements
     - [x] modify my cart (add, remove items)
 
 - `Reports`
-    - [x] report carts by items (per default catalog)
-    - [x] report carts by users (per default catalog)
+    - [x] report carts by items
+    - [x] report carts by users
 
-Defaults, constraints
----------------------
+Defaults and constraints
+------------------------
 
-- For a new user, piadinamia catalog is attached with a cart
-- Set last used catalog as default (or piadinamia system catalog)
-- A user may have many catalogs, but a catalog contains only one cart
-- Add a due date to the cart (to purge them)?
+- Catalog `piadinamia` is the default one and an example cart is attached
+- Last used catalog and cart as default
+- A user may have many catalogs, but the catalog contains only one cart
 
 Model
 -----
@@ -138,9 +126,14 @@ Model
 }
 ```
 
-Read [Denormalizing Your Data is Normal](https://www.firebase.com/blog/2013-04-12-denormalizing-is-normal.html).
+Reference
+=========
 
-Consider also [Firesafe](https://github.com/tomlarkworthy/firesafe).
+- [AngularJS Tutorial: Learn to Rapidly Build Real-time Web Apps with Firebase](http://www.thinkster.io/pick/eHPCs7s87O/angularjs-tutorial-learn-to-rapidly-build-real-time-web-apps-with-firebase).
+- [Angular login example](https://github.com/mrgamer/angular-login-example).
+- [AngularFire seed](https://github.com/firebase/angularFire-seed).
+- [Denormalizing Your Data is Normal](https://www.firebase.com/blog/2013-04-12-denormalizing-is-normal.html).
+- [Firesafe](https://github.com/tomlarkworthy/firesafe).
 
 Installation
 ============
@@ -153,4 +146,4 @@ Installation
 
     $ node server.js
 
-Tested with node 0.10.x.
+Tested locally with node 0.10.x.
