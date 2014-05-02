@@ -145,8 +145,8 @@ Consider also [Firesafe](https://github.com/tomlarkworthy/firesafe).
 Installation
 ============
 
-    $ git clone git@github.com:albertosantini/node-piadinamia.git
-    $ cd node-piadinamia
+    $ git clone git@github.com:albertosantini/piadinamia.git
+    $ cd piadinamia
     $ npm install
 
     Edit `FBURL` constant in `app/js/app.js`.
