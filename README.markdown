@@ -24,9 +24,9 @@ Requirements
 ------------
 
 - `User`
-    - [X] create account
-    - [X] login
-    - [X] logout
+    - [x] create account
+    - [x] login
+    - [x] logout
 
 - `Catalog`
     - [ ] list my catalogs (with stats - copies, carts, etc.)
@@ -36,11 +36,11 @@ Requirements
     - [ ] modify (or delete) catalog
 
 - `Cart`
-    - [X] modify my cart (add, remove items)
+    - [x] modify my cart (add, remove items)
 
 - `Reports`
-    - [X] report carts by items (per default catalog)
-    - [X] report carts by users (per default catalog)
+    - [x] report carts by items (per default catalog)
+    - [x] report carts by users (per default catalog)
 
 Defaults, constraints
 ---------------------
