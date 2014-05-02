@@ -15,11 +15,6 @@ On mobile side I have been considering the following approach:
 - [trigger.io](https://trigger.io/)
 - [ionic](http://ionicframework.com/)
 
-
-Resources in the radar:
-- [select2](http://ivaynberg.github.io/select2/) - for catalog/cart select/search
-- [Font Awesome](http://fontawesome.io/) - for the carts icons
-
 Abstract
 --------
 
@@ -29,41 +24,31 @@ Requirements
 ------------
 
 - `User`
-    - create account
-    - login
-    - logout
+    - [X] create account
+    - [X] login
+    - [X] logout
 
 - `Catalog`
-    - list my catalogs (with stats - copies, carts, etc.)
-    - select catalog
-    - create new catalog
-    - search (and copy) your catalogs
-    - modify (or delete) catalog
+    - [ ] list my catalogs (with stats - copies, carts, etc.)
+    - [ ] select catalog
+    - [ ] create new catalog
+    - [ ] search (and copy) your catalogs
+    - [ ] modify (or delete) catalog
 
 - `Cart`
-    - modify my cart (add, remove items)
+    - [X] modify my cart (add, remove items)
 
 - `Reports`
-    - report carts by items (per default catalog)
-    - report carts by users (per default catalog)
+    - [X] report carts by items (per default catalog)
+    - [X] report carts by users (per default catalog)
 
 Defaults, constraints
 ---------------------
 
-- set last used catalog as default (or piadinamia system catalog)
-- after selecting a catalog, if it is the first time, an empty cart is attached
-- `One user - many catalogs` > `One catalog - many carts`
-- `One cart` > `One catalog` > `One user`
+- For a new user, piadinamia catalog is attached with a cart
+- Set last used catalog as default (or piadinamia system catalog)
+- A user may have many catalogs, but a catalog contains only one cart
 - Add a due date to the cart (to purge them)?
-
-Use cases
----------
-
-- `user/first time` > `create new catalog` > `modify my cart` > `report carts by items`
-- `user/next time` > `select catalog` > `modify my cart` > `report carts by items`
-- `user/another user` > `search your catalogs` > `report carts by users`
-- `user/next time` > `select catalog` > `report carts by users`
-- `user/another user` > `select catalog` > `modify my cart` > `report carts by items`
 
 Model
 -----
@@ -71,51 +56,85 @@ Model
 ```
 {
     "users": {
-        "user1": {
-            "name": "my user",
-            "default": "mycat1",
+        "userId-1": {
+            "email": "my email",
+            "name": "user 1",
             "catalogs": {
+                "default": {
+                    name: "mycat1",
+                }
                 "mycat1": {
                     "name": "mycat1",
                     "description": "my catalog",
                     "private": false,
                     "items": {
-                        "item-id1": 0.75,
-                        "item-id2": 2.35,
-                        "item-id3": 1.05
+                        "item a": 0.75,
+                        "item b": 2.35,
+                        "item c": 1.05
                     },
-                    "customers": {
-                        "user2": "First2 Last2",
-                        "user3": "First3 Last3"
+                    "subscribers": {
+                        "0": {
+                            "id": userId-1,
+                            "name": "my user",
+                        },
+                        "1": {
+                            "id": "userId-2",
+                            "name": "user 2"
+                        }
                     },
                     "cart": {
-                        "items": {
-                            "item-id1": 2,
-                            "item-id2": 3
+                        "0": {
+                            "item": "item a",
+                            "price": 0.75,
+                            "qty": 2,
+                            "total": 1.50
+                        },
+                        "1": {
+                            "item": "item b",
+                            "price": 2.35,
+                            "qty": 1,
+                            "total": 2.35
                         }
                     }
                 }
             }
         },
 
-        "user2" {
-            "name": "another user",
-            "default": "mycat1",
+        "userId-2" {
             "catalogs": {
+                "email": "my email",
+                "name": "user 2",
+                "default": {
+                    name: "mycat1",
+                }
                 "mycat1": {
                     "name": "mycat1",
-                    "publisher": "user1",
+                    "description": "my catalog",
+                    "private": false,
+                    "items": {
+                        "item a": 0.75,
+                        "item b": 2.35,
+                        "item c": 1.05
+                    },
+                    "subscribers": {
+                        "0": {
+                            "id": "userId-2",
+                            "name": "user 2"
+                        }
+                    },
                     "cart": {
-                        "items": {
-                            "item-id2": 2,
-                            "item-id3": 4
+                        "0": {
+                            "item": "item c",
+                            "price": 1.05,
+                            "qty": 2,
+                            "total": 2.10
                         }
                     }
                 }
             }
         }
-    }
 
+    }
 }
 ```
 
