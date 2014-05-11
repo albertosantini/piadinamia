@@ -23,5 +23,9 @@
         "quotes": [1, "double"],
         "space-in-brackets": [1, "never"],
         "wrap-iife": 1
+    },
+
+    "globals": {
+        "angular": false
     }
 }
