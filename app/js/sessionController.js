@@ -28,7 +28,7 @@ angular.module("piadinamia").controller("SessionCtrl", [
             isLogging: false
         };
 
-        if (!!$scope.auth) {
+        if ($scope.auth) {
             $location.path("/");
         }
 
