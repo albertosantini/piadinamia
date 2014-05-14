@@ -4,6 +4,7 @@
     },
 
     "rules": {
+        "block-scoped-var": 1,
         "brace-style": [1, "1tbs"],
         "curly": [1, "all"],
         "eqeqeq": 1,
