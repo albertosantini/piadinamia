@@ -32,8 +32,8 @@
                     typeahead="cat for cat in master.search($viewValue)"
                     typeahead-loading="loadingCatalogs">
 
-                <span class="input-group-addon">
-                    <i ng-show="loadingCatalogs" class="fa fa-spinner fa-spin fa-lg"></i>
+                <span ng-show="loadingCatalogs" class="input-group-addon">
+                    <i class="fa fa-spinner fa-spin fa-lg"></i>
                 </span>
             </div>
         </div>
