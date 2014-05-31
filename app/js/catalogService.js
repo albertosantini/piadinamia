@@ -4,6 +4,24 @@ angular.module("piadinamia").factory("catalogService",
     ["$firebase", "Firebase", "FBURL", "$q",
     function ($firebase, Firebase, FBURL, $q) {
 
+        function getMaster(query) {
+            var master = new Firebase(FBURL + "/master"),
+                masterQuery = master.startAt(null, query).limit(10),
+                deferred = $q.defer();
+
+            masterQuery.once("value", function (snapshot) {
+                var val = snapshot.val();
+
+                if (val) {
+                    deferred.resolve(val);
+                } else {
+                    deferred.reject();
+                }
+            });
+
+            return deferred.promise;
+        }
+
         return {
             load: function (id, callback) {
                 var cats = new Firebase(FBURL + "/users/" + id + "/catalogs"),
@@ -59,16 +77,16 @@ angular.module("piadinamia").factory("catalogService",
             },
 
             search: function (query) {
-                var master = new Firebase(FBURL + "/master"),
-                    masterQuery = master.startAt(null, query).limit(10),
-                    deferred = $q.defer();
+                return getMaster(query).then(function (catalogs) {
+                    var cats = [];
 
-                masterQuery.once("value", function (snapshot) {
-                    var val = snapshot.val();
-                    deferred.resolve(val);
+                    angular.forEach(catalogs, function (userId, description) {
+                        cats.push(description);
+                    });
+
+                    return cats;
                 });
-
-                return deferred.promise;
             }
+
         };
     }]);
