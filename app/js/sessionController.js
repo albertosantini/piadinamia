@@ -50,6 +50,8 @@ angular.module("piadinamia").controller("SessionCtrl", [
                     catalogName, user.id);
                 $scope.sharedCart = sharedCartService;
 
+                $scope.master = catalogService;
+
                 $scope.$apply();
             });
         });

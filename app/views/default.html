@@ -20,23 +20,23 @@
 
     <div class="row">
 
-        <form role="form">
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon">
                     <i class="fa fa-search fa-lg"></i>
                 </span>
+
                 <input class="form-control input-lg" type="text"
                     ng-model="catalogSelected"
                     placeholder="Type a catalog"
-                    typeahead="catalog for catalog in getCatalog($viewValue)"
+                    typeahead="catalogs for catalogs in master.search($viewValue)"
                     typeahead-loading="loadingCatalogs">
+
                 <span class="input-group-addon">
                     <i ng-show="loadingCatalogs" class="fa fa-spinner fa-spin fa-lg"></i>
                 </span>
             </div>
         </div>
-        </form>
 
     </row>
 

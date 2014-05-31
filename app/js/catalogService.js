@@ -1,8 +1,8 @@
 "use strict";
 
 angular.module("piadinamia").factory("catalogService",
-    ["$firebase", "Firebase", "FBURL",
-    function ($firebase, Firebase, FBURL) {
+    ["$firebase", "Firebase", "FBURL", "$q",
+    function ($firebase, Firebase, FBURL, $q) {
 
         return {
             load: function (id, callback) {
@@ -56,6 +56,19 @@ angular.module("piadinamia").factory("catalogService",
                                 snapshot.default.name);
                         }
                     });
+            },
+
+            search: function (query) {
+                var master = new Firebase(FBURL + "/master"),
+                    masterQuery = master.startAt(null, query).limit(10),
+                    deferred = $q.defer();
+
+                masterQuery.once("value", function (snapshot) {
+                    var val = snapshot.val();
+                    deferred.resolve(val);
+                });
+
+                return deferred.promise;
             }
         };
     }]);
