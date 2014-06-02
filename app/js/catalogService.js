@@ -6,18 +6,20 @@ angular.module("piadinamia").factory("catalogService",
 
         function getMaster(query) {
             var master = new Firebase(FBURL + "/master"),
-                masterQuery = master.startAt(null, query).limit(10),
                 deferred = $q.defer();
 
-            masterQuery.once("value", function (snapshot) {
-                var val = snapshot.val();
+            master
+                .startAt(null, query)
+                .endAt(null, query + "z")
+                .once("value", function (snapshot) {
+                    var val = snapshot.val();
 
-                if (val) {
-                    deferred.resolve(val);
-                } else {
-                    deferred.reject();
-                }
-            });
+                    if (val) {
+                        deferred.resolve(val);
+                    } else {
+                        deferred.reject();
+                    }
+                });
 
             return deferred.promise;
         }

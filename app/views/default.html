@@ -29,7 +29,7 @@
                 <input class="form-control input-lg" type="text"
                     ng-model="catalogSelected"
                     placeholder="Type a catalog"
-                    typeahead="cat for cat in master.search($viewValue)"
+                    typeahead="cat for cat in master.search($viewValue) | limitTo:10"
                     typeahead-loading="loadingCatalogs">
 
                 <span ng-show="loadingCatalogs" class="input-group-addon">
