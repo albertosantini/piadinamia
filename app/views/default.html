@@ -26,10 +26,12 @@
                     <i class="fa fa-search fa-lg"></i>
                 </span>
 
-                <input class="form-control input-lg" type="text"
+                <input type="text" class="form-control input-lg"
                     ng-model="catalogSelected"
                     placeholder="Type a catalog"
-                    typeahead="cat for cat in master.search($viewValue) | limitTo:10"
+                    typeahead="cat for cat in master.search($viewValue) | filter:$viewValue | limitTo:10"
+                    typeahead-on-select="master.onSelect($item, $model, $label)"
+                    typeahead-wait-ms="100"
                     typeahead-loading="loadingCatalogs">
 
                 <span ng-show="loadingCatalogs" class="input-group-addon">

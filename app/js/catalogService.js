@@ -88,6 +88,10 @@ angular.module("piadinamia").factory("catalogService",
 
                     return cats;
                 });
+            },
+
+            onSelect: function ($item, $model, $label) {
+                console.log($item, $model, $label);
             }
 
         };
