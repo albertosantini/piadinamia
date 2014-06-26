@@ -13,8 +13,10 @@ angular.module("piadinamia").factory("sharedCartService",
                 total = 0;
 
             angular.forEach(cart, function (item) {
-                myCart.push(item);
-                total += item.qty * item.price;
+                if (item !== "cart") {
+                    myCart.push(item);
+                    total += item.qty * item.price;
+                }
             });
 
             cartByUser[user.id] = {

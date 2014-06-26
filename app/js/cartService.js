@@ -21,7 +21,9 @@ angular.module("piadinamia").factory("cartService",
                         myCart = [];
 
                         angular.forEach(cart, function (item) {
-                            myCart.push(item);
+                            if (item !== "cart") {
+                                myCart.push(item);
+                            }
                         });
                     });
                 });
