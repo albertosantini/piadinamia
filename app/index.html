@@ -22,8 +22,11 @@
         <div data-ng-view></div>
     </section>
 
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.13/angular.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.13/angular-route.min.js"></script>
+    <!-- Don't update angularjs after 1.3.0-beta.10 for -->
+    <!-- https://github.com/firebase/angularFire/pull/320 -->
+    <!-- https://github.com/angular-ui/bootstrap/issues/2293 -->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.10/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.10/angular-route.min.js"></script>
     <script src="//cdn.firebase.com/js/client/1.0.17/firebase.js"></script>
     <script src="//cdn.firebase.com/js/simple-login/1.6.1/firebase-simple-login.js"></script>
     <script src="//cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js"></script>
