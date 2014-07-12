@@ -134,6 +134,7 @@ Reference
 - [AngularFire seed](https://github.com/firebase/angularFire-seed).
 - [Denormalizing Your Data is Normal](https://www.firebase.com/blog/2013-04-12-denormalizing-is-normal.html).
 - [Firesafe](https://github.com/tomlarkworthy/firesafe).
+- [Blazer](https://github.com/firebase/blaze_compiler).
 
 Installation
 ============
