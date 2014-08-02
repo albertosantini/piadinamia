@@ -9,12 +9,15 @@
 
     app.constant("FBURL", "https://piadinamia.firebaseio.com/");
 
-    app.config(["$routeProvider", function ($routeProvider) {
-        $routeProvider
-            .when("/", {templateUrl: "views/default.html"})
-            .when("/signin", {templateUrl: "views/users/signin.html"})
-            .when("/signup", {templateUrl: "views/users/signup.html"})
-            .otherwise({redirectTo: "/"});
+    app.config(
+        ["$routeProvider", "$locationProvider",
+        function ($routeProvider, $locationProvider) {
+            $routeProvider
+                .when("/", {templateUrl: "views/default.html"})
+                .when("/signin", {templateUrl: "views/users/signin.html"})
+                .when("/signup", {templateUrl: "views/users/signup.html"})
+                .otherwise({redirectTo: "/"});
+            $locationProvider.html5Mode(true);
     }]);
 
     app.run(["sessionService", "$rootScope", "FBURL",
