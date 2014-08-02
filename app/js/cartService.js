@@ -48,7 +48,7 @@ angular.module("piadinamia").factory("cartService",
 
             addItem: function (item, price, qty) {
                 var self = this,
-                    found = -1;
+                    found = false;
 
                 qty = qty || 1;
 
@@ -56,7 +56,7 @@ angular.module("piadinamia").factory("cartService",
                     var cart = myCart[index];
 
                     if (el.item === item) {
-                        found = index;
+                        found = true;
 
                         cart.qty += qty;
 
@@ -73,7 +73,7 @@ angular.module("piadinamia").factory("cartService",
                     return true;
                 });
 
-                if (found === -1) {
+                if (!found) {
                     myCart.$add({
                         item: item,
                         price: price,
