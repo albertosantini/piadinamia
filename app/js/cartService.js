@@ -3,27 +3,18 @@
 angular.module("piadinamia").factory("cartService",
     ["$firebase", "Firebase", "FBURL",
     function ($firebase, Firebase, FBURL) {
-        var myCart = [],
-            fburl;
+        var myCart = [];
 
         return {
-            init: function (cart, catalogName, userId) {
-                var cartRef;
+            init: function (userId, catalogName) {
+                var ref = new Firebase(FBURL + "/users/" + userId +
+                            "/catalogs/" + catalogName + "/cart"),
+                    cartSync = $firebase(ref).$asArray();
 
-                myCart = cart;
-                fburl = FBURL + "/users/" + userId +
-                    "/catalogs/" + catalogName + "/cart";
+                myCart = cartSync;
 
-                cartRef = new Firebase(fburl);
-
-                $firebase(cartRef).$on("change", function () {
-                    $firebase(cartRef).$on("loaded", function (cart) {
-                        myCart = [];
-
-                        angular.forEach(cart, function (item) {
-                            myCart.push(item);
-                        });
-                    });
+                cartSync.$loaded().then(function () {
+                    myCart = cartSync;
                 });
             },
 
@@ -31,14 +22,8 @@ angular.module("piadinamia").factory("cartService",
                 return myCart;
             },
 
-            saveItems: function () {
-                var cartRef = new Firebase(fburl);
-
-                $firebase(cartRef).$set(myCart);
-
-                if (myCart.length === 0) {
-                    $firebase(cartRef).$set("");
-                }
+            saveItem: function (index) {
+                myCart.$save(index);
             },
 
             getTotalCount: function () {
@@ -63,20 +48,23 @@ angular.module("piadinamia").factory("cartService",
 
             addItem: function (item, price, qty) {
                 var self = this,
-                    found = false;
+                    found = -1;
 
                 qty = qty || 1;
 
                 myCart.every(function (el, index) {
+                    var cart = myCart[index];
+
                     if (el.item === item) {
-                        found = true;
+                        found = index;
 
-                        myCart[index].qty += qty;
-                        myCart[index].total = myCart[index].price *
-                            myCart[index].qty;
+                        cart.qty += qty;
 
-                        if (myCart[index].qty === 0) {
+                        if (cart.qty === 0) {
                             self.clearItem(index);
+                        } else {
+                            cart.total = cart.price * cart.qty;
+                            self.saveItem(index);
                         }
 
                         return false;
@@ -85,21 +73,18 @@ angular.module("piadinamia").factory("cartService",
                     return true;
                 });
 
-                if (!found) {
-                    myCart.push({
+                if (found === -1) {
+                    myCart.$add({
                         item: item,
                         price: price,
                         qty: 1,
                         total: price
                     });
                 }
-
-                this.saveItems();
             },
 
             clearItem: function (index) {
-                myCart.splice(index, 1);
-                this.saveItems();
+                myCart.$remove(index);
             }
         };
 

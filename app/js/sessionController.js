@@ -33,26 +33,26 @@ angular.module("piadinamia").controller("SessionCtrl", [
         }
 
         $scope.$on("$firebaseSimpleLogin:login", function (e, user) {
+            var ref = new Firebase(FBURL + "/users/" + user.id),
+                sync = $firebase(ref),
+                userSync = sync.$asObject();
+
             $location.path("/");
 
-            $firebase(new Firebase(FBURL + "/users/" + user.id))
-                .$on("loaded", function (snapshot) {
-                    $scope.session.name = snapshot.name;
-                });
+            userSync.$loaded().then(function () {
+                $scope.session.name = userSync.name;
+            });
 
             catalogService.load(user.id, function (catalog, catalogName) {
                 $scope.catalog = catalog;
 
-                cartService.init(catalog.cart, catalogName, user.id);
+                cartService.init(user.id, catalogName);
                 $scope.cart = cartService;
 
-                sharedCartService.init(catalog.subscribers,
-                    catalogName, user.id);
+                sharedCartService.init(user.id, catalogName);
                 $scope.sharedCart = sharedCartService;
 
                 $scope.master = catalogService;
-
-                $scope.$apply();
             });
         });
 
