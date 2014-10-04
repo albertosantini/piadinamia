@@ -1,8 +1,9 @@
 PIADINAMIA
 ==========
 
-Piadinamia is a (working in progress) social shopping cart app based on
-[AngularJS](https://angularjs.org/) and [Firebase](https://www.firebase.com/).
+Piadinamia is a (working in progress, waiting for AngularFire version - greater
+than 0.8.2 - compatible with firebase 1.1.x release) social shopping cart app
+based on [AngularJS](https://angularjs.org/) and [Firebase](https://www.firebase.com/).
 
 On mobile side I have been considering the following approach:
 - [trigger.io](https://trigger.io/)
