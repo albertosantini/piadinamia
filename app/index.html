@@ -29,16 +29,7 @@
     <script src="//cdn.firebase.com/js/client/1.0.24/firebase.js"></script>
     <script src="//cdn.firebase.com/js/simple-login/1.6.4/firebase-simple-login.js"></script>
     <script src="//cdn.firebase.com/libs/angularfire/0.8.2/angularfire.min.js"></script>
-    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.min.js"></script>
-
-    <!-- Fix for https://github.com/angular-ui/bootstrap/issues/2293 -->
-    <script id="template/typeahead/typeahead-popup.html" type="text/ng-template">
-        <ul class="dropdown-menu" ng-show="isOpen()" ng-style="{top: position.top+'px', left: position.left+'px'}" style="display: block;" role="listbox" aria-hidden="{{!isOpen()}}">
-            <li ng-repeat="match in matches track by $index" ng-class="{active: isActive($index) }" ng-mouseenter="selectActive($index)" ng-click="selectMatch($index)" role="option" id="{{match.id}}">
-                <div typeahead-match index="$index" match="match" query="query" template-url="templateUrl"></div>
-            </li>
-        </ul>
-    </script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.2.min.js"></script>
 
     <script src="js/app.js"></script>
     <script src="js/sessionController.js"></script>
