@@ -1,25 +1,24 @@
-"use strict";
+(function () {
+    "use strict";
 
-angular.module("piadinamia").controller("SessionCtrl", [
-    "$scope",
-    "sessionService",
-    "catalogService",
-    "cartService",
-    "sharedCartService",
-    "$location",
-    "$firebase",
-    "Firebase",
-    "FBURL",
-    function ($scope,
-              sessionService,
-              catalogService,
-              cartService,
-              sharedCartService,
-              $location,
-              $firebase,
-              Firebase,
-              FBURL) {
+    angular
+        .module("piadinamia")
+        .controller("SessionCtrl", SessionCtrl);
 
+    SessionCtrl.$inject = [
+        "$scope",
+        "sessionService",
+        "catalogService",
+        "cartService",
+        "sharedCartService",
+        "$location",
+        "$firebase",
+        "Firebase",
+        "FBURL"
+    ];
+
+    function SessionCtrl($scope, sessionService, catalogService, cartService,
+        sharedCartService, $location, $firebase, Firebase, FBURL) {
         var dataRef = new Firebase(FBURL);
 
         $scope.session = {
@@ -112,4 +111,5 @@ angular.module("piadinamia").controller("SessionCtrl", [
         };
 
     }
-]);
+
+}());
