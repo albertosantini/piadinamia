@@ -1,9 +1,8 @@
 PIADINAMIA
 ==========
 
-Piadinamia is a (working in progress, waiting for AngularFire version - greater
-than 0.8.2 - compatible with firebase 1.1.x release) social shopping cart app
-based on [AngularJS](https://angularjs.org/) and [Firebase](https://www.firebase.com/).
+Piadinamia is a social shopping cart app based on [AngularJS](https://angularjs.org/)
+and [Firebase](https://www.firebase.com/).
 
 On mobile side I have been considering the following approach:
 - [trigger.io](https://trigger.io/)
@@ -90,9 +89,9 @@ Model
         },
 
         "userId-2" {
+            "email": "my email",
+            "name": "user 2",
             "catalogs": {
-                "email": "my email",
-                "name": "user 2",
                 "default": {
                     name: "mycat1",
                 }
@@ -148,4 +147,4 @@ Installation
 
     $ node server.js
 
-Tested locally with node 0.10.x.
+Tested locally with node 0.10.x with Firebase 1.1.x and AngularFire 0.8.x.
