@@ -1,65 +1,70 @@
 "use strict";
 
 angular.module("piadinamia").factory("sessionService",
-    ["$firebaseSimpleLogin", "$location", "Firebase", "FBURL",
-    function ($firebaseSimpleLogin, $location, Firebase, FBURL) {
-        var auth = null;
+    ["$location", "Firebase", "FBURL",
+    function ($location, Firebase, FBURL) {
+        var dataRef = new Firebase(FBURL),
+            service = {
+                login: login,
+                logout: logout,
+                createAccount: createAccount,
+                createProfile: createProfile
+            };
 
-        return {
-            init: function (path) {
-                auth = $firebaseSimpleLogin(new Firebase(FBURL), {
-                    path: path
-                });
+        return service;
 
-                return auth;
-            },
-
-            login: function (email, pass, redirect, callback) {
-                auth.$login("password", {
-                    email: email,
-                    password: pass,
-                    rememberMe: true
-                }).then(function (user) {
-                    if (redirect) {
-                        $location.path(redirect);
-                    }
-
-                    if (callback) {
-                        callback(null, user);
-                    }
-                }, callback);
-            },
-
-            logout: function (redirectPath) {
-                auth.$logout();
-
-                if (redirectPath) {
-                    $location.path(redirectPath);
+        function login(email, pass, redirect, callback) {
+            dataRef.authWithPassword({
+                email: email,
+                password: pass
+            }, function loginWithPassword(err, authData) {
+                if (!err && redirect) {
+                    $location.path(redirect);
                 }
-            },
 
-            createAccount: function (name, email, pass, callback) {
-                auth.$createUser(email, pass).then(function (user) {
-                    if (callback) {
-                        callback(null, user);
-                    }
-                }, function (err) {
-                    if (callback) {
-                        callback(err);
-                    }
-                });
-            },
+                if (callback) {
+                    callback(err, authData);
+                }
+            });
+        }
 
-            createProfile: function (id, name, email, callback) {
-                new Firebase(FBURL).child("users/" + id).set({
-                    email: email,
-                    name: name,
-                    catalogs: ""
-                }, function (err) {
-                    if (callback) {
-                        callback(err);
-                    }
-                });
+        function logout(redirectPath) {
+            dataRef.unauth();
+
+            if (redirectPath) {
+                $location.path(redirectPath);
             }
-        };
+        }
+
+        function createAccount(name, email, pass, callback) {
+            dataRef.createUser({
+                "email": email,
+                "password": pass
+            }, function (err) {
+                if (!err) {
+                    service.login(email, pass, "/", function (err, authData) {
+                        var userId = authData.uid.split(":")[1];
+                        if (!err) {
+                            service.createProfile(userId, name, email);
+                        }
+                    });
+                }
+                if (callback) {
+                    callback(err);
+                }
+            });
+        }
+
+        function createProfile(id, name, email, callback) {
+            dataRef.child("users/" + id).set({
+                email: email,
+                name: name,
+                catalogs: ""
+            }, function (err) {
+                if (callback) {
+                    callback(err);
+                }
+            });
+        }
+
     }]);

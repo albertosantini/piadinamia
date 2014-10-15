@@ -20,9 +20,4 @@
             $locationProvider.html5Mode(true);
     }]);
 
-    app.run(["sessionService", "$rootScope", "FBURL",
-        function (sessionService, $rootScope, FBURL) {
-            $rootScope.auth = sessionService.init("/signin");
-            $rootScope.FBURL = FBURL;
-        }]);
 }());

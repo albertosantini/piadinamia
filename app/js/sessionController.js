@@ -20,6 +20,8 @@ angular.module("piadinamia").controller("SessionCtrl", [
               Firebase,
               FBURL) {
 
+        var dataRef = new Firebase(FBURL);
+
         $scope.session = {
             err: null,
             email: null,
@@ -32,10 +34,25 @@ angular.module("piadinamia").controller("SessionCtrl", [
             $location.path("/");
         }
 
-        $scope.$on("$firebaseSimpleLogin:login", function (e, user) {
-            var ref = new Firebase(FBURL + "/users/" + user.id),
-                sync = $firebase(ref),
-                userSync = sync.$asObject();
+        dataRef.onAuth(function (authData) {
+            var userId,
+                ref,
+                sync,
+                userSync;
+
+            if (!authData) {
+                return;
+            }
+
+            userId = authData.uid.split(":")[1];
+
+            $scope.auth = {
+                user: userId
+            };
+
+            ref = new Firebase(FBURL + "/users/" + userId);
+            sync = $firebase(ref);
+            userSync = sync.$asObject();
 
             $location.path("/");
 
@@ -43,13 +60,13 @@ angular.module("piadinamia").controller("SessionCtrl", [
                 $scope.session.name = userSync.name;
             });
 
-            catalogService.load(user.id, function (catalog, catalogName) {
+            catalogService.load(userId, function (catalog, catalogName) {
                 $scope.catalog = catalog;
 
-                cartService.init(user.id, catalogName);
+                cartService.init(userId, catalogName);
                 $scope.cart = cartService;
 
-                sharedCartService.init(user.id, catalogName);
+                sharedCartService.init(userId, catalogName);
                 $scope.sharedCart = sharedCartService;
 
                 $scope.master = catalogService;
@@ -71,6 +88,7 @@ angular.module("piadinamia").controller("SessionCtrl", [
                         callback(err, user);
                     }
                     $scope.session.isLogging = false;
+                    $scope.$apply();
                 });
         };
 
@@ -84,16 +102,10 @@ angular.module("piadinamia").controller("SessionCtrl", [
             } else {
                 sessionService.createAccount($scope.session.name,
                     $scope.session.email, $scope.session.pass,
-                    function (err, user) {
+                    function (err) {
                     if (err) {
                         $scope.session.err = err.message;
-                    } else {
-                        $scope.login(function (err) {
-                            if (!err) {
-                                sessionService.createProfile(user.id,
-                                    $scope.session.name, user.email);
-                            }
-                        });
+                        $scope.$apply();
                     }
                 });
             }
