@@ -136,6 +136,8 @@ Reference
 - [Firesafe](https://github.com/tomlarkworthy/firesafe).
 - [Blazer](https://github.com/firebase/blaze_compiler).
 
+I have been following [Papa's AngularJS style guide](https://github.com/johnpapa/angularjs-styleguide).
+
 Installation
 ============
 
