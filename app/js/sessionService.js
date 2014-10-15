@@ -1,14 +1,18 @@
-"use strict";
+(function () {
+    "use strict";
 
-angular.module("piadinamia").factory("sessionService",
-    ["$location", "Firebase", "FBURL",
-    function ($location, Firebase, FBURL) {
+    angular
+        .module("piadinamia")
+        .factory("sessionService", sessionService);
+
+    sessionService.$inject = ["$location", "Firebase", "FBURL"];
+
+    function sessionService($location, Firebase, FBURL) {
         var dataRef = new Firebase(FBURL),
             service = {
                 login: login,
                 logout: logout,
-                createAccount: createAccount,
-                createProfile: createProfile
+                createAccount: createAccount
             };
 
         return service;
@@ -45,7 +49,7 @@ angular.module("piadinamia").factory("sessionService",
                     service.login(email, pass, "/", function (err, authData) {
                         var userId = authData.uid.split(":")[1];
                         if (!err) {
-                            service.createProfile(userId, name, email);
+                            createProfile(userId, name, email);
                         }
                     });
                 }
@@ -67,4 +71,6 @@ angular.module("piadinamia").factory("sessionService",
             });
         }
 
-    }]);
+    }
+
+}());
