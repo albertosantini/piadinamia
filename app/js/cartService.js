@@ -1,91 +1,105 @@
-"use strict";
+(function () {
+    "use strict";
 
-angular.module("piadinamia").factory("cartService",
-    ["$firebase", "Firebase", "FBURL",
-    function ($firebase, Firebase, FBURL) {
-        var myCart = [];
+    angular
+        .module("piadinamia")
+        .factory("cartService", cartService);
 
-        return {
-            init: function (userId, catalogName) {
-                var ref = new Firebase(FBURL + "/users/" + userId +
-                            "/catalogs/" + catalogName + "/cart"),
-                    cartSync = $firebase(ref).$asArray();
+    cartService.$inject = ["$firebase", "Firebase", "FBURL"];
 
+    function cartService($firebase, Firebase, FBURL) {
+        var myCart = [],
+            service = {
+                init: init,
+                getItems: getItems,
+                saveItem: saveItem,
+                getTotalCount: getTotalCount,
+                getTotalPrice: getTotalPrice,
+                addItem: addItem,
+                clearItem: clearItem
+            };
+
+        return service;
+
+        function init(userId, catalogName) {
+            var ref = new Firebase(FBURL + "/users/" + userId +
+                        "/catalogs/" + catalogName + "/cart"),
+                cartSync = $firebase(ref).$asArray();
+
+            myCart = cartSync;
+
+            cartSync.$loaded().then(function () {
                 myCart = cartSync;
+            });
+        }
 
-                cartSync.$loaded().then(function () {
-                    myCart = cartSync;
-                });
-            },
+        function getItems() {
+            return myCart;
+        }
 
-            getItems: function () {
-                return myCart;
-            },
+        function saveItem(index) {
+            myCart.$save(index);
+        }
 
-            saveItem: function (index) {
-                myCart.$save(index);
-            },
+        function getTotalCount() {
+            var total = 0;
 
-            getTotalCount: function () {
-                var total = 0;
+            myCart.forEach(function (item) {
+                total += item.qty;
+            });
 
-                myCart.forEach(function (item) {
-                    total += item.qty;
-                });
+            return total;
+        }
 
-                return total;
-            },
+        function getTotalPrice() {
+            var total = 0;
 
-            getTotalPrice: function () {
-                var total = 0;
+            myCart.forEach(function (item) {
+                total += item.price * item.qty;
+            });
 
-                myCart.forEach(function (item) {
-                    total += item.price * item.qty;
-                });
+            return total;
+        }
 
-                return total;
-            },
+        function addItem(item, price, qty) {
+            var found = false;
 
-            addItem: function (item, price, qty) {
-                var self = this,
-                    found = false;
+            qty = qty || 1;
 
-                qty = qty || 1;
+            myCart.every(function (el, index) {
+                var cart = myCart[index];
 
-                myCart.every(function (el, index) {
-                    var cart = myCart[index];
+                if (el.item === item) {
+                    found = true;
 
-                    if (el.item === item) {
-                        found = true;
+                    cart.qty += qty;
 
-                        cart.qty += qty;
-
-                        if (cart.qty === 0) {
-                            self.clearItem(index);
-                        } else {
-                            cart.total = cart.price * cart.qty;
-                            self.saveItem(index);
-                        }
-
-                        return false;
+                    if (cart.qty === 0) {
+                        service.clearItem(index);
+                    } else {
+                        cart.total = cart.price * cart.qty;
+                        service.saveItem(index);
                     }
 
-                    return true;
-                });
-
-                if (!found) {
-                    myCart.$add({
-                        item: item,
-                        price: price,
-                        qty: 1,
-                        total: price
-                    });
+                    return false;
                 }
-            },
 
-            clearItem: function (index) {
-                myCart.$remove(index);
+                return true;
+            });
+
+            if (!found) {
+                myCart.$add({
+                    item: item,
+                    price: price,
+                    qty: 1,
+                    total: price
+                });
             }
-        };
+        }
 
-    }]);
+        function clearItem(index) {
+            myCart.$remove(index);
+        }
+    }
+
+}());
