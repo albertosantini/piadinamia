@@ -7,7 +7,7 @@
             "ui.bootstrap",
             "ngRoute"
         ])
-        .constant("FBURL", "https://piadinamia.firebaseio.com/")
+        .constant("FBURL", "https://piadinamia.firebaseio.com")
         .config(config);
 
     config.$inject = ["$routeProvider", "$locationProvider"];
