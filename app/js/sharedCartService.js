@@ -1,11 +1,23 @@
-"use strict";
+(function () {
+    "use strict";
 
-angular.module("piadinamia").factory("sharedCartService",
-    ["$firebase", "Firebase", "FBURL",
-    function ($firebase, Firebase, FBURL) {
+    angular
+        .module("piadinamia")
+        .factory("sharedCartService", sharedCartService);
+
+    sharedCartService.$inject = ["$firebase", "Firebase", "FBURL"];
+
+    function sharedCartService($firebase, Firebase, FBURL) {
         var mySubscribers = [],
             cartByUser = {},
-            cartByItem = {};
+            cartByItem = {},
+            service = {
+                init: init,
+                getCartByItem: getCartByItem,
+                getCartByUser: getCartByUser
+            };
+
+        return service;
 
         function calcCartByUser(user, cart) {
             var myCart = [],
@@ -58,28 +70,27 @@ angular.module("piadinamia").factory("sharedCartService",
             });
         }
 
-        return {
-            init: function (userId, catalogName) {
-                var ref = new Firebase(FBURL + "/users/" + userId +
-                            "/catalogs/" + catalogName + "/subscribers"),
-                    subscribersSync = $firebase(ref).$asArray();
+        function init(userId, catalogName) {
+            var ref = new Firebase(FBURL + "/users/" + userId +
+                        "/catalogs/" + catalogName + "/subscribers"),
+                subscribersSync = $firebase(ref).$asArray();
 
+            mySubscribers = subscribersSync;
+
+            subscribersSync.$loaded().then(function () {
                 mySubscribers = subscribersSync;
+                subscribeCarts(catalogName);
+            });
+        }
 
-                subscribersSync.$loaded().then(function () {
-                    mySubscribers = subscribersSync;
-                    subscribeCarts(catalogName);
-                });
-            },
+        function getCartByItem() {
+            return cartByItem;
+        }
 
-            getCartByItem: function () {
-                return cartByItem;
-            },
+        function getCartByUser() {
+            return cartByUser;
+        }
 
-            getCartByUser: function () {
-                return cartByUser;
-            }
+    }
 
-        };
-
-    }]);
+}());
