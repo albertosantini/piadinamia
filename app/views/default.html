@@ -1,4 +1,4 @@
-<div class="jumbotron" ng-hide="session.auth.user">
+<div class="jumbotron" ng-hide="session.info.name">
     <h1>Social shopping cart</h1>
 
     <p class="lead">
@@ -12,11 +12,11 @@
     </p>
 </div>
 
-<h1 ng-show="session.auth.user">
+<h1 ng-show="session.info.name">
     Welcome back {{ session.info.name }}!
 </h1>
 
-<div ng-show="session.auth.user && session.catalog">
+<div ng-show="session.info.name && session.catalog">
 
     <div class="row">
 
@@ -190,7 +190,7 @@
 
 </div>
 
-<div class="row marketing" ng-hide="session.auth.user">
+<div class="row marketing" ng-hide="session.info.name">
     <div class="col-lg-6">
         <h4>Grocery list</h4>
         <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>

@@ -8,7 +8,7 @@
             </a>
         </div>
 
-        <ul class="nav navbar-nav navbar-right" ng-hide="session.auth.user">
+        <ul class="nav navbar-nav navbar-right" ng-hide="session.info.name">
             <li><a href="/signup">
                 <i class="fa fa-user"></i>
                 <i class="fa fa-plus-square fa-fw"></i>Sign up
@@ -21,7 +21,7 @@
             </a></li>
         </ul>
 
-        <ul class="nav navbar-nav navbar-right ng-hide" ng-show="session.auth.user">
+        <ul class="nav navbar-nav navbar-right ng-hide" ng-show="session.info.name">
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 <i class="fa fa-user fa-fw"></i>{{ session.info.name }}<b class="caret"></b>

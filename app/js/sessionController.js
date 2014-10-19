@@ -33,10 +33,6 @@
         vm.logout = logout;
         vm.createAccount = createAccount;
 
-        if (vm.auth) {
-            $location.path("/");
-        }
-
         dataRef.onAuth(function (authData) {
             var userId,
                 ref,
@@ -48,10 +44,6 @@
             }
 
             userId = authData.uid.split(":")[1];
-
-            vm.auth = {
-                user: userId
-            };
 
             ref = new Firebase(FBURL + "/users/" + userId);
             sync = $firebase(ref);
