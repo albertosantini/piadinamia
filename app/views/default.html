@@ -1,4 +1,4 @@
-<div class="jumbotron" ng-hide="auth.user">
+<div class="jumbotron" ng-hide="session.auth.user">
     <h1>Social shopping cart</h1>
 
     <p class="lead">
@@ -12,11 +12,11 @@
     </p>
 </div>
 
-<h1 ng-show="auth.user">
-    Welcome back {{ session.name }}!
+<h1 ng-show="session.auth.user">
+    Welcome back {{ session.info.name }}!
 </h1>
 
-<div ng-show="auth.user && catalog">
+<div ng-show="session.auth.user && session.catalog">
 
     <div class="row">
 
@@ -30,8 +30,8 @@
                 <input type="text" class="form-control input-lg"
                     ng-model="catalogSelected"
                     placeholder="Type a catalog"
-                    typeahead="cat for cat in master.search($viewValue) | filter:$viewValue | limitTo:10"
-                    typeahead-on-select="master.onSelect($item, $model, $label)"
+                    typeahead="cat for cat in session.master.search($viewValue) | filter:$viewValue | limitTo:10"
+                    typeahead-on-select="session.master.onSelect($item, $model, $label)"
                     typeahead-wait-ms="100"
                     typeahead-loading="loadingCatalogs">
 
@@ -48,7 +48,7 @@
             <div class="panel panel-default">
 
                 <div class="panel-heading">
-                    My Catalog <strong>{{catalog.description}}</strong>
+                    My Catalog <strong>{{session.catalog.description}}</strong>
                     <i class="fa fa-pencil pull-right"></i>
                 </div>
 
@@ -61,9 +61,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-show="catalog" ng-repeat="(item, price) in catalog.items">
+                        <tr ng-show="session.catalog" ng-repeat="(item, price) in session.catalog.items">
                             <td>
-                                <a href="" ng-click="cart.addItem(item, price)">
+                                <a href="" ng-click="session.cart.addItem(item, price)">
                                     <i class="fa fa-plus"></i>
                                 </a>
                             </td>
@@ -84,7 +84,7 @@
                     <strong>My Cart</strong>
                 </div>
 
-                <table class="table table-condensed" ng-show="cart.getTotalCount()">
+                <table class="table table-condensed" ng-show="session.cart.getTotalCount()">
                     <thead>
                         <tr>
                             <th>Item</th>
@@ -96,21 +96,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="product in cart.getItems()">
+                        <tr ng-repeat="product in session.cart.getItems()">
                             <td>{{product.item}}</td>
                             <td class="text-right">{{product.price | currency: "&euro;"}}</td>
                             <td class="text-right">{{product.qty}}</td>
                             <td>
-                                <a href="" ng-click="cart.addItem(product.item, product.price)">
+                                <a href="" ng-click="session.cart.addItem(product.item, product.price)">
                                     <i class="fa fa-plus"></i>
                                 </a>
-                                <a href="" ng-click="cart.addItem(product.item, product.price, -1)">
+                                <a href="" ng-click="session.cart.addItem(product.item, product.price, -1)">
                                     <i class="fa fa-minus"></i>
                                 </a>
                             </td>
                             <td class="text-right">{{product.total | currency: "&euro;"}}</td>
                             <td>
-                                <a href="" ng-click="cart.clearItem($index)">
+                                <a href="" ng-click="session.cart.clearItem($index)">
                                     <i class="fa fa-minus"></i>
                                 </a>
                             </td>
@@ -120,10 +120,10 @@
 
                 <div class="panel-footer text-right">
                     <span class="label label-info">Total quantity</span>
-                    <span class="badge">{{cart.getTotalCount()}}</span>
+                    <span class="badge">{{session.cart.getTotalCount()}}</span>
 
                     <span class="label label-info">Total order</span>
-                    <span class="badge">{{cart.getTotalPrice() | currency: "&euro;"}}</span>
+                    <span class="badge">{{session.cart.getTotalPrice() | currency: "&euro;"}}</span>
                 </div>
 
             </div>
@@ -148,7 +148,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="(item, itemCart) in sharedCart.getCartByItem()">
+                        <tr ng-repeat="(item, itemCart) in session.sharedCart.getCartByItem()">
                             <td>{{item}}</td>
                             <td>{{itemCart.total}}</td>
                         </tr>
@@ -158,10 +158,10 @@
 
         </div>
 
-        <div class="col-lg-6" ng-show="sharedCart">
+        <div class="col-lg-6" ng-show="session.sharedCart">
 
             <div class="panel panel-default"
-                ng-repeat="(userId, userCart) in sharedCart.getCartByUser()">
+                ng-repeat="(userId, userCart) in session.sharedCart.getCartByUser()">
                 <div class="panel-heading">
                     <strong>Shared Cart by {{userCart.name}}</strong>
                     <span class="badge pull-right">
@@ -190,7 +190,7 @@
 
 </div>
 
-<div class="row marketing" ng-hide="auth.user">
+<div class="row marketing" ng-hide="session.auth.user">
     <div class="col-lg-6">
         <h4>Grocery list</h4>
         <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>

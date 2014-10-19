@@ -6,7 +6,6 @@
         .controller("SessionCtrl", SessionCtrl);
 
     SessionCtrl.$inject = [
-        "$scope",
         "sessionService",
         "catalogService",
         "cartService",
@@ -17,11 +16,12 @@
         "FBURL"
     ];
 
-    function SessionCtrl($scope, sessionService, catalogService, cartService,
+    function SessionCtrl(sessionService, catalogService, cartService,
         sharedCartService, $location, $firebase, Firebase, FBURL) {
-        var dataRef = new Firebase(FBURL);
+        var vm = this,
+            dataRef = new Firebase(FBURL);
 
-        $scope.session = {
+        vm.info = {
             err: null,
             email: null,
             pass: null,
@@ -29,7 +29,11 @@
             isLogging: false
         };
 
-        if ($scope.auth) {
+        vm.login = login;
+        vm.logout = logout;
+        vm.createAccount = createAccount;
+
+        if (vm.auth) {
             $location.path("/");
         }
 
@@ -45,7 +49,7 @@
 
             userId = authData.uid.split(":")[1];
 
-            $scope.auth = {
+            vm.auth = {
                 user: userId
             };
 
@@ -56,59 +60,57 @@
             $location.path("/");
 
             userSync.$loaded().then(function () {
-                $scope.session.name = userSync.name;
+                vm.info.name = userSync.name;
             });
 
             catalogService.load(userId, function (catalog, catalogName) {
-                $scope.catalog = catalog;
+                vm.catalog = catalog;
 
                 cartService.init(userId, catalogName);
-                $scope.cart = cartService;
+                vm.cart = cartService;
 
                 sharedCartService.init(userId, catalogName);
-                $scope.sharedCart = sharedCartService;
+                vm.sharedCart = sharedCartService;
 
-                $scope.master = catalogService;
+                vm.master = catalogService;
             });
         });
 
-        $scope.logout = function () {
+        function logout() {
             sessionService.logout("/signin");
-        };
+        }
 
-        $scope.login = function (callback) {
-            $scope.session.err = null;
-            $scope.session.isLogging = true;
+        function login(callback) {
+            vm.info.err = null;
+            vm.info.isLogging = true;
 
-            sessionService.login($scope.session.email, $scope.session.pass, "/",
+            sessionService.login(vm.info.email, vm.info.pass, "/",
                 function (err, user) {
-                    $scope.session.err = err && err.message || null;
+                    vm.info.err = err && err.message || null;
                     if (typeof(callback) === "function") {
                         callback(err, user);
                     }
-                    $scope.session.isLogging = false;
-                    $scope.$apply();
+                    vm.info.isLogging = false;
                 });
-        };
+        }
 
-        $scope.createAccount = function () {
-            $scope.session.err = null;
+        function createAccount() {
+            vm.info.err = null;
 
-            if (!$scope.session.email) {
-                $scope.session.err = "Please enter a valid email address";
-            } else if (!$scope.session.pass) {
-                $scope.session.err = "Please enter a password";
+            if (!vm.info.email) {
+                vm.info.err = "Please enter a valid email address";
+            } else if (!vm.info.pass) {
+                vm.info.err = "Please enter a password";
             } else {
-                sessionService.createAccount($scope.session.name,
-                    $scope.session.email, $scope.session.pass,
+                sessionService.createAccount(vm.info.name,
+                    vm.info.email, vm.info.pass,
                     function (err) {
                     if (err) {
-                        $scope.session.err = err.message;
-                        $scope.$apply();
+                        vm.info.err = err.message;
                     }
                 });
             }
-        };
+        }
 
     }
 
