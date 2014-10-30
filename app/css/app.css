@@ -3,6 +3,10 @@ body {
     background-color: #eee;
 }
 
+.navbar-brand>img {
+    display: inline;
+}
+
 .logo {
     width: 32px;
     height: 32px;
