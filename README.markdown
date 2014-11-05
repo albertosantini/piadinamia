@@ -4,10 +4,8 @@ PIADINAMIA
 Piadinamia is a social shopping cart app based on [AngularJS](https://angularjs.org/)
 and [Firebase](https://www.firebase.com/).
 
-On mobile side I have been considering the following approach:
-- [trigger.io](https://trigger.io/)
-- [ionic](http://ionicframework.com/)
-- [Ratchet](http://goratchet.com/)
+For the user interface I have been considering the following approach:
+- [Material design for Angular](https://github.com/angular/material)
 
 Requirements
 ------------
@@ -149,4 +147,4 @@ Installation
 
     $ node server.js
 
-Tested locally with node 0.10.x with Firebase 1.1.x and AngularFire 0.8.x.
+Tested locally with node 0.10.x, Firebase 1.1.x and AngularFire 0.8.x.
