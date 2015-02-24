@@ -20,6 +20,6 @@
         "node": ">=0.10.x"
     },
     "dependencies": {
-        "express": "~4.8.4"
+        "express": "~4.12.0"
     }
 }
