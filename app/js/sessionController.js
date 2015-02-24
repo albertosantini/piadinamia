@@ -69,6 +69,7 @@
         });
 
         function logout() {
+            vm.info = null;
             sessionService.logout("/signin");
         }
 
@@ -79,7 +80,7 @@
             sessionService.login(vm.info.email, vm.info.pass, "/",
                 function (err, user) {
                     vm.info.err = err && err.message || null;
-                    if (typeof(callback) === "function") {
+                    if (typeof (callback) === "function") {
                         callback(err, user);
                     }
                     vm.info.isLogging = false;
