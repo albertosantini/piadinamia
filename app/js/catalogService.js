@@ -5,9 +5,9 @@
         .module("piadinamia")
         .factory("catalogService", catalogService);
 
-    catalogService.$inject = ["$firebase", "Firebase", "FBURL", "$q"];
+    catalogService.$inject = ["$firebaseObject", "Firebase", "FBURL", "$q"];
 
-    function catalogService($firebase, Firebase, FBURL, $q) {
+    function catalogService($firebaseObject, Firebase, FBURL, $q) {
         var service = {
             load: load,
             search: search,
@@ -38,7 +38,7 @@
 
         function load(id, callback) {
             var ref = new Firebase(FBURL + "/users/" + id + "/catalogs"),
-                catsSync = $firebase(ref).$asObject(),
+                catsSync = $firebaseObject(ref),
                 defaultCatName = {
                     name: "piadinamia"
                 },

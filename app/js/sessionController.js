@@ -11,13 +11,13 @@
         "cartService",
         "sharedCartService",
         "$location",
-        "$firebase",
+        "$firebaseObject",
         "Firebase",
         "FBURL"
     ];
 
     function SessionCtrl(sessionService, catalogService, cartService,
-        sharedCartService, $location, $firebase, Firebase, FBURL) {
+        sharedCartService, $location, $firebaseObject, Firebase, FBURL) {
         var vm = this,
             dataRef = new Firebase(FBURL);
 
@@ -36,7 +36,6 @@
         dataRef.onAuth(function (authData) {
             var userId,
                 ref,
-                sync,
                 userSync;
 
             if (!authData) {
@@ -46,8 +45,7 @@
             userId = authData.uid.split(":")[1];
 
             ref = new Firebase(FBURL + "/users/" + userId);
-            sync = $firebase(ref);
-            userSync = sync.$asObject();
+            userSync = $firebaseObject(ref);
 
             $location.path("/");
 

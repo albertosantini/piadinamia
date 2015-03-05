@@ -5,9 +5,9 @@
         .module("piadinamia")
         .factory("sharedCartService", sharedCartService);
 
-    sharedCartService.$inject = ["$firebase", "Firebase", "FBURL"];
+    sharedCartService.$inject = ["$firebaseArray", "Firebase", "FBURL"];
 
-    function sharedCartService($firebase, Firebase, FBURL) {
+    function sharedCartService($firebaseArray, Firebase, FBURL) {
         var mySubscribers = [],
             cartByUser = {},
             cartByItem = {},
@@ -59,7 +59,7 @@
             mySubscribers.forEach(function (user) {
                 var ref = new Firebase(FBURL + "/users/" + user.id +
                             "/catalogs/" + catalogName + "/cart"),
-                    cartSync = $firebase(ref).$asArray();
+                    cartSync = $firebaseArray(ref);
 
                 cartSync.$watch(function () {
                     cartSync.$loaded().then(function () {
@@ -73,7 +73,7 @@
         function init(userId, catalogName) {
             var ref = new Firebase(FBURL + "/users/" + userId +
                         "/catalogs/" + catalogName + "/subscribers"),
-                subscribersSync = $firebase(ref).$asArray();
+                subscribersSync = $firebaseArray(ref);
 
             mySubscribers = subscribersSync;
 

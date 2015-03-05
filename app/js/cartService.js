@@ -5,9 +5,9 @@
         .module("piadinamia")
         .factory("cartService", cartService);
 
-    cartService.$inject = ["$firebase", "Firebase", "FBURL"];
+    cartService.$inject = ["$firebaseArray", "Firebase", "FBURL"];
 
-    function cartService($firebase, Firebase, FBURL) {
+    function cartService($firebaseArray, Firebase, FBURL) {
         var myCart = [],
             service = {
                 init: init,
@@ -24,7 +24,7 @@
         function init(userId, catalogName) {
             var ref = new Firebase(FBURL + "/users/" + userId +
                         "/catalogs/" + catalogName + "/cart"),
-                cartSync = $firebase(ref).$asArray();
+                cartSync = $firebaseArray(ref);
 
             myCart = cartSync;
 
