@@ -8,8 +8,7 @@
     sharedCartService.$inject = ["$firebaseArray", "Firebase", "FBURL"];
 
     function sharedCartService($firebaseArray, Firebase, FBURL) {
-        var mySubscribers = [],
-            cartByUser = {},
+        var cartByUser = {},
             cartByItem = {},
             service = {
                 init: init,
@@ -55,15 +54,15 @@
             });
         }
 
-        function subscribeCarts(catalogName) {
-            mySubscribers.forEach(function (user) {
+        function subscribeCarts(catalogName, subscribers) {
+            subscribers.forEach(function (user) {
                 var ref = new Firebase(FBURL + "/users/" + user.id +
                             "/catalogs/" + catalogName + "/cart"),
                     cartSync = $firebaseArray(ref);
 
                 cartSync.$watch(function () {
-                    cartSync.$loaded().then(function () {
-                        calcCartByUser(user, cartSync);
+                    cartSync.$loaded().then(function (cart) {
+                        calcCartByUser(user, cart);
                         calcCartByItem();
                     });
                 });
@@ -75,11 +74,8 @@
                         "/catalogs/" + catalogName + "/subscribers"),
                 subscribersSync = $firebaseArray(ref);
 
-            mySubscribers = subscribersSync;
-
-            subscribersSync.$loaded().then(function () {
-                mySubscribers = subscribersSync;
-                subscribeCarts(catalogName);
+            subscribersSync.$loaded().then(function (subscribers) {
+                subscribeCarts(catalogName, subscribers);
             });
         }
 
