@@ -1,6 +1,7 @@
 "use strict";
 
-var path = require("path"),
+var util = require("util"),
+    path = require("path"),
     express = require("express");
 
 var app = express(),
@@ -10,6 +11,6 @@ var app = express(),
 app.use(express.static(pubdir));
 
 app.listen(port, function () {
-    console.log("piadinamia listening on port %s", port);
-    console.log("static folder %s", pubdir);
+    util.log("piadinamia listening on http://localhost:%s", port);
+    util.log("piadinamia static folder %s", pubdir);
 });
