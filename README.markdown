@@ -147,4 +147,4 @@ Installation
 
     $ node server.js
 
-Tested locally with node 0.10.x, Firebase 1.1.x and AngularFire 0.8.x.
+Tested locally with iojs 2.x, Firebase 2.2.x and AngularFire 1.1.x.
