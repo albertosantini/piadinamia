@@ -143,8 +143,10 @@ Installation
     $ cd piadinamia
     $ npm install
 
-    Edit `FBURL` constant in `app/js/app.js`.
+    Edit `FBURL` constant in `app/js/app.js` and don't forget firebase tools.
 
-    $ node server.js
+    $ npm install -g firebase-tools
 
-Tested locally with iojs 2.x, Firebase 2.2.x and AngularFire 1.1.x.
+    $ firebase serve
+
+Tested locally with Node.js 4.2.x, Firebase 2.3.x and AngularFire 1.1.x.
