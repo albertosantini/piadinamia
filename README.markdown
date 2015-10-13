@@ -133,6 +133,7 @@ Reference
 - [Denormalizing Your Data is Normal](https://www.firebase.com/blog/2013-04-12-denormalizing-is-normal.html).
 - [Firesafe](https://github.com/tomlarkworthy/firesafe).
 - [Blazer](https://github.com/firebase/blaze_compiler).
+- [Bolt](https://github.com/firebase/bolt).
 
 I have been following [Papa's AngularJS style guide](https://github.com/johnpapa/angularjs-styleguide).
 
