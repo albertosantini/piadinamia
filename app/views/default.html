@@ -30,7 +30,7 @@
                 <input type="text" class="form-control input-lg"
                     ng-model="catalogSelected"
                     placeholder="Type a catalog"
-                    typeahead="cat for cat in session.master.search($viewValue) | limitTo:10"
+                    uib-typeahead="cat for cat in session.master.search($viewValue) | limitTo:10"
                     typeahead-on-select="session.master.onSelect($item, $model, $label)"
                     typeahead-wait-ms="100"
                     typeahead-loading="loadingCatalogs">
