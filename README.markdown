@@ -150,4 +150,7 @@ Installation
 
     $ firebase serve
 
-Tested locally with Node.js 4.2.x, Firebase 2.3.x and AngularFire 1.1.x.
+Tested locally with Node.js 5.x, Firebase 2.3.x and AngularFire 1.1.x.
+
+You may use a simple web server to test locally the app:
+`python -m SimpleHTTPServer 8000`
