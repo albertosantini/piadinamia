@@ -1,6 +1,6 @@
-(function () {
-    "use strict";
+"use strict";
 
+(function () {
     angular
         .module("piadinamia")
         .factory("sessionService", sessionService);
@@ -46,9 +46,9 @@
                 "password": pass
             }, function (err) {
                 if (!err) {
-                    service.login(email, pass, "/", function (err, authData) {
+                    service.login(email, pass, "/", function (err2, authData) {
                         var userId = authData.uid.split(":")[1];
-                        if (!err) {
+                        if (!err2) {
                             createProfile(userId, name, email);
                         }
                     });

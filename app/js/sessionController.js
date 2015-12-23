@@ -1,6 +1,6 @@
-(function () {
-    "use strict";
+"use strict";
 
+(function () {
     angular
         .module("piadinamia")
         .controller("SessionCtrl", SessionCtrl);
@@ -96,10 +96,10 @@
                 sessionService.createAccount(vm.info.name,
                     vm.info.email, vm.info.pass,
                     function (err) {
-                    if (err) {
-                        vm.info.err = err.message;
-                    }
-                });
+                        if (err) {
+                            vm.info.err = err.message;
+                        }
+                    });
             }
         }
 

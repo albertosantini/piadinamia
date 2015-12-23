@@ -1,0 +1,17 @@
+root: true
+
+env:
+    node: true
+
+extends: "eslint"
+
+rules:
+    callback-return: 0
+    new-cap: [2, {capIsNew: false}]
+    no-use-before-define: [2, "nofunc"]
+    require-jsdoc: 0
+    space-before-function-paren: [2, {"anonymous": "always", "named": "never"}]
+    spaced-comment: [0, "always", { exceptions: ["-"]}]
+
+globals:
+    angular: false
