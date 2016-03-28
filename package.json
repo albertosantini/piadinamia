@@ -3,8 +3,10 @@
     "version": "2.0.0",
     "description": "Shopping cart app",
     "scripts": {
+        "start": "firebase serve",
         "test": "npm run lint",
-        "lint": "eslint app/**/*.js"
+        "lint": "eslint app/**/*.js",
+        "deploy": "firebase deploy"
     },
     "repository": {
         "type": "git",
@@ -22,6 +24,7 @@
     "devDependencies": {
         "eslint": "^2.5.1",
         "eslint-config-eslint": "~3.0.0",
-        "eslint-plugin-angular": "~1.0.0"
+        "eslint-plugin-angular": "~1.0.0",
+        "firebase-tools": "~2.2.1"
     }
 }
