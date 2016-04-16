@@ -22,7 +22,7 @@
         "node": ">=0.10.x"
     },
     "devDependencies": {
-        "eslint": "^2.5.1",
+        "eslint": "^2.8.0",
         "eslint-config-eslint": "~3.0.0",
         "eslint-plugin-angular": "~1.0.0",
         "firebase-tools": "~2.2.1"
