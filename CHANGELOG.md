@@ -1,3 +1,8 @@
+3.0.0 / upcoming (2016-05-22)
+==================
+
+* Completely rewritten for Firebase 3.x, without using routing.
+
 2.0.0 / 2014-05-02
 ==================
 

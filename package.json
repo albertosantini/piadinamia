@@ -1,11 +1,11 @@
 {
     "name": "piadinamia",
-    "version": "2.0.0",
+    "version": "3.0.0",
     "description": "Shopping cart app",
     "scripts": {
         "start": "firebase serve",
         "test": "npm run lint",
-        "lint": "eslint app/**/*.js",
+        "lint": "eslint src/**/*.js",
         "deploy": "firebase deploy"
     },
     "repository": {
@@ -19,12 +19,12 @@
     "author": "Alberto Santini",
     "license": "MIT",
     "engines": {
-        "node": ">=0.10.x"
+        "node": ">=4.x"
     },
     "devDependencies": {
-        "eslint": "^2.8.0",
+        "eslint": "^2.10.2",
         "eslint-config-eslint": "~3.0.0",
-        "eslint-plugin-angular": "~1.0.0",
-        "firebase-tools": "~2.2.1"
+        "eslint-plugin-angular": "~1.0.1",
+        "firebase-tools": "~3.0.0"
     }
 }

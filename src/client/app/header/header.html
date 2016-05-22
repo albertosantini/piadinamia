@@ -1,0 +1,43 @@
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+
+        <div class="navbar-header">
+
+            <a class="navbar-brand" href="#/">
+                <img class="logo" src="img/piadinamia.png"> Piadina Mia
+            </a>
+        </div>
+
+        <ul class="nav navbar-nav navbar-right" ng-hide="session.info.name">
+            <li><a href="/signup">
+                <i class="fa fa-user"></i>
+                <i class="fa fa-plus-square fa-fw"></i>Sign up
+            </a></li>
+            <li><a href="/signin">
+                <i class="fa"
+                    ng-class="session.info.isLogging ? 'fa-spinner fa-spin' : 'fa-sign-in'">
+                </i>
+                Sign in
+            </a></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right ng-hide" ng-show="session.info.name">
+            <li class="dropdown" uib-dropdown>
+
+                <a href class="uib-dropdown-toggle" uib-dropdown-toggle>
+                    <i class="fa fa-user fa-fw"></i>{{ session.info.name }}
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <a href="" ng-click="session.logout()">
+                            <i class="fa fa-sign-in fa-fw"></i>Sign out
+                        </a>
+                    </li>
+                </ul>
+
+            </li>
+        </ul>
+
+    </div>
+</div>

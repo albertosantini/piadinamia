@@ -1,5 +1,13 @@
 {
-    "firebase": "piadinamia",
-    "public": "app",
-    "rules": "config/security-rules.json"
+    "hosting": {
+        "public": "src/client",
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ]
+    },
+    "database": {
+        "rules": "src/server/database.rules.json"
+    }
 }

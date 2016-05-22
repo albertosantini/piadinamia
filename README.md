@@ -2,12 +2,10 @@ PIADINAMIA
 ==========
 [![Build Status](https://travis-ci.org/albertosantini/piadinamia.png)](https://travis-ci.org/albertosantini/piadinamia)
 
+## Working in progress for porting to Firebase 3.x.
 
 Piadinamia is a social shopping cart app based on [AngularJS](https://angularjs.org/)
 and [Firebase](https://www.firebase.com/).
-
-For the user interface I have been considering the following approach:
-- [Material design for Angular](https://github.com/angular/material)
 
 Requirements
 ------------
@@ -139,6 +137,9 @@ Reference
 
 I have been following [Papa's AngularJS style guide](https://github.com/johnpapa/angularjs-styleguide).
 
+For the user interface I have been considering the following approach:
+- [Material design for Angular](https://github.com/angular/material)
+
 Installation
 ============
 
@@ -146,13 +147,8 @@ Installation
     $ cd piadinamia
     $ npm install
 
-    Edit `FBURL` constant in `app/js/app.js` and don't forget firebase tools.
+    Edit firebase config in `src/client/app/app.core.js`.
 
-    $ npm install -g firebase-tools
+    $ npm start
 
-    $ firebase serve
-
-Tested locally with Node.js 5.x, Firebase 2.3.x and AngularFire 1.1.x.
-
-You may use a simple web server to test locally the app:
-`python -m SimpleHTTPServer 8000`
+Tested locally with Node.js 6.x and Firebase 3.x.
