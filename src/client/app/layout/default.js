@@ -20,12 +20,7 @@
         var vm = this,
             authRef = firebase.auth();
 
-        vm.signup = signup;
         vm.user = userService;
-
-        function signup() {
-            userService.signup();
-        }
 
         authRef.onAuthStateChanged(function (authData) {
             var userId,

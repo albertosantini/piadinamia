@@ -5,41 +5,9 @@
 
 <section class="container">
 
-<div class="jumbotron" ng-hide="$ctrl.user.info.name || $ctrl.user.isSigningIn || $ctrl.user.isSigningUp">
-    <h1>Social shopping cart</h1>
+<jumbo ng-hide="$ctrl.user.info.name || $ctrl.user.isSigningIn || $ctrl.user.isSigningUp"></jumbo>
 
-    <p class="lead">
-        Create your catalog and share the carts between your friends.
-    </p>
-
-    <p>
-        <a class="btn btn-lg btn-success" href ng-click="$ctrl.signup()" role="button">
-            Sign up today
-        </a>
-    </p>
-
-    <div class="row marketing">
-        <div class="col-lg-6">
-            <h4>Grocery list</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-            <h4>Take-away order</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-        </div>
-
-        <div class="col-lg-6">
-            <h4>Supermarket cart</h4>
-            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-            <h4>Hardware list</h4>
-            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-        </div>
-    </div>
-</div>
-
-<h1 ng-show="$ctrl.user.info.name">
-    Welcome back {{ $ctrl.user.info.name }}!
-</h1>
+<welcome ng-show="$ctrl.user.info.name"></welcome>
 
 <div ng-show="$ctrl.user.info.name && $ctrl.catalog">
 
@@ -51,7 +19,6 @@
                     <i class="fa fa-search fa-lg"></i>
                 </span>
 
-                <!-- ng-options="item as item.name for item in items" -->
                 <input type="text" class="form-control input-lg"
                     ng-model="catalogSelected"
                     placeholder="Type a catalog"
