@@ -1,0 +1,22 @@
+<div class="row">
+
+    <form class="form-signin ng-pristine ng-valid">
+        <h2 class="form-signin-heading">Please sign up</h2>
+        <input type="text" class="form-control" ng-model="session.info.name"
+            placeholder="Full name" required autofocus>
+        <input type="text" class="form-control" ng-model="session.info.email"
+            placeholder="Email address" required>
+        <input type="password" class="form-control" ng-model="session.info.pass"
+            placeholder="Password" required>
+
+        <button class="btn btn-lg btn-primary btn-block btn-success"
+            type="submit" ng-click="session.createAccount()">
+            Sign up
+        </button>
+
+        <div ng-show="session.info.err" class="alert alert-danger text-center">
+            <strong>{{session.info.err}}</strong>
+        </div>
+    </form>
+
+</div>

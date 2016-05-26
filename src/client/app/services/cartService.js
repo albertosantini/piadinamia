@@ -22,14 +22,15 @@
         return service;
 
         function init(userId, catalogName) {
-            var ref = firebase.database().ref("/users/" + userId +
-                        "/catalogs/" + catalogName + "/cart"),
-                cartSync = ref;
+            var cartRef = firebase.database().ref("/users/" + userId +
+                        "/catalogs/" + catalogName + "/cart");
 
-            myCart = cartSync;
+            cartRef.once("value").then(function (snapshot) {
+                var cart = snapshot.val();
 
-            cartSync.$loaded().then(function () {
-                myCart = cartSync;
+                Object.keys(cart).forEach(function (item) {
+                    myCart.push(cart[item]);
+                });
             });
         }
 

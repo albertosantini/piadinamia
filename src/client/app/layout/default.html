@@ -1,7 +1,11 @@
 <header></header>
 
+<signin ng-show="$ctrl.user.isSigningIn"></signin>
+<signup ng-show="$ctrl.user.isSigningUp"></signup>
 
-<div class="jumbotron" ng-hide="session.info.name">
+<section class="container">
+
+<div class="jumbotron" ng-hide="$ctrl.user.info.name || $ctrl.user.isSigningIn || $ctrl.user.isSigningUp">
     <h1>Social shopping cart</h1>
 
     <p class="lead">
@@ -9,17 +13,35 @@
     </p>
 
     <p>
-        <a class="btn btn-lg btn-success" href="#/signup" role="button">
+        <a class="btn btn-lg btn-success" href ng-click="$ctrl.signup()" role="button">
             Sign up today
         </a>
     </p>
+
+    <div class="row marketing">
+        <div class="col-lg-6">
+            <h4>Grocery list</h4>
+            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+            <h4>Take-away order</h4>
+            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+        </div>
+
+        <div class="col-lg-6">
+            <h4>Supermarket cart</h4>
+            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+            <h4>Hardware list</h4>
+            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+        </div>
+    </div>
 </div>
 
-<h1 ng-show="session.info.name">
-    Welcome back {{ session.info.name }}!
+<h1 ng-show="$ctrl.user.info.name">
+    Welcome back {{ $ctrl.user.info.name }}!
 </h1>
 
-<div ng-show="session.info.name && session.catalog">
+<div ng-show="$ctrl.user.info.name && $ctrl.catalog">
 
     <div class="row">
 
@@ -33,8 +55,8 @@
                 <input type="text" class="form-control input-lg"
                     ng-model="catalogSelected"
                     placeholder="Type a catalog"
-                    uib-typeahead="cat for cat in session.master.search($viewValue) | limitTo:10"
-                    typeahead-on-select="session.master.onSelect($item, $model, $label)"
+                    uib-typeahead="cat for cat in $ctrl.master.search($viewValue) | limitTo:10"
+                    typeahead-on-select="$ctrl.master.onSelect($item, $model, $label)"
                     typeahead-wait-ms="100"
                     typeahead-loading="loadingCatalogs">
 
@@ -51,7 +73,7 @@
             <div class="panel panel-default">
 
                 <div class="panel-heading">
-                    My Catalog <strong>{{session.catalog.description}}</strong>
+                    My Catalog <strong>{{$ctrl.catalog.description}}</strong>
                     <i class="fa fa-pencil pull-right"></i>
                 </div>
 
@@ -64,9 +86,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-show="session.catalog" ng-repeat="(item, price) in session.catalog.items">
+                        <tr ng-show="$ctrl.catalog" ng-repeat="(item, price) in $ctrl.catalog.items">
                             <td>
-                                <a href="" ng-click="session.cart.addItem(item, price)">
+                                <a href="" ng-click="$ctrl.cart.addItem(item, price)">
                                     <i class="fa fa-plus"></i>
                                 </a>
                             </td>
@@ -87,7 +109,7 @@
                     <strong>My Cart</strong>
                 </div>
 
-                <table class="table table-condensed" ng-show="session.cart.getTotalCount()">
+                <table class="table table-condensed" ng-show="$ctrl.cart.getTotalCount()">
                     <thead>
                         <tr>
                             <th>Item</th>
@@ -99,21 +121,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="product in session.cart.getItems()">
+                        <tr ng-repeat="product in $ctrl.cart.getItems()">
                             <td>{{product.item}}</td>
                             <td class="text-right">{{product.price | currency: "&euro;"}}</td>
                             <td class="text-right">{{product.qty}}</td>
                             <td>
-                                <a href="" ng-click="session.cart.addItem(product.item, product.price)">
+                                <a href="" ng-click="$ctrl.cart.addItem(product.item, product.price)">
                                     <i class="fa fa-plus"></i>
                                 </a>
-                                <a href="" ng-click="session.cart.addItem(product.item, product.price, -1)">
+                                <a href="" ng-click="$ctrl.cart.addItem(product.item, product.price, -1)">
                                     <i class="fa fa-minus"></i>
                                 </a>
                             </td>
                             <td class="text-right">{{product.total | currency: "&euro;"}}</td>
                             <td>
-                                <a href="" ng-click="session.cart.clearItem($index)">
+                                <a href="" ng-click="$ctrl.cart.clearItem($index)">
                                     <i class="fa fa-minus"></i>
                                 </a>
                             </td>
@@ -123,10 +145,10 @@
 
                 <div class="panel-footer text-right">
                     <span class="label label-info">Total quantity</span>
-                    <span class="badge">{{session.cart.getTotalCount()}}</span>
+                    <span class="badge">{{$ctrl.cart.getTotalCount()}}</span>
 
                     <span class="label label-info">Total order</span>
-                    <span class="badge">{{session.cart.getTotalPrice() | currency: "&euro;"}}</span>
+                    <span class="badge">{{$ctrl.cart.getTotalPrice() | currency: "&euro;"}}</span>
                 </div>
 
             </div>
@@ -151,7 +173,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="(item, itemCart) in session.sharedCart.getCartByItem()">
+                        <tr ng-repeat="(item, itemCart) in $ctrl.sharedCart.getCartByItem()">
                             <td>{{item}}</td>
                             <td>{{itemCart.total}}</td>
                         </tr>
@@ -161,10 +183,10 @@
 
         </div>
 
-        <div class="col-lg-6" ng-show="session.sharedCart">
+        <div class="col-lg-6" ng-show="$ctrl.sharedCart">
 
             <div class="panel panel-default"
-                ng-repeat="(userId, userCart) in session.sharedCart.getCartByUser()">
+                ng-repeat="(userId, userCart) in $ctrl.sharedCart.getCartByUser()">
                 <div class="panel-heading">
                     <strong>Shared Cart by {{userCart.name}}</strong>
                     <span class="badge pull-right">
@@ -193,20 +215,4 @@
 
 </div>
 
-<div class="row marketing" ng-hide="session.info.name">
-    <div class="col-lg-6">
-        <h4>Grocery list</h4>
-        <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-        <h4>Take-away order</h4>
-        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-    </div>
-
-    <div class="col-lg-6">
-        <h4>Supermarket cart</h4>
-        <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-        <h4>Hardware list</h4>
-        <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-    </div>
-</div>
+</section>

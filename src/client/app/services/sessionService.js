@@ -5,9 +5,9 @@
         .module("piadinamia")
         .factory("sessionService", sessionService);
 
-    sessionService.$inject = ["$location"];
+    sessionService.$inject = [];
 
-    function sessionService($location) {
+    function sessionService() {
         var authRef = firebase.auth(),
             service = {
                 login: login,
@@ -17,13 +17,9 @@
 
         return service;
 
-        function login(email, pass, redirect, callback) {
+        function login(email, pass, callback) {
             authRef.signInWithEmailAndPassword(email, pass)
                 .then(function (authData) {
-                    if (redirect) {
-                        $location.path(redirect);
-                    }
-
                     if (callback) {
                         callback(null, authData);
                     }
@@ -33,12 +29,8 @@
                 });
         }
 
-        function logout(redirectPath) {
+        function logout() {
             authRef.signOut();
-
-            if (redirectPath) {
-                $location.path(redirectPath);
-            }
         }
 
         function createAccount(name, email, pass, callback) {

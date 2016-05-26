@@ -56,25 +56,24 @@
 
         function subscribeCarts(catalogName, subscribers) {
             subscribers.forEach(function (user) {
-                var ref = firebase.database().ref("/users/" + user.id +
-                            "/catalogs/" + catalogName + "/cart"),
-                    cartSync = ref;
+                var cartRef = firebase.database().ref("/users/" + user.id +
+                            "/catalogs/" + catalogName + "/cart");
 
-                cartSync.$watch(function () {
-                    cartSync.$loaded().then(function (cart) {
-                        calcCartByUser(user, cart);
-                        calcCartByItem();
-                    });
+                cartRef.once("value").then(function (snapshot) {
+                    var cart = snapshot.val();
+                    calcCartByUser(user, cart);
+                    calcCartByItem();
                 });
             });
         }
 
         function init(userId, catalogName) {
-            var ref = firebase.database().ref("/users/" + userId +
-                        "/catalogs/" + catalogName + "/subscribers"),
-                subscribersSync = ref;
+            var subscribersRef = firebase.database().ref("/users/" + userId +
+                        "/catalogs/" + catalogName + "/subscribers");
 
-            subscribersSync.$loaded().then(function (subscribers) {
+            subscribersRef.once("value").then(function (snapshot) {
+                var subscribers = snapshot.val();
+
                 subscribeCarts(catalogName, subscribers);
             });
         }

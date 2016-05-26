@@ -70,7 +70,7 @@
                     ]
                 };
 
-            catsRef.on("value").then(function (snapshot) {
+            catsRef.once("value").then(function (snapshot) {
                 var cats = snapshot.val();
 
                 if (cats.$value === "" || cats.$value === null) {
