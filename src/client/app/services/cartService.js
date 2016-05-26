@@ -28,6 +28,7 @@
             cartRef.once("value").then(function (snapshot) {
                 var cart = snapshot.val();
 
+                myCart.length = 0;
                 Object.keys(cart).forEach(function (item) {
                     myCart.push(cart[item]);
                 });
