@@ -17,19 +17,22 @@
                 getTotalPrice: getTotalPrice,
                 addItem: addItem,
                 clearItem: clearItem
-            };
+            },
+            cartUrl,
+            cartRef;
 
         return service;
 
         function init(userId, catalogName) {
-            var cartRef = firebase.database().ref("/users/" + userId +
-                        "/catalogs/" + catalogName + "/cart");
+            cartUrl = "/users/" + userId + "/catalogs/" + catalogName + "/cart";
+            cartRef = firebase.database().ref(cartUrl);
 
             cartRef.once("value").then(function (snapshot) {
                 var cart = snapshot.val();
 
                 myCart.length = 0;
                 Object.keys(cart).forEach(function (item) {
+                    cart[item].$id = item;
                     myCart.push(cart[item]);
                 });
             });
@@ -40,7 +43,11 @@
         }
 
         function saveItem(index) {
-            myCart.$save(index);
+            var itemRef = cartRef.child(myCart[index].$id),
+                newData = angular.copy(myCart[index]);
+
+            delete newData.$id;
+            itemRef.update(newData);
         }
 
         function getTotalCount() {
@@ -64,7 +71,10 @@
         }
 
         function addItem(item, price, qty) {
-            var found = false;
+            var found = false,
+                newItem,
+                newItemKey,
+                newItemRef;
 
             qty = qty || 1;
 
@@ -90,17 +100,26 @@
             });
 
             if (!found) {
-                myCart.$add({
+                newItem = {
                     item: item,
                     price: price,
                     qty: 1,
                     total: price
-                });
+                };
+                newItemKey = cartRef.push().key;
+                newItemRef = cartRef.child(newItemKey);
+
+                newItemRef.update(newItem);
+                newItem.$id = newItemKey;
+                myCart.push(newItem);
             }
         }
 
         function clearItem(index) {
-            myCart.$remove(index);
+            var itemRef = cartRef.child(myCart[index].$id);
+
+            itemRef.remove();
+            myCart.splice(index, 1);
         }
     }
 
