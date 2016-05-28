@@ -12,7 +12,6 @@
         var service = {
             isSigningUp: false,
             isSigningIn: false,
-            isLogged: false,
             info: {
                 name: "",
                 email: "",
@@ -49,7 +48,6 @@
                 sessionService.login(service.info.email, service.info.pass,
                     function (err) {
                         if (!err) {
-                            service.isLogged = true;
                             service.home();
                         } else {
                             service.info.err = err.message;
@@ -65,8 +63,6 @@
                 pass: "",
                 err: ""
             };
-
-            service.isLogged = false;
 
             sessionService.logout();
         }

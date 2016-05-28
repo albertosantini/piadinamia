@@ -3,37 +3,49 @@
 (function () {
     angular
         .module("piadinamia")
-        .factory("cartService", cartService);
+        .component("cart", {
+            controller: Cart,
+            templateUrl: "app/cart/cart.html"
+        });
 
-    cartService.$inject = [];
+    Cart.$inject = ["$scope", "sessionService"];
 
-    function cartService() {
-        var myCart = [],
-            service = {
-                init: init,
-                getItems: getItems,
-                saveItem: saveItem,
-                getTotalCount: getTotalCount,
-                getTotalPrice: getTotalPrice,
-                addItem: addItem,
-                clearItem: clearItem
-            },
+    function Cart($scope, sessionService) {
+        var vm = this,
             cartUrl,
-            cartRef;
+            cartRef,
+            myCart = [];
 
-        return service;
+        vm.getItems = getItems;
+        vm.saveItem = saveItem;
+        vm.getTotalCount = getTotalCount;
+        vm.getTotalPrice = getTotalPrice;
+        vm.addItem = addItem;
+        vm.clearItem = clearItem;
 
-        function init(userId, catalogName) {
-            cartUrl = "/users/" + userId + "/catalogs/" + catalogName + "/cart";
-            cartRef = firebase.database().ref(cartUrl);
+        sessionService.isLogged().then(activate);
 
-            cartRef.once("value").then(function (snapshot) {
-                var cart = snapshot.val();
+        function activate(userId) {
+            var catalogNameRef = firebase.database().ref("/users/" +
+                    userId + "/catalogs/default/name");
 
-                myCart.length = 0;
-                Object.keys(cart).forEach(function (item) {
-                    cart[item].$id = item;
-                    myCart.push(cart[item]);
+            catalogNameRef.once("value").then(function (catalogNameSnapshot) {
+                var catalogName = catalogNameSnapshot.val();
+
+                cartUrl = "/users/" + userId + "/catalogs/" +
+                    catalogName + "/cart";
+                cartRef = firebase.database().ref(cartUrl);
+                cartRef.on("value", function (snapshot) {
+                    var cart = snapshot.val(),
+                        items = [];
+
+                    Object.keys(cart).forEach(function (item) {
+                        cart[item].$id = item;
+                        items.push(cart[item]);
+                    });
+
+                    angular.extend(myCart, items);
+                    $scope.$apply();
                 });
             });
         }
@@ -87,10 +99,10 @@
                     cart.qty += qty;
 
                     if (cart.qty === 0) {
-                        service.clearItem(index);
+                        vm.clearItem(index);
                     } else {
                         cart.total = cart.price * cart.qty;
-                        service.saveItem(index);
+                        vm.saveItem(index);
                     }
 
                     return false;

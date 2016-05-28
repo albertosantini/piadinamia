@@ -1,0 +1,29 @@
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        My Catalog <strong>{{$ctrl.catalog.description}}</strong>
+        <i class="fa fa-pencil pull-right"></i>
+    </div>
+
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Price</th>
+                <th>Item</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-show="$ctrl.catalog" ng-repeat="(item, price) in $ctrl.catalog.items">
+                <td>
+                    <a href="" ng-click="$ctrl.cart.addItem(item, price)">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </td>
+                <td>{{price | currency: "&euro;"}}</td>
+                <td title="{{item}}"> {{item}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

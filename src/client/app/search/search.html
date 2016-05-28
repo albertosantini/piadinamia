@@ -1,0 +1,19 @@
+<div class="form-group">
+    <div class="input-group">
+        <span class="input-group-addon">
+            <i class="fa fa-search fa-lg"></i>
+        </span>
+
+        <input type="text" class="form-control input-lg"
+            ng-model="catalogSelected"
+            placeholder="Type a catalog"
+            uib-typeahead="cat for cat in $ctrl.search($viewValue) | limitTo:10"
+            typeahead-on-select="$ctrl.onSelect($item, $model, $label)"
+            typeahead-wait-ms="100"
+            typeahead-loading="loadingCatalogs">
+
+        <span ng-show="loadingCatalogs" class="input-group-addon">
+            <i class="fa fa-spinner fa-spin fa-lg"></i>
+        </span>
+    </div>
+</div>

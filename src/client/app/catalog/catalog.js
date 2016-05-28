@@ -3,40 +3,21 @@
 (function () {
     angular
         .module("piadinamia")
-        .factory("catalogService", catalogService);
+        .component("catalog", {
+            controller: Catalog,
+            templateUrl: "app/catalog/catalog.html"
+        });
 
-    catalogService.$inject = ["$q"];
+    Catalog.$inject = ["$scope", "$q", "sessionService"];
 
-    function catalogService($q) {
-        var service = {
-            load: load,
-            search: search,
-            onSelect: onSelect
-        };
+    function Catalog($scope, $q, sessionService) {
+        var vm = this;
 
-        return service;
+        vm.catalog = {};
 
-        function getMaster(query) {
-            var master = firebase.database().ref("master"),
-                deferred = $q.defer();
+        sessionService.isLogged().then(activate);
 
-            master
-                .startAt(null, query)
-                .endAt(null, query + "z")
-                .once("value", function (snapshot) {
-                    var val = snapshot.val();
-
-                    if (val) {
-                        deferred.resolve(val);
-                    } else {
-                        deferred.reject();
-                    }
-                });
-
-            return deferred.promise;
-        }
-
-        function load(id, callback) {
+        function activate(id) {
             var catsRef = firebase.database().ref("/users/" + id + "/catalogs"),
                 defaultCatName = {
                     name: "piadinamia"
@@ -78,29 +59,14 @@
                     cats.piadinamia = defaultCat;
 
                     cats.set().then(function () {
-                        callback(defaultCat, "piadinamia");
+                        angular.extend(vm.catalog, defaultCat);
                     });
                 } else {
-                    callback(cats[cats.default.name],
-                        cats.default.name);
+                    angular.extend(vm.catalog, cats[cats.default.name]);
                 }
+
+                $scope.$apply();
             });
-        }
-
-        function search(query) {
-            return getMaster(query).then(function (catalogs) {
-                var cats = [];
-
-                angular.forEach(catalogs, function (userId, description) {
-                    cats.push(description);
-                });
-
-                return cats;
-            });
-        }
-
-        function onSelect($item, $model, $label) {
-            console.log($item, $model, $label);
         }
 
     }

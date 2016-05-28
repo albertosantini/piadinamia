@@ -5,17 +5,35 @@
         .module("piadinamia")
         .factory("sessionService", sessionService);
 
-    sessionService.$inject = [];
+    sessionService.$inject = ["$q"];
 
-    function sessionService() {
-        var authRef = firebase.auth(),
+    function sessionService($q) {
+        var deferred = $q.defer(),
+            authRef = firebase.auth(),
             service = {
+                isLogged: isLogged,
                 login: login,
                 logout: logout,
                 createAccount: createAccount
             };
 
+        authRef.onAuthStateChanged(function (authData) {
+            var userId;
+
+            if (!authData) {
+                return;
+            }
+
+            userId = authData.uid.split(":")[1];
+
+            deferred.resolve(userId);
+        });
+
         return service;
+
+        function isLogged() {
+            return deferred.promise;
+        }
 
         function login(email, pass, callback) {
             authRef.signInWithEmailAndPassword(email, pass)

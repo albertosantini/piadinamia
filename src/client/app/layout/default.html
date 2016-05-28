@@ -3,183 +3,29 @@
 <signin ng-show="$ctrl.user.isSigningIn"></signin>
 <signup ng-show="$ctrl.user.isSigningUp"></signup>
 
-<section class="container">
+<section class="container" ng-hide="$ctrl.user.isSigningIn || $ctrl.user.isSigningUp">
 
-<jumbo ng-hide="$ctrl.user.info.name || $ctrl.user.isSigningIn || $ctrl.user.isSigningUp"></jumbo>
+    <jumbo></jumbo>
 
-<welcome ng-show="$ctrl.user.info.name"></welcome>
-
-<div ng-show="$ctrl.user.info.name && $ctrl.catalog">
+    <welcome></welcome>
 
     <div class="row">
+        <search></search>
 
-        <div class="form-group">
-            <div class="input-group">
-                <span class="input-group-addon">
-                    <i class="fa fa-search fa-lg"></i>
-                </span>
+        <div class="row">
+            <div class="col-lg-6">
+                <catalog></catalog>
+            </div>
 
-                <input type="text" class="form-control input-lg"
-                    ng-model="catalogSelected"
-                    placeholder="Type a catalog"
-                    uib-typeahead="cat for cat in $ctrl.master.search($viewValue) | limitTo:10"
-                    typeahead-on-select="$ctrl.master.onSelect($item, $model, $label)"
-                    typeahead-wait-ms="100"
-                    typeahead-loading="loadingCatalogs">
-
-                <span ng-show="loadingCatalogs" class="input-group-addon">
-                    <i class="fa fa-spinner fa-spin fa-lg"></i>
-                </span>
+            <div class="col-lg-6">
+                <cart></cart>
             </div>
         </div>
 
-    </row>
-
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="panel panel-default">
-
-                <div class="panel-heading">
-                    My Catalog <strong>{{$ctrl.catalog.description}}</strong>
-                    <i class="fa fa-pencil pull-right"></i>
-                </div>
-
-                <table class="table table-condensed">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>Price</th>
-                            <th>Item</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-show="$ctrl.catalog" ng-repeat="(item, price) in $ctrl.catalog.items">
-                            <td>
-                                <a href="" ng-click="$ctrl.cart.addItem(item, price)">
-                                    <i class="fa fa-plus"></i>
-                                </a>
-                            </td>
-                            <td>{{price | currency: "&euro;"}}</td>
-                            <td title="{{item}}"> {{item}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-
-        </div>
-
-        <div class="col-lg-6">
-            <div class="panel panel-default">
-
-                <div class="panel-heading">
-                    <strong>My Cart</strong>
-                </div>
-
-                <table class="table table-condensed" ng-show="$ctrl.cart.getTotalCount()">
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th class="text-right">Price</th>
-                            <th class="text-right">Qty</th>
-                            <th></th>
-                            <th class="text-right">Total</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="product in $ctrl.cart.getItems()">
-                            <td>{{product.item}}</td>
-                            <td class="text-right">{{product.price | currency: "&euro;"}}</td>
-                            <td class="text-right">{{product.qty}}</td>
-                            <td>
-                                <a href="" ng-click="$ctrl.cart.addItem(product.item, product.price)">
-                                    <i class="fa fa-plus"></i>
-                                </a>
-                                <a href="" ng-click="$ctrl.cart.addItem(product.item, product.price, -1)">
-                                    <i class="fa fa-minus"></i>
-                                </a>
-                            </td>
-                            <td class="text-right">{{product.total | currency: "&euro;"}}</td>
-                            <td>
-                                <a href="" ng-click="$ctrl.cart.clearItem($index)">
-                                    <i class="fa fa-minus"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <div class="panel-footer text-right">
-                    <span class="label label-info">Total quantity</span>
-                    <span class="badge">{{$ctrl.cart.getTotalCount()}}</span>
-
-                    <span class="label label-info">Total order</span>
-                    <span class="badge">{{$ctrl.cart.getTotalPrice() | currency: "&euro;"}}</span>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-
-    <div class="row">
-
-        <div class="col-lg-6">
-
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <strong>Shared Cart by Item</strong>
-                </div>
-
-                <table class="table table-condensed">
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Quantity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="(item, itemCart) in $ctrl.sharedCart.getCartByItem()">
-                            <td>{{item}}</td>
-                            <td>{{itemCart.total}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-        </div>
-
-        <div class="col-lg-6" ng-show="$ctrl.sharedCart">
-
-            <div class="panel panel-default"
-                ng-repeat="(userId, userCart) in $ctrl.sharedCart.getCartByUser()">
-                <div class="panel-heading">
-                    <strong>Shared Cart by {{userCart.name}}</strong>
-                    <span class="badge pull-right">
-                        {{userCart.total | currency: "&euro;"}}
-                    </span>
-                </div>
-                <table class="table table-condensed">
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Quantity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="product in userCart.cart">
-                            <td>{{product.item}}</td>
-                            <td>{{product.qty}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
+        <div class="row">
+            <sharedcart></sharedcart>
         </div>
 
     </div>
-
-</div>
 
 </section>
