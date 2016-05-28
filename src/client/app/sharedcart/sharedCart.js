@@ -8,9 +8,9 @@
             templateUrl: "app/sharedcart/sharedCart.html"
         });
 
-    SharedCart.$inject = ["$scope", "sessionService"];
+    SharedCart.$inject = ["sessionService"];
 
-    function SharedCart($scope, sessionService) {
+    function SharedCart(sessionService) {
         var vm = this,
             cartByUser = {},
             cartByItem = {};
@@ -47,8 +47,6 @@
                     var cart = snapshot.val();
                     calcCartByUser(user, cart);
                     calcCartByItem();
-
-                    $scope.$apply();
                 });
             });
         }

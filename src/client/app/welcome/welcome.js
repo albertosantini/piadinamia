@@ -8,19 +8,18 @@
             templateUrl: "app/welcome/welcome.html"
         });
 
-    Welcome.$inject = ["$scope", "sessionService", "userService"];
-    function Welcome($scope, sessionService, userService) {
+    Welcome.$inject = ["$timeout", "sessionService", "userService"];
+    function Welcome($timeout, sessionService, userService) {
         var vm = this;
 
-        vm.name = "";
+        vm.info = userService.info;
 
         sessionService.isLogged().then(function (userId) {
-            var userRef = firebase.database().ref("/users/" + userId);
+            var userRef = firebase.database().ref("/users/" + userId + "/name");
             userRef.once("value").then(function (snapshot) {
-                vm.name = snapshot.val().name;
-                userService.info.name = vm.name;
-
-                $scope.$apply();
+                $timeout(function () {
+                    userService.info.name = snapshot.val();
+                });
             });
         });
     }

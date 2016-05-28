@@ -8,9 +8,9 @@
             templateUrl: "app/catalog/catalog.html"
         });
 
-    Catalog.$inject = ["$scope", "$q", "sessionService"];
+    Catalog.$inject = ["$timeout", "$q", "sessionService"];
 
-    function Catalog($scope, $q, sessionService) {
+    function Catalog($timeout, $q, sessionService) {
         var vm = this;
 
         vm.catalog = {};
@@ -52,20 +52,23 @@
                 };
 
             catsRef.once("value").then(function (snapshot) {
-                var cats = snapshot.val();
+                var cats = snapshot.val(),
+                    catalog;
 
                 if (cats.$value === "" || cats.$value === null) {
                     cats.default = defaultCatName;
                     cats.piadinamia = defaultCat;
 
                     cats.set().then(function () {
-                        angular.extend(vm.catalog, defaultCat);
+                        catalog = defaultCat;
                     });
                 } else {
-                    angular.extend(vm.catalog, cats[cats.default.name]);
+                    catalog = cats[cats.default.name];
                 }
 
-                $scope.$apply();
+                $timeout(function () {
+                    angular.extend(vm.catalog, catalog);
+                });
             });
         }
 

@@ -8,9 +8,9 @@
             templateUrl: "app/cart/cart.html"
         });
 
-    Cart.$inject = ["$scope", "sessionService"];
+    Cart.$inject = ["$timeout", "sessionService"];
 
-    function Cart($scope, sessionService) {
+    function Cart($timeout, sessionService) {
         var vm = this,
             cartUrl,
             cartRef,
@@ -44,8 +44,9 @@
                         items.push(cart[item]);
                     });
 
-                    angular.extend(myCart, items);
-                    $scope.$apply();
+                    $timeout(function () {
+                        angular.extend(myCart, items);
+                    });
                 });
             });
         }
