@@ -8,9 +8,9 @@
             templateUrl: "app/sharedcart/sharedCart.html"
         });
 
-    SharedCart.$inject = ["sessionService"];
+    SharedCart.$inject = ["$timeout", "sessionService"];
 
-    function SharedCart(sessionService) {
+    function SharedCart($timeout, sessionService) {
         var vm = this,
             cartByUser = {},
             cartByItem = {};
@@ -45,8 +45,11 @@
 
                 cartRef.on("value", function (snapshot) {
                     var cart = snapshot.val();
-                    calcCartByUser(user, cart);
-                    calcCartByItem();
+
+                    $timeout(function () {
+                        calcCartByUser(user, cart);
+                        calcCartByItem();
+                    });
                 });
             });
         }
