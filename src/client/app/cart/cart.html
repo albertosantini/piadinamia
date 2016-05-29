@@ -4,7 +4,7 @@
         <strong>My Cart</strong>
     </div>
 
-    <table class="table table-condensed" ng-show="$ctrl.getTotalCount()">
+    <table class="table table-condensed" ng-show="$ctrl.cart.getTotalCount()">
         <thead>
             <tr>
                 <th>Item</th>
@@ -16,21 +16,21 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="product in $ctrl.getItems()">
+            <tr ng-repeat="product in $ctrl.cart.getItems()">
                 <td>{{product.item}}</td>
                 <td class="text-right">{{product.price | currency: "&euro;"}}</td>
                 <td class="text-right">{{product.qty}}</td>
                 <td>
-                    <a href="" ng-click="$ctrl.addItem(product.item, product.price)">
+                    <a href="" ng-click="$ctrl.cart.addItem(product.item, product.price)">
                         <i class="fa fa-plus"></i>
                     </a>
-                    <a href="" ng-click="$ctrl.addItem(product.item, product.price, -1)">
+                    <a href="" ng-click="$ctrl.cart.addItem(product.item, product.price, -1)">
                         <i class="fa fa-minus"></i>
                     </a>
                 </td>
                 <td class="text-right">{{product.total | currency: "&euro;"}}</td>
                 <td>
-                    <a href="" ng-click="$ctrl.clearItem($index)">
+                    <a href="" ng-click="$ctrl.cart.clearItem($index)">
                         <i class="fa fa-minus"></i>
                     </a>
                 </td>
@@ -40,10 +40,10 @@
 
     <div class="panel-footer text-right">
         <span class="label label-info">Total quantity</span>
-        <span class="badge">{{$ctrl.getTotalCount()}}</span>
+        <span class="badge">{{$ctrl.cart.getTotalCount()}}</span>
 
         <span class="label label-info">Total order</span>
-        <span class="badge">{{$ctrl.getTotalPrice() | currency: "&euro;"}}</span>
+        <span class="badge">{{$ctrl.cart.getTotalPrice() | currency: "&euro;"}}</span>
     </div>
 
 </div>
