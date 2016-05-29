@@ -44,6 +44,7 @@
                     });
 
                     $timeout(function () {
+                        myCart.length = 0;
                         angular.extend(myCart, items);
                     });
                 });
