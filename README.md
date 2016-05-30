@@ -2,10 +2,11 @@ PIADINAMIA
 ==========
 [![Build Status](https://travis-ci.org/albertosantini/piadinamia.png)](https://travis-ci.org/albertosantini/piadinamia)
 
-## Working in progress for porting to Firebase 3.x.
-
 Piadinamia is a social shopping cart app based on [AngularJS](https://angularjs.org/)
 and [Firebase](https://www.firebase.com/).
+
+Register a user with fake credentials and signin in two different tabs or
+browsers to play with the app.
 
 Requirements
 ------------
@@ -131,14 +132,8 @@ Reference
 - [Angular login example](https://github.com/mrgamer/angular-login-example).
 - [AngularFire seed](https://github.com/firebase/angularFire-seed).
 - [Denormalizing Your Data is Normal](https://www.firebase.com/blog/2013-04-12-denormalizing-is-normal.html).
-- [Firesafe](https://github.com/tomlarkworthy/firesafe).
 - [Blazer](https://github.com/firebase/blaze_compiler).
 - [Bolt](https://github.com/firebase/bolt).
-
-I have been following [Papa's AngularJS style guide](https://github.com/johnpapa/angularjs-styleguide).
-
-For the user interface I have been considering the following approach:
-- [Material design for Angular](https://github.com/angular/material)
 
 Installation
 ============
@@ -147,7 +142,7 @@ Installation
     $ cd piadinamia
     $ npm install
 
-    Edit firebase config in `src/client/app/app.core.js`.
+Edit firebase config in `src/client/app/app.core.js`.
 
     $ npm start
 
