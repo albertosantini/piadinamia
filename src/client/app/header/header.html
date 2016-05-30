@@ -3,34 +3,32 @@
 
         <div class="navbar-header">
 
-            <a class="navbar-brand" href ng-click="$ctrl.home()">
+                <a class="navbar-brand" href="/">
                 <img class="logo" src="content/images/piadinamia.png"> Piadina Mia
             </a>
         </div>
 
-        <ul class="nav navbar-nav navbar-right" ng-hide="$ctrl.user.info.name">
-            <li><a href ng-click="$ctrl.signup()">
+        <ul class="nav navbar-nav navbar-right" ng-hide="$ctrl.isLogged">
+            <li><a href="/signup">
                 <i class="fa fa-user"></i>
                 <i class="fa fa-plus-square fa-fw"></i>Sign up
             </a></li>
-            <li><a href ng-click="$ctrl.signin()">
-                <i class="fa"
-                    ng-class="$ctrl.user.info.isLogging ? 'fa-spinner fa-spin' : 'fa-sign-in'">
-                </i>
+            <li><a href="/signin">
+                <i class="fa fa-sign-in"></i>
                 Sign in
             </a></li>
         </ul>
 
-        <ul class="nav navbar-nav navbar-right ng-hide" ng-show="$ctrl.user.info.name">
+        <ul class="nav navbar-nav navbar-right ng-hide" ng-show="$ctrl.isLogged">
             <li class="dropdown" uib-dropdown>
 
                 <a href class="uib-dropdown-toggle" uib-dropdown-toggle>
-                    <i class="fa fa-user fa-fw"></i>{{ $ctrl.user.info.name }}
+                    <i class="fa fa-user fa-fw"></i>{{ $ctrl.name }}
                     <b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu" role="menu">
                     <li>
-                        <a href="" ng-click="$ctrl.logout()">
+                        <a href ng-click="$ctrl.logout()">
                             <i class="fa fa-sign-in fa-fw"></i>Sign out
                         </a>
                     </li>

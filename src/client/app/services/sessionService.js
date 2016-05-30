@@ -24,7 +24,7 @@
                 return;
             }
 
-            userId = authData.uid.split(":")[1];
+            userId = authData.uid.split(":")[1] || authData.uid;
 
             deferred.resolve(userId);
         });
@@ -52,29 +52,26 @@
         }
 
         function createAccount(name, email, pass, callback) {
-            authRef.createUser({
-                "email": email,
-                "password": pass
-            }, function (err) {
-                if (!err) {
-                    service.login(email, pass, "/", function (err2, authData) {
-                        var userId = authData.uid.split(":")[1];
-                        if (!err2) {
-                            createProfile(userId, name, email);
-                        }
-                    });
-                }
-                if (callback) {
-                    callback(err);
-                }
+            authRef.createUserWithEmailAndPassword(email, pass).then(function () {
+
+                service.login(email, pass, function (err, authData) {
+                    var userId;
+
+                    if (!err && authData) {
+                        userId = authData.uid.split(":")[1] || authData.uid;
+                        createProfile(userId, name, email);
+                    }
+                });
+            }).catch(function (err) {
+                callback(err);
             });
         }
 
         function createProfile(id, name, email, callback) {
-            authRef.child("users/" + id).set({
+            firebase.database().ref("users/" + id).set({
                 email: email,
                 name: name,
-                catalogs: ""
+                catalogs: {}
             }, function (err) {
                 if (callback) {
                     callback(err);

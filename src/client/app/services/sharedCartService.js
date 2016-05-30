@@ -24,7 +24,7 @@
             var catalogNameRef = firebase.database().ref("/users/" +
                     userId + "/catalogs/default/name");
 
-            catalogNameRef.once("value").then(function (catalogNameSnapshot) {
+            catalogNameRef.on("value", function (catalogNameSnapshot) {
                 var catalogName = catalogNameSnapshot.val();
 
                 var subscribersRef = firebase.database().ref("/users/" +
@@ -39,6 +39,10 @@
         }
 
         function subscribeCarts(catalogName, subscribers) {
+            if (!subscribers) {
+                return;
+            }
+
             subscribers.forEach(function (user) {
                 var cartRef = firebase.database().ref("/users/" + user.id +
                             "/catalogs/" + catalogName + "/cart");
@@ -64,7 +68,7 @@
             });
 
             cartByUser[user.id] = {
-                name: user.name,
+                name: user.name || "Myself",
                 total: total,
                 cart: myCart
             };

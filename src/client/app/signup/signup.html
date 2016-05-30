@@ -1,21 +1,21 @@
 <div class="row">
 
-    <form class="form-signin ng-pristine ng-valid">
+    <form class="form-signin ng-pristine ng-valid"
+            ng-submit="$ctrl.user.signup($ctrl.user.info.name, $ctrl.user.info.email, $ctrl.user.info.pass)">
         <h2 class="form-signin-heading">Please sign up</h2>
-        <input type="text" class="form-control" ng-model="session.info.name"
+        <input type="text" class="form-control" ng-model="$ctrl.user.info.name"
             placeholder="Full name" required autofocus>
-        <input type="text" class="form-control" ng-model="session.info.email"
+        <input type="text" class="form-control" ng-model="$ctrl.user.info.email"
             placeholder="Email address" required>
-        <input type="password" class="form-control" ng-model="session.info.pass"
+        <input type="password" class="form-control" ng-model="$ctrl.user.info.pass"
             placeholder="Password" required>
 
-        <button class="btn btn-lg btn-primary btn-block btn-success"
-            type="submit" ng-click="session.createAccount()">
+        <button class="btn btn-lg btn-primary btn-block btn-success" type="submit">
             Sign up
         </button>
 
-        <div ng-show="session.info.err" class="alert alert-danger text-center">
-            <strong>{{session.info.err}}</strong>
+        <div ng-show="$ctrl.user.info.err" class="alert alert-danger text-center">
+            <strong>{{$ctrl.user.info.err}}</strong>
         </div>
     </form>
 

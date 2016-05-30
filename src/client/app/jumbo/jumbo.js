@@ -8,20 +8,11 @@
             templateUrl: "app/jumbo/jumbo.html"
         });
 
-    Jumbo.$inject = ["sessionService", "userService"];
-    function Jumbo(sessionService, userService) {
-        var vm = this;
-
-        vm.user = userService;
-        vm.signup = signup;
-        vm.isLogged = false;
+    Jumbo.$inject = ["$location", "sessionService"];
+    function Jumbo($location, sessionService) {
 
         sessionService.isLogged().then(function () {
-            vm.isLogged = true;
+            $location.path( "/home" );
         });
-
-        function signup() {
-            userService.signup();
-        }
     }
 }());

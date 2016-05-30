@@ -50,24 +50,28 @@
                     ]
                 };
 
-            catsRef.once("value").then(function (snapshot) {
+            catsRef.on("value", function (snapshot) {
                 var cats = snapshot.val(),
                     catalog;
 
-                if (cats.$value === "" || cats.$value === null) {
+                if (!cats) {
+                    cats = {};
                     cats.default = defaultCatName;
                     cats.piadinamia = defaultCat;
 
-                    cats.set().then(function () {
+                    catsRef.set(cats).then(function () {
                         catalog = defaultCat;
+                        $timeout(function () {
+                            angular.extend(service.catalog, catalog);
+                        });
                     });
                 } else {
                     catalog = cats[cats.default.name];
+                    $timeout(function () {
+                        angular.extend(service.catalog, catalog);
+                    });
                 }
 
-                $timeout(function () {
-                    angular.extend(service.catalog, catalog);
-                });
             });
         }
 

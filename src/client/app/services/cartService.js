@@ -28,7 +28,7 @@
             var catalogNameRef = firebase.database().ref("/users/" +
                     userId + "/catalogs/default/name");
 
-            catalogNameRef.once("value").then(function (catalogNameSnapshot) {
+            catalogNameRef.on("value", function (catalogNameSnapshot) {
                 var catalogName = catalogNameSnapshot.val();
 
                 cartUrl = "/users/" + userId + "/catalogs/" +
@@ -37,6 +37,10 @@
                 cartRef.on("value", function (snapshot) {
                     var cart = snapshot.val(),
                         items = [];
+
+                    if (!cart) {
+                        return;
+                    }
 
                     Object.keys(cart).forEach(function (item) {
                         cart[item].$id = item;

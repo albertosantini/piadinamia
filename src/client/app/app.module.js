@@ -3,6 +3,7 @@
 (function () {
     angular
         .module("piadinamia", [
+            "ngRoute",
             "ui.bootstrap"
         ]);
 }());

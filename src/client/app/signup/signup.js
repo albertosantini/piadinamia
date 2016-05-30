@@ -8,7 +8,10 @@
             templateUrl: "app/signup/signup.html"
         });
 
-    SignUp.$inject = [];
-    function SignUp() {
+    SignUp.$inject = ["userService"];
+    function SignUp(userService) {
+        var vm = this;
+
+        vm.user = userService;
     }
 }());

@@ -8,19 +8,19 @@
             templateUrl: "app/header/header.html"
         });
 
-    Header.$inject = ["userService"];
-    function Header(userService) {
+    Header.$inject = ["userService", "sessionService"];
+    function Header(userService, sessionService) {
         var vm = this;
 
-        vm.home = home;
         vm.signup = signup;
         vm.signin = signin;
         vm.logout = logout;
-        vm.user = userService;
+        vm.name = userService.info.name;
+        vm.isLogged = false;
 
-        function home() {
-            userService.home();
-        }
+        sessionService.isLogged().then(function () {
+            vm.isLogged = true;
+        });
 
         function signup() {
             userService.signup();
@@ -32,6 +32,7 @@
 
         function logout() {
             userService.logout();
+            window.location = "/";
         }
     }
 }());

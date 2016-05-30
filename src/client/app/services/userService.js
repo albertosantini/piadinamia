@@ -5,20 +5,15 @@
         .module("piadinamia")
         .factory("userService", userService);
 
-
-    userService.$inject = ["sessionService"];
-
-    function userService(sessionService) {
+    userService.$inject = ["$timeout", "sessionService"];
+    function userService($timeout, sessionService) {
         var service = {
-            isSigningUp: false,
-            isSigningIn: false,
             info: {
                 name: "",
                 email: "",
                 pass: "",
                 err: ""
             },
-            home: home,
             signup: signup,
             signin: signin,
             logout: logout
@@ -26,34 +21,31 @@
 
         return service;
 
-        function home() {
-            service.isSigningUp = false;
-            service.isSigningIn = false;
-        }
+        function signup(name, email, pass) {
+            service.info.name = name;
+            service.info.email = email;
+            service.info.pass = pass;
 
-        function signup() {
-            if (!service.isLogged) {
-                service.isSigningUp = true;
-                service.isSigningIn = false;
-            }
-        }
-
-        function signin() {
-            if (!service.isLogged) {
-                service.isSigningUp = false;
-                service.isSigningIn = true;
-            }
-
-            if (service.info.email && service.info.pass) {
-                sessionService.login(service.info.email, service.info.pass,
-                    function (err) {
-                        if (!err) {
-                            service.home();
-                        } else {
-                            service.info.err = err.message;
-                        }
+            sessionService.createAccount(name, email, pass, function (err) {
+                if (err) {
+                    $timeout(function () {
+                        service.info.err = err.message;
                     });
-            }
+                }
+            });
+        }
+
+        function signin(email, pass) {
+            service.info.email = email;
+            service.info.pass = pass;
+
+            sessionService.login(email, pass, function (err) {
+                if (err) {
+                    $timeout(function () {
+                        service.info.err = err.message;
+                    });
+                }
+            });
         }
 
         function logout() {
