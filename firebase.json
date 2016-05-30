@@ -1,6 +1,12 @@
 {
     "hosting": {
         "public": "src/client",
+        "rewrites": [
+            {
+                "source": "**",
+                "destination": "/index.html"
+            }
+        ],
         "ignore": [
             "firebase.json",
             "**/.*",
