@@ -15,11 +15,12 @@
         vm.signup = signup;
         vm.signin = signin;
         vm.logout = logout;
-        vm.name = userService.info.name;
         vm.isLogged = false;
+        vm.info = userService.info;
 
         sessionService.isLogged().then(function () {
             vm.isLogged = true;
+            vm.name = userService.info.name;
         });
 
         function signup() {
