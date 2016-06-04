@@ -17,9 +17,8 @@ Features
     - [x] logout
 
 - `Catalog`
-    - [ ] list my catalogs (with stats - copies, carts, etc.)
-    - [ ] create new catalog
-    - [ ] search and select catalogs
+    - [ ] create and remove a catalog
+    - [ ] search and select my and other catalogs
     - [X] add (or remove) items in the catalog
 
 - `Cart`

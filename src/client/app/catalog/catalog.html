@@ -2,11 +2,39 @@
 
     <div class="panel-heading">
         My Catalog <strong>{{$ctrl.catalog.description}}</strong>
+
+        <i ng-show="$ctrl.isNewMode" class="fa fa-toggle-on" aria-hidden="true"></i>
+        <i ng-hide="$ctrl.isNewMode" class="fa fa-toggle-off" aria-hidden="true"></i>
+        <a href="" ng-click="$ctrl.newMode()">
+            <i class="fa fa-plus"></i>
+        </a>
+        <a href="" ng-click="$ctrl.removeCatalog()">
+            <i class="fa fa-minus"></i>
+        </a>
+
         <a href="" ng-click="$ctrl.editMode()">
             <i class="fa fa-pencil pull-right"></i>
         </a>
         <i ng-show="$ctrl.isEditMode" class="fa fa-toggle-on pull-right" aria-hidden="true"></i>
         <i ng-hide="$ctrl.isEditMode" class="fa fa-toggle-off pull-right" aria-hidden="true"></i>
+
+        <table ng-show="$ctrl.isNewMode" class="table table-condensed">
+            <tbody>
+                <tr>
+                    <td>
+                        <a href="" ng-click="$ctrl.addCatalog(name, desc)">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" placeholder="name" ng-model="name">
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" placeholder="description" ng-model="desc">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <table class="table table-condensed">

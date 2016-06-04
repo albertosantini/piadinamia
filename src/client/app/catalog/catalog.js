@@ -15,10 +15,16 @@
 
         vm.catalog = catalogService.getCatalog();
         vm.cart = cartService;
+
         vm.isEditMode = false;
         vm.editMode = editMode;
         vm.addItem = addItem;
         vm.removeItem = removeItem;
+
+        vm.isNewMode = false;
+        vm.newMode = newMode;
+        vm.addCatalog = addCatalog;
+        vm.removeCatalog = removeCatalog;
 
         function editMode() {
             vm.isEditMode = !vm.isEditMode;
@@ -38,6 +44,20 @@
             }
         }
 
+        function newMode() {
+            vm.isNewMode = !vm.isNewMode;
+        }
+
+        function addCatalog(name, desc) {
+            if (name && desc) {
+                catalogService.addCatalog(name, desc);
+            }
+        }
+
+        function removeCatalog() {
+            catalogService.removeCatalog();
+        }
+
         function filterFloat(value) {
             if (/^(\-|\+)?([0-9]+(\.[0-9]+)?|Infinity)$/.test(value)) {
                 return Number(value);
@@ -45,6 +65,7 @@
 
             return NaN;
         }
+
     }
 
 }());

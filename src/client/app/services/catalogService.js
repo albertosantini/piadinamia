@@ -8,12 +8,15 @@
     catalogService.$inject = ["$timeout", "$q", "sessionService"];
 
     function catalogService($timeout, $q, sessionService) {
-        var catalog = {},
+        var myId,
+            catalog = {},
             catsRef,
             service = {
                 getCatalog: getCatalog,
                 addItem: addItem,
-                removeItem: removeItem
+                removeItem: removeItem,
+                addCatalog: addCatalog,
+                removeCatalog: removeCatalog
             };
 
         sessionService.isLogged().then(activate);
@@ -53,7 +56,9 @@
                     ]
                 };
 
-            catsRef = firebase.database().ref("/users/" + id + "/catalogs");
+            myId = id;
+
+            catsRef = firebase.database().ref("/users/" + myId + "/catalogs");
 
             catsRef.on("value", function (snapshot) {
                 var cats = snapshot.val();
@@ -95,6 +100,41 @@
 
             itemRef.remove();
             delete catalog.items[item];
+        }
+
+        function addCatalog(name, desc) {
+            add(name, desc);
+        }
+
+        function removeCatalog() {
+            console.log("removeCatalog", catalog.name, "to be implemented");
+        }
+
+        function add(name, desc) {
+            var cats = {};
+
+            cats.default = {
+                name: name
+            };
+
+            cats[name] = {
+                cart: {},
+                description: desc,
+                items: {},
+                name: name,
+                private: false,
+                subscribers: {
+                    0: {
+                        id: myId
+                    }
+                }
+            };
+
+            catsRef.update(cats).then(function () {
+                $timeout(function () {
+                    angular.extend(catalog, cats[name]);
+                });
+            });
         }
 
     }
