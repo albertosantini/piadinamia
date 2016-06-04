@@ -18,7 +18,7 @@ Features
 
 - `Catalog`
     - [ ] create and remove a catalog
-    - [ ] search and select my and other catalogs
+    - [ ] search and select another catalog
     - [X] add (or remove) items in the catalog
 
 - `Cart`
