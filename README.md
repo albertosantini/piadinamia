@@ -25,7 +25,7 @@ Features
 - `Cart`
     - [x] modify quantity and add, remove items in the cart
 
-- `Reports`
+- `Shared Cart`
     - [x] report carts by items
     - [x] report carts by users
 
