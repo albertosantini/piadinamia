@@ -1,3 +1,9 @@
+3.1.0 / Upcoming
+================
+
+* Add (or remove) items in the catalog.
+* Update deps.
+
 3.0.2 / 2016-05-30
 ==================
 
