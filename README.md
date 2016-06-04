@@ -8,8 +8,8 @@ and [Firebase](https://www.firebase.com/).
 Register a user with fake credentials and signin in two different tabs or
 browsers to play with the app.
 
-Requirements
-------------
+Features
+--------
 
 - `User`
     - [x] create account
@@ -18,13 +18,12 @@ Requirements
 
 - `Catalog`
     - [ ] list my catalogs (with stats - copies, carts, etc.)
-    - [ ] select catalog
     - [ ] create new catalog
-    - [ ] search (and copy) your catalogs
-    - [ ] modify (or delete) catalog
+    - [ ] search and select catalogs
+    - [X] add (or remove) items in the catalog
 
 - `Cart`
-    - [x] modify my cart (add, remove items)
+    - [x] modify quantity and add, remove items in the cart
 
 - `Reports`
     - [x] report carts by items

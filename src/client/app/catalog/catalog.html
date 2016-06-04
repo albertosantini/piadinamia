@@ -2,7 +2,11 @@
 
     <div class="panel-heading">
         My Catalog <strong>{{$ctrl.catalog.description}}</strong>
-        <i class="fa fa-pencil pull-right"></i>
+        <a href="" ng-click="$ctrl.editMode()">
+            <i class="fa fa-pencil pull-right"></i>
+        </a>
+        <i ng-show="$ctrl.isEditMode" class="fa fa-toggle-on pull-right" aria-hidden="true"></i>
+        <i ng-hide="$ctrl.isEditMode" class="fa fa-toggle-off pull-right" aria-hidden="true"></i>
     </div>
 
     <table class="table table-condensed">
@@ -16,12 +20,28 @@
         <tbody>
             <tr ng-show="$ctrl.catalog" ng-repeat="(item, price) in $ctrl.catalog.items">
                 <td>
-                    <a href="" ng-click="$ctrl.cart.addItem(item, price)">
+                    <a ng-hide="$ctrl.isEditMode" href="" ng-click="$ctrl.cart.addItem(item, price)">
                         <i class="fa fa-plus"></i>
+                    </a>
+                    <a ng-show="$ctrl.isEditMode" href="" ng-click="$ctrl.removeItem(item)">
+                        <i class="fa fa-minus"></i>
                     </a>
                 </td>
                 <td>{{price | currency: "&euro;"}}</td>
                 <td title="{{item}}"> {{item}}</td>
+            </tr>
+            <tr ng-if="$ctrl.catalog && $ctrl.isEditMode">
+                <td>
+                    <a href="" ng-click="$ctrl.addItem(price, item)">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </td>
+                <td>
+                    <input class="form-control" type="text" placeholder="price" ng-model="price">
+                </td>
+                <td>
+                    <input class="form-control" type="text" placeholder="item" ng-model="item">
+                </td>
             </tr>
         </tbody>
     </table>

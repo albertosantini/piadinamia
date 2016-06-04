@@ -8,17 +8,20 @@
     catalogService.$inject = ["$timeout", "$q", "sessionService"];
 
     function catalogService($timeout, $q, sessionService) {
-        var service = {
-            catalog: {}
-        };
+        var catalog = {},
+            catsRef,
+            service = {
+                getCatalog: getCatalog,
+                addItem: addItem,
+                removeItem: removeItem
+            };
 
         sessionService.isLogged().then(activate);
 
         return service;
 
         function activate(id) {
-            var catsRef = firebase.database().ref("/users/" + id + "/catalogs"),
-                defaultCatName = {
+            var defaultCatName = {
                     name: "piadinamia"
                 },
                 defaultCat = {
@@ -50,9 +53,10 @@
                     ]
                 };
 
+            catsRef = firebase.database().ref("/users/" + id + "/catalogs");
+
             catsRef.on("value", function (snapshot) {
-                var cats = snapshot.val(),
-                    catalog;
+                var cats = snapshot.val();
 
                 if (!cats) {
                     cats = {};
@@ -60,19 +64,37 @@
                     cats.piadinamia = defaultCat;
 
                     catsRef.set(cats).then(function () {
-                        catalog = defaultCat;
                         $timeout(function () {
-                            angular.extend(service.catalog, catalog);
+                            angular.extend(catalog, defaultCat);
                         });
                     });
                 } else {
-                    catalog = cats[cats.default.name];
                     $timeout(function () {
-                        angular.extend(service.catalog, catalog);
+                        angular.extend(catalog, cats[cats.default.name]);
                     });
                 }
 
             });
+        }
+
+        function getCatalog() {
+            return catalog;
+        }
+
+        function addItem(price, item) {
+            var itemsRef = catsRef.child(catalog.name + "/items"),
+                newItem = {};
+
+            newItem[item] = price;
+            angular.merge(catalog.items, newItem);
+            itemsRef.set(catalog.items);
+        }
+
+        function removeItem(item) {
+            var itemRef = catsRef.child(catalog.name + "/items/" + item);
+
+            itemRef.remove();
+            delete catalog.items[item];
         }
 
     }
