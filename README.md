@@ -17,7 +17,7 @@ Features
     - [x] logout
 
 - `Catalog`
-    - [ ] create and remove a catalog
+    - [X] create and remove a catalog
     - [ ] search and select another catalog
     - [X] add (or remove) items in the catalog
 
