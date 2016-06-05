@@ -44,10 +44,8 @@ Model
         "userId-1": {
             "email": "my email",
             "name": "user 1",
+            "catalog": "mycat1",
             "catalogs": {
-                "default": {
-                    name: "mycat1",
-                }
                 "mycat1": {
                     "name": "mycat1",
                     "description": "my catalog",
@@ -88,10 +86,8 @@ Model
         "userId-2" {
             "email": "my email",
             "name": "user 2",
+            "catalog": "mycat1",
             "catalogs": {
-                "default": {
-                    name: "mycat1",
-                }
                 "mycat1": {
                     "name": "mycat1",
                     "description": "my catalog",
