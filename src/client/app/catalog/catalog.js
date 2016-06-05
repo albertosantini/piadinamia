@@ -51,12 +51,14 @@
         function addCatalog(name, desc) {
             if (name && desc) {
                 catalogService.addCatalog(name, desc);
-                vm.editMode();
+                vm.isEditMode = true;
             }
         }
 
         function removeCatalog() {
-            catalogService.removeCatalog();
+            catalogService.removeCatalog(vm.catalog.name);
+            vm.isNewMode = false;
+            vm.isEditMode = false;
         }
 
         function filterFloat(value) {

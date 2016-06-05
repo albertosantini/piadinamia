@@ -12,6 +12,7 @@
             catalog = {},
             catNameRef,
             catsRef,
+            catsList = [],
             service = {
                 getCatalog: getCatalog,
                 addItem: addItem,
@@ -72,6 +73,8 @@
                         });
                     });
                 } else {
+                    catsList = Object.keys(cats);
+
                     catNameRef.on("value", function (snapshotCatName) {
                         var catName = snapshotCatName.val();
 
@@ -108,8 +111,15 @@
             add(name, desc);
         }
 
-        function removeCatalog() {
-            console.log("removeCatalog", catalog.name, "to be implemented");
+        function removeCatalog(name) {
+            var index;
+
+            if (name && catsList.length > 1) {
+                index = catsList.indexOf(name);
+                catsList.splice(index, 1);
+                catsRef.child(name).remove();
+                catNameRef.set(catsList[0]);
+            }
         }
 
         function add(name, desc) {
@@ -127,6 +137,8 @@
                     }
                 }
             };
+
+            catsList.push(name);
 
             catsRef.update(cats).then(function () {
                 catNameRef.set(name);
