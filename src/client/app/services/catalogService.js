@@ -10,6 +10,7 @@
     function catalogService($timeout, $q, sessionService) {
         var myId,
             catalog = {},
+            catNameRef,
             catsRef,
             service = {
                 getCatalog: getCatalog,
@@ -24,40 +25,38 @@
         return service;
 
         function activate(id) {
-            var defaultCatName = {
-                    name: "piadinamia"
+            var defaultCat = {
+                name: "piadinamia",
+                description: "Piadina Mia",
+                private: false,
+                items: {
+                    "Piadina crudo": 4.00,
+                    "Piadina farcita": 4.80,
+                    "Piadina con nutella": 3.00,
+                    "Piadina integrale crudo": 4.80,
+                    "Acqua naturale": 1.50,
+                    "Acqua frizzante": 2.00,
+                    "Bibita": 2.50
                 },
-                defaultCat = {
-                    name: "piadinamia",
-                    description: "Piadina Mia",
-                    private: false,
-                    items: {
-                        "Piadina crudo": 4.00,
-                        "Piadina farcita": 4.80,
-                        "Piadina con nutella": 3.00,
-                        "Piadina integrale crudo": 4.80,
-                        "Acqua naturale": 1.50,
-                        "Acqua frizzante": 2.00,
-                        "Bibita": 2.50
-                    },
-                    cart: [
-                        {
-                            item: "Piadina crudo",
-                            price: 4.00,
-                            qty: 2.00,
-                            total: 8.00
-                        }
-                    ],
-                    subscribers: [
-                        {
-                            id: id
-                        }
+                cart: [
+                    {
+                        item: "Piadina crudo",
+                        price: 4.00,
+                        qty: 2.00,
+                        total: 8.00
+                    }
+                ],
+                subscribers: [
+                    {
+                        id: id
+                    }
 
-                    ]
-                };
+                ]
+            };
 
             myId = id;
 
+            catNameRef = firebase.database().ref("/users/" + myId + "/catalog");
             catsRef = firebase.database().ref("/users/" + myId + "/catalogs");
 
             catsRef.on("value", function (snapshot) {
@@ -65,7 +64,6 @@
 
                 if (!cats) {
                     cats = {};
-                    cats.default = defaultCatName;
                     cats.piadinamia = defaultCat;
 
                     catsRef.set(cats).then(function () {
@@ -74,8 +72,12 @@
                         });
                     });
                 } else {
-                    $timeout(function () {
-                        angular.extend(catalog, cats[cats.default.name]);
+                    catNameRef.on("value", function (snapshotCatName) {
+                        var catName = snapshotCatName.val();
+
+                        $timeout(function () {
+                            angular.extend(catalog, cats[catName]);
+                        });
                     });
                 }
 
@@ -113,10 +115,6 @@
         function add(name, desc) {
             var cats = {};
 
-            cats.default = {
-                name: name
-            };
-
             cats[name] = {
                 cart: {},
                 description: desc,
@@ -131,10 +129,14 @@
             };
 
             catsRef.update(cats).then(function () {
+                catNameRef.set(name);
+
                 $timeout(function () {
                     angular.extend(catalog, cats[name]);
                 });
             });
+
+
         }
 
     }

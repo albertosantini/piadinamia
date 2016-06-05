@@ -26,7 +26,7 @@
 
         function activate(userId) {
             var catalogNameRef = firebase.database().ref("/users/" +
-                    userId + "/catalogs/default/name");
+                    userId + "/catalog");
 
             catalogNameRef.on("value", function (catalogNameSnapshot) {
                 var catalogName = catalogNameSnapshot.val();

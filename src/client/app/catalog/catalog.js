@@ -51,6 +51,7 @@
         function addCatalog(name, desc) {
             if (name && desc) {
                 catalogService.addCatalog(name, desc);
+                vm.editMode();
             }
         }
 

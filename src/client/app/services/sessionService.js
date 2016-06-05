@@ -71,6 +71,7 @@
             firebase.database().ref("users/" + id).set({
                 email: email,
                 name: name,
+                catalog: "piadinamia",
                 catalogs: {}
             }, function (err) {
                 if (callback) {
