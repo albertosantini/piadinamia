@@ -26,7 +26,15 @@
         vm.addCatalog = addCatalog;
         vm.removeCatalog = removeCatalog;
 
+        vm.isListMode = false;
+        vm.selectMode = selectMode;
+        vm.myCatalogs = catalogService.getMyCatalogs();
+        vm.selectCatalog = selectCatalog;
+
+
         function editMode() {
+            vm.isListMode = false;
+            vm.isNewMode = false;
             vm.isEditMode = !vm.isEditMode;
         }
 
@@ -45,12 +53,16 @@
         }
 
         function newMode() {
+            vm.isListMode = false;
+            vm.isEditMode = false;
             vm.isNewMode = !vm.isNewMode;
         }
 
         function addCatalog(name, desc) {
             if (name && desc) {
                 catalogService.addCatalog(name, desc);
+                vm.isListMode = false;
+                vm.isNewMode = false;
                 vm.isEditMode = true;
             }
         }
@@ -59,6 +71,17 @@
             catalogService.removeCatalog(vm.catalog.name);
             vm.isNewMode = false;
             vm.isEditMode = false;
+            vm.isListmove = false;
+        }
+
+        function selectMode() {
+            vm.isNewMode = false;
+            vm.isEditMode = false;
+            vm.isListMode = !vm.isListMode;
+        }
+
+        function selectCatalog(name) {
+            console.log(name);
         }
 
         function filterFloat(value) {

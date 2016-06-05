@@ -15,6 +15,7 @@
             catsList = [],
             service = {
                 getCatalog: getCatalog,
+                getMyCatalogs: getMyCatalogs,
                 addItem: addItem,
                 removeItem: removeItem,
                 addCatalog: addCatalog,
@@ -73,7 +74,7 @@
                         });
                     });
                 } else {
-                    catsList = Object.keys(cats);
+                    angular.extend(catsList, Object.keys(cats));
 
                     catNameRef.on("value", function (snapshotCatName) {
                         var catName = snapshotCatName.val();
@@ -89,6 +90,10 @@
 
         function getCatalog() {
             return catalog;
+        }
+
+        function getMyCatalogs() {
+            return catsList;
         }
 
         function addItem(price, item) {
