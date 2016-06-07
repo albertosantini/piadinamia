@@ -2,6 +2,8 @@
 
     <div class="panel-heading">
         My Catalog
+        <i ng-show="$ctrl.isListMode" class="fa fa-toggle-on" aria-hidden="true"></i>
+        <i ng-hide="$ctrl.isListMode" class="fa fa-toggle-off" aria-hidden="true"></i>
         <a href="" ng-click="$ctrl.selectMode()">
              <i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
         </a>
