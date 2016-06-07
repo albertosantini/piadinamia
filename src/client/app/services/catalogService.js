@@ -30,7 +30,6 @@
             var defaultCat = {
                 name: "piadinamia",
                 description: "Piadina Mia",
-                private: false,
                 items: {
                     "Piadina crudo": 4.00,
                     "Piadina farcita": 4.80,
@@ -135,7 +134,6 @@
                 description: desc,
                 items: {},
                 name: name,
-                private: false,
                 subscribers: {
                     0: {
                         id: myId
