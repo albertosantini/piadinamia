@@ -4,32 +4,31 @@
         My Catalog
         <i ng-show="$ctrl.isListMode" class="fa fa-toggle-on" aria-hidden="true"></i>
         <i ng-hide="$ctrl.isListMode" class="fa fa-toggle-off" aria-hidden="true"></i>
-        <a href="" ng-click="$ctrl.selectMode()">
+        <a href="" ng-click="$ctrl.selectMode()" title="Select a catalog">
              <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
         </a>
         <strong>{{$ctrl.catalog.description}}</strong>
 
         <i ng-show="$ctrl.isNewMode" class="fa fa-toggle-on" aria-hidden="true"></i>
         <i ng-hide="$ctrl.isNewMode" class="fa fa-toggle-off" aria-hidden="true"></i>
-        <a href="" ng-click="$ctrl.newMode()">
+        <a href="" ng-click="$ctrl.newMode()"  title="Add new catalog"
             <i class="fa fa-plus"></i>
         </a>
-        <a href="" ng-click="$ctrl.removeCatalog()">
+        <a href="" ng-click="$ctrl.removeCatalog()" title="Remove this catalog">
             <i class="fa fa-minus"></i>
         </a>
 
-        <a href="" ng-click="$ctrl.editMode()">
+        <a href="" ng-click="$ctrl.editMode()" title="Edit this catalog">
             <i class="fa fa-pencil pull-right"></i>
         </a>
         <i ng-show="$ctrl.isEditMode" class="fa fa-toggle-on pull-right" aria-hidden="true"></i>
         <i ng-hide="$ctrl.isEditMode" class="fa fa-toggle-off pull-right" aria-hidden="true"></i>
 
-
         <table ng-show="$ctrl.isNewMode" class="table table-condensed">
             <tbody>
                 <tr>
                     <td>
-                        <a href="" ng-click="$ctrl.addCatalog(name, desc)">
+                        <a href="" ng-click="$ctrl.addCatalog(name, desc)" title="Add">
                             <i class="fa fa-plus"></i>
                         </a>
                     </td>
@@ -47,7 +46,7 @@
             <tbody>
                 <tr ng-repeat="name in $ctrl.myCatalogs">
                     <td>
-                        <a href="" ng-click="$ctrl.selectCatalog(name)">
+                        <a href="" ng-click="$ctrl.selectCatalog(name)" title="Select">
                             <i class="fa fa-cart-plus"></i>
                         </a>
                     </td>
@@ -70,10 +69,10 @@
         <tbody>
             <tr ng-show="$ctrl.catalog" ng-repeat="(item, price) in $ctrl.catalog.items">
                 <td>
-                    <a ng-hide="$ctrl.isEditMode" href="" ng-click="$ctrl.cart.addItem(item, price)">
+                    <a ng-hide="$ctrl.isEditMode" href="" ng-click="$ctrl.cart.addItem(item, price)" title="Add item to the cart">
                         <i class="fa fa-plus"></i>
                     </a>
-                    <a ng-show="$ctrl.isEditMode" href="" ng-click="$ctrl.removeItem(item)">
+                    <a ng-show="$ctrl.isEditMode" href="" ng-click="$ctrl.removeItem(item)" title="Remove item from the catalog">
                         <i class="fa fa-minus"></i>
                     </a>
                 </td>
@@ -82,7 +81,7 @@
             </tr>
             <tr ng-if="$ctrl.catalog && $ctrl.isEditMode">
                 <td>
-                    <a href="" ng-click="$ctrl.addItem(price, item)">
+                    <a href="" ng-click="$ctrl.addItem(price, item)" title="Add item to the catalog">
                         <i class="fa fa-plus"></i>
                     </a>
                 </td>
