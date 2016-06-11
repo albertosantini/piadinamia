@@ -20,7 +20,7 @@ Features
 - `Catalog`
     - [x] create and remove a catalog
         - [ ] add and remove the catalog to the `master`
-      [x] select a catalog of the user
+    - [x] select a catalog of the user
     - [x] search a catalog of another user
     - [ ] select a catalog of another user (working in progress)
         - [ ] copy the catalog (to be defined)
