@@ -81,7 +81,7 @@
         }
 
         function selectCatalog(name) {
-            console.log(name);
+            catalogService.selectCatalog(name);
         }
 
         function filterFloat(value) {

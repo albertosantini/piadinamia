@@ -19,7 +19,8 @@
                 addItem: addItem,
                 removeItem: removeItem,
                 addCatalog: addCatalog,
-                removeCatalog: removeCatalog
+                removeCatalog: removeCatalog,
+                selectCatalog: selectCatalog
             };
 
         sessionService.isLogged().then(activate);
@@ -123,6 +124,12 @@
                 catsList.splice(index, 1);
                 catsRef.child(name).remove();
                 catNameRef.set(catsList[0]);
+            }
+        }
+
+        function selectCatalog(name) {
+            if (name) {
+                catNameRef.set(name);
             }
         }
 
