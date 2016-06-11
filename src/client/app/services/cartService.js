@@ -38,14 +38,12 @@
                     var cart = snapshot.val(),
                         items = [];
 
-                    if (!cart) {
-                        return;
+                    if (cart) {
+                        Object.keys(cart).forEach(function (item) {
+                            cart[item].$id = item;
+                            items.push(cart[item]);
+                        });
                     }
-
-                    Object.keys(cart).forEach(function (item) {
-                        cart[item].$id = item;
-                        items.push(cart[item]);
-                    });
 
                     $timeout(function () {
                         myCart.length = 0;
