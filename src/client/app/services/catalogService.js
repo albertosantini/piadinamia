@@ -80,7 +80,13 @@
                         var catName = snapshotCatName.val();
 
                         $timeout(function () {
-                            angular.extend(catalog, cats[catName]);
+                            if (cats.hasOwnProperty(catName)) {
+                                if (!cats[catName].hasOwnProperty("items")) {
+                                    cats[catName].items = {};
+                                }
+
+                                angular.extend(catalog, cats[catName]);
+                            }
                         });
                     });
                 }
