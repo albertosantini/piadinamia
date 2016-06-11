@@ -43,6 +43,9 @@
                 return;
             }
 
+            reset(cartByUser);
+            reset(cartByItem);
+
             subscribers.forEach(function (user) {
                 var cartRef = firebase.database().ref("/users/" + user.id +
                             "/catalogs/" + catalogName + "/cart");
@@ -51,8 +54,10 @@
                     var cart = snapshot.val();
 
                     $timeout(function () {
-                        calcCartByUser(user, cart);
-                        calcCartByItem();
+                        if (cart) {
+                            calcCartByUser(user, cart);
+                            calcCartByItem();
+                        }
                     });
                 });
             });
@@ -75,7 +80,7 @@
         }
 
         function calcCartByItem() {
-            cartByItem = {};
+            reset(cartByItem);
 
             angular.forEach(cartByUser, function (user) {
                 user.cart.forEach(function (item) {
@@ -100,6 +105,16 @@
 
         function getCartByUser() {
             return cartByUser;
+        }
+
+        function reset(obj) {
+            var key;
+
+            for (key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    delete obj[key];
+                }
+            }
         }
 
     }
