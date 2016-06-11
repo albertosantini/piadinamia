@@ -13,13 +13,19 @@ Features
 
 - `User`
     - [x] create account
+        - [ ] add the default catalog to the `master`
     - [x] login
     - [x] logout
 
 - `Catalog`
-    - [X] create and remove a catalog
-    - [ ] search and select another catalog
-    - [X] add (or remove) items in the catalog
+    - [x] create and remove a catalog
+        - [ ] add and remove the catalog to the `master`
+      [x] select a catalog of the user
+    - [x] search a catalog of another user
+    - [ ] select a catalog of another user (working in progress)
+        - [ ] copy the catalog (to be defined)
+        - [ ] add the user to the subscribers
+    - [x] add (or remove) items in the catalog
 
 - `Cart`
     - [x] modify quantity and add, remove items in the cart
@@ -32,11 +38,13 @@ Defaults and constraints
 ------------------------
 
 - Catalog `piadinamia` is the default one and an example cart is attached
-- Last used catalog and cart as default
 - A user may have many catalogs, but the catalog contains only one cart
 
 Model
------
+---------------------
+
+- `users` with catalogs and carts
+- `master` list of catalogs with subscribers
 
 ```
 {
@@ -49,21 +57,10 @@ Model
                 "mycat1": {
                     "name": "mycat1",
                     "description": "my catalog",
-                    "private": false,
                     "items": {
                         "item a": 0.75,
                         "item b": 2.35,
                         "item c": 1.05
-                    },
-                    "subscribers": {
-                        "0": {
-                            "id": userId-1,
-                            "name": "my user",
-                        },
-                        "1": {
-                            "id": "userId-2",
-                            "name": "user 2"
-                        }
                     },
                     "cart": {
                         "0": {
@@ -91,17 +88,10 @@ Model
                 "mycat1": {
                     "name": "mycat1",
                     "description": "my catalog",
-                    "private": false,
                     "items": {
                         "item a": 0.75,
                         "item b": 2.35,
                         "item c": 1.05
-                    },
-                    "subscribers": {
-                        "0": {
-                            "id": "userId-2",
-                            "name": "user 2"
-                        }
                     },
                     "cart": {
                         "0": {
@@ -116,6 +106,34 @@ Model
         }
 
     }
+
+    "master": {
+        "mycat1@user 1": {
+            "owner": userId-1,
+            "subscribers": {
+                "0": {
+                    "id": userId-1,
+                    "name": "my user",
+                },
+                "1": {
+                    "id": "userId-2",
+                    "name": "user 2"
+                }
+            }            
+        },
+
+        "mycat1@user 2": {
+            "owner": userId-2,
+            "subscribers": {
+                "0": {
+                    "id": "userId-2",
+                    "name": "user 2"
+                }
+            }
+        }
+
+    }
+
 }
 ```
 
