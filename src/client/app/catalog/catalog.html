@@ -5,7 +5,7 @@
         <i ng-show="$ctrl.isListMode" class="fa fa-toggle-on" aria-hidden="true"></i>
         <i ng-hide="$ctrl.isListMode" class="fa fa-toggle-off" aria-hidden="true"></i>
         <a href="" ng-click="$ctrl.selectMode()">
-             <i class="fa fa-caret-square-o-down" aria-hidden="true"></i>
+             <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
         </a>
         <strong>{{$ctrl.catalog.description}}</strong>
 
@@ -48,7 +48,7 @@
                 <tr ng-repeat="name in $ctrl.myCatalogs">
                     <td>
                         <a href="" ng-click="$ctrl.selectCatalog(name)">
-                            <i class="fa fa-plus"></i>
+                            <i class="fa fa-cart-plus"></i>
                         </a>
                     </td>
                     <td>
