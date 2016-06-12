@@ -1,6 +1,7 @@
-3.1.0 / Upcoming
-================
+3.1.0 / 2016-06-12
+==================
 
+* Select a catalog.
 * Add and remove catalogs.
 * Add and remove items in the catalog.
 * Update deps.
