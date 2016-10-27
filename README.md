@@ -119,7 +119,7 @@ Model
                     "id": "userId-2",
                     "name": "user 2"
                 }
-            }            
+            }
         },
 
         "mycat1@user 2": {
