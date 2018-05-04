@@ -1,6 +1,6 @@
 "use strict";
 
-(function () {
+(function() {
     angular
         .module("piadinamia")
         .factory("sessionService", sessionService);
@@ -8,25 +8,21 @@
     sessionService.$inject = ["$q"];
 
     function sessionService($q) {
-        var deferred = $q.defer(),
+        const deferred = $q.defer(),
             authRef = firebase.auth(),
             service = {
-                isLogged: isLogged,
-                login: login,
-                logout: logout,
-                createAccount: createAccount
+                isLogged,
+                login,
+                logout,
+                createAccount
             };
 
-        authRef.onAuthStateChanged(function (authData) {
-            var userId;
-
+        authRef.onAuthStateChanged(authData => {
             if (!authData) {
                 return;
             }
 
-            userId = authData.uid.split(":")[1] || authData.uid;
-
-            deferred.resolve(userId);
+            deferred.resolve(authData.uid.split(":")[1] || authData.uid);
         });
 
         return service;
@@ -37,12 +33,12 @@
 
         function login(email, pass, callback) {
             authRef.signInWithEmailAndPassword(email, pass)
-                .then(function (authData) {
+                .then(authData => {
                     if (callback) {
-                        callback(null, authData);
+                        callback(null, authData); /* eslint callback-return:off */
                     }
                 })
-                .catch(function (err) {
+                .catch(err => {
                     callback(err);
                 });
         }
@@ -52,30 +48,30 @@
         }
 
         function createAccount(name, email, pass, callback) {
-            authRef.createUserWithEmailAndPassword(email, pass).then(function () {
+            authRef.createUserWithEmailAndPassword(email, pass).then(() => {
 
-                service.login(email, pass, function (err, authData) {
-                    var userId;
+                service.login(email, pass, (err, authData) => {
+                    let userId;
 
                     if (!err && authData) {
                         userId = authData.uid.split(":")[1] || authData.uid;
                         createProfile(userId, name, email);
                     }
                 });
-            }).catch(function (err) {
+            }).catch(err => {
                 callback(err);
             });
         }
 
         function createProfile(id, name, email, callback) {
-            firebase.database().ref("users/" + id).set({
-                email: email,
-                name: name,
+            firebase.database().ref(`users/${id}`).set({
+                email,
+                name,
                 catalog: "piadinamia",
                 catalogs: {}
-            }, function (err) {
+            }, err => {
                 if (callback) {
-                    callback(err);
+                    callback(err); /* eslint callback-return:off */
                 }
             });
         }

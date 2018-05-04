@@ -1,6 +1,6 @@
 "use strict";
 
-(function () {
+(function() {
     angular
         .module("piadinamia")
         .config(config);
@@ -9,21 +9,21 @@
     function config($locationProvider, $routeProvider) {
 
         $routeProvider
-           .when("/", {
-               template: "<header></header><jumbo></jumbo>"
-           })
-           .when("/home", {
-               template: "<header></header><default></default>"
-           })
-           .when("/signin", {
-               template: "<header></header><signin></signin>"
-           })
-           .when("/signup", {
-               template: "<header></header><signup></signup>"
-           })
-           .otherwise({
-               redirectTo: "/"
-           });
+            .when("/", {
+                template: "<header></header><jumbo></jumbo>"
+            })
+            .when("/home", {
+                template: "<header></header><default></default>"
+            })
+            .when("/signin", {
+                template: "<header></header><signin></signin>"
+            })
+            .when("/signup", {
+                template: "<header></header><signup></signup>"
+            })
+            .otherwise({
+                redirectTo: "/"
+            });
 
         $locationProvider.html5Mode(true);
     }

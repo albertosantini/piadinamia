@@ -1,6 +1,6 @@
 "use strict";
 
-(function () {
+(function() {
     angular
         .module("piadinamia")
         .component("signup", {
@@ -10,7 +10,7 @@
 
     SignUp.$inject = ["userService"];
     function SignUp(userService) {
-        var vm = this;
+        const vm = this;
 
         vm.user = userService;
     }

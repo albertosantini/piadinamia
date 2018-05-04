@@ -1,6 +1,6 @@
 "use strict";
 
-(function () {
+(function() {
     angular
         .module("piadinamia")
         .component("search", {
@@ -11,20 +11,20 @@
     Search.$inject = ["$q"];
 
     function Search($q) {
-        var vm = this;
+        const vm = this;
 
         vm.search = search;
         vm.onSelect = onSelect;
 
         function getMaster(query) {
-            var master = firebase.database().ref("master"),
+            const master = firebase.database().ref("master"),
                 deferred = $q.defer();
 
             master
                 .startAt(null, query)
-                .endAt(null, query + "z")
-                .once("value", function (snapshot) {
-                    var val = snapshot.val();
+                .endAt(null, `${query}z`)
+                .once("value", snapshot => {
+                    const val = snapshot.val();
 
                     if (val) {
                         deferred.resolve(val);
@@ -37,10 +37,10 @@
         }
 
         function search(query) {
-            return getMaster(query).then(function (catalogs) {
-                var cats = [];
+            return getMaster(query).then(catalogs => {
+                const cats = [];
 
-                angular.forEach(catalogs, function (userId, description) {
+                angular.forEach(catalogs, (userId, description) => {
                     cats.push(description);
                 });
 
@@ -49,7 +49,7 @@
         }
 
         function onSelect($item, $model, $label) {
-            console.log($item, $model, $label);
+            console.log($item, $model, $label); /* eslint no-console:off */
         }
 
     }

@@ -1,6 +1,6 @@
 "use strict";
 
-(function () {
+(function() {
     angular
         .module("piadinamia")
         .component("header", {
@@ -10,7 +10,7 @@
 
     Header.$inject = ["userService", "sessionService"];
     function Header(userService, sessionService) {
-        var vm = this;
+        const vm = this;
 
         vm.signup = signup;
         vm.signin = signin;
@@ -18,7 +18,7 @@
         vm.isLogged = false;
         vm.info = userService.info;
 
-        sessionService.isLogged().then(function () {
+        sessionService.isLogged().then(() => {
             vm.isLogged = true;
             vm.name = userService.info.name;
         });

@@ -5,8 +5,7 @@
     "scripts": {
         "start": "firebase serve",
         "test": "npm run lint",
-        "lint": "eslint src/**/*.js",
-        "deploy": "firebase deploy"
+        "lint": "eslint server.js src/**/*.js"
     },
     "repository": {
         "type": "git",
@@ -22,9 +21,7 @@
         "node": ">=8.x"
     },
     "devDependencies": {
-        "eslint": "^3.8.1",
-        "eslint-config-eslint": "~3.0.0",
-        "eslint-plugin-angular": "~1.4.1"
+        "eslint": "^4.19.1"
     },
     "dependencies": {
         "express": "^4.16.3"

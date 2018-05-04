@@ -1,22 +1,22 @@
 "use strict";
 
-(function () {
+(function() {
     angular
         .module("piadinamia")
         .factory("userService", userService);
 
     userService.$inject = ["$timeout", "sessionService"];
     function userService($timeout, sessionService) {
-        var service = {
+        const service = {
             info: {
                 name: "",
                 email: "",
                 pass: "",
                 err: ""
             },
-            signup: signup,
-            signin: signin,
-            logout: logout
+            signup,
+            signin,
+            logout
         };
 
         return service;
@@ -26,9 +26,9 @@
             service.info.email = email;
             service.info.pass = pass;
 
-            sessionService.createAccount(name, email, pass, function (err) {
+            sessionService.createAccount(name, email, pass, err => {
                 if (err) {
-                    $timeout(function () {
+                    $timeout(() => {
                         service.info.err = err.message;
                     });
                 }
@@ -39,9 +39,9 @@
             service.info.email = email;
             service.info.pass = pass;
 
-            sessionService.login(email, pass, function (err) {
+            sessionService.login(email, pass, err => {
                 if (err) {
-                    $timeout(function () {
+                    $timeout(() => {
                         service.info.err = err.message;
                     });
                 }

@@ -1,6 +1,6 @@
 "use strict";
 
-(function () {
+(function() {
     angular
         .module("piadinamia")
         .component("jumbo", {
@@ -11,8 +11,8 @@
     Jumbo.$inject = ["$location", "sessionService"];
     function Jumbo($location, sessionService) {
 
-        sessionService.isLogged().then(function () {
-            $location.path( "/home" );
+        sessionService.isLogged().then(() => {
+            $location.path("/home");
         });
     }
 }());

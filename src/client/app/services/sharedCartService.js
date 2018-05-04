@@ -1,6 +1,6 @@
 "use strict";
 
-(function () {
+(function() {
     angular
         .module("piadinamia")
         .factory("sharedCartService", sharedCartService);
@@ -8,9 +8,9 @@
     sharedCartService.$inject = ["$timeout", "sessionService"];
 
     function sharedCartService($timeout, sessionService) {
-        var service = {
-                getCartByItem: getCartByItem,
-                getCartByUser: getCartByUser
+        const service = {
+                getCartByItem,
+                getCartByUser
 
             },
             cartByUser = {},
@@ -21,17 +21,15 @@
         return service;
 
         function activate(userId) {
-            var catalogNameRef = firebase.database().ref("/users/" +
-                    userId + "/catalog");
+            const catalogNameRef = firebase.database().ref(`/users/${userId}/catalog`);
 
-            catalogNameRef.on("value", function (catalogNameSnapshot) {
-                var catalogName = catalogNameSnapshot.val();
+            catalogNameRef.on("value", catalogNameSnapshot => {
+                const catalogName = catalogNameSnapshot.val();
 
-                var subscribersRef = firebase.database().ref("/users/" +
-                        userId + "/catalogs/" + catalogName + "/subscribers");
+                const subscribersRef = firebase.database().ref(`/users/${userId}/catalogs/${catalogName}/subscribers`);
 
-                subscribersRef.on("value", function (snapshot) {
-                    var subscribers = snapshot.val();
+                subscribersRef.on("value", snapshot => {
+                    const subscribers = snapshot.val();
 
                     subscribeCarts(catalogName, subscribers);
                 });
@@ -46,14 +44,13 @@
             reset(cartByUser);
             reset(cartByItem);
 
-            subscribers.forEach(function (user) {
-                var cartRef = firebase.database().ref("/users/" + user.id +
-                            "/catalogs/" + catalogName + "/cart");
+            subscribers.forEach(user => {
+                const cartRef = firebase.database().ref(`/users/${user.id}/catalogs/${catalogName}/cart`);
 
-                cartRef.on("value", function (snapshot) {
-                    var cart = snapshot.val();
+                cartRef.on("value", snapshot => {
+                    const cart = snapshot.val();
 
-                    $timeout(function () {
+                    $timeout(() => {
                         if (cart) {
                             calcCartByUser(user, cart);
                             calcCartByItem();
@@ -64,17 +61,18 @@
         }
 
         function calcCartByUser(user, cart) {
-            var myCart = [],
-                total = 0;
+            const myCart = [];
 
-            angular.forEach(cart, function (item) {
+            let total = 0;
+
+            angular.forEach(cart, item => {
                 myCart.push(item);
                 total += item.qty * item.price;
             });
 
             cartByUser[user.id] = {
                 name: user.name || "Myself",
-                total: total,
+                total,
                 cart: myCart
             };
         }
@@ -82,9 +80,9 @@
         function calcCartByItem() {
             reset(cartByItem);
 
-            angular.forEach(cartByUser, function (user) {
-                user.cart.forEach(function (item) {
-                    var counter = 0;
+            angular.forEach(cartByUser, user => {
+                user.cart.forEach(item => {
+                    let counter = 0;
 
                     if (cartByItem[item.item]) {
                         counter = cartByItem[item.item].total + item.qty;
@@ -108,7 +106,7 @@
         }
 
         function reset(obj) {
-            var key;
+            let key;
 
             for (key in obj) {
                 if (obj.hasOwnProperty(key)) {

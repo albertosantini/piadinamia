@@ -1,6 +1,6 @@
 "use strict";
 
-(function () {
+(function() {
     angular
         .module("piadinamia")
         .component("welcome", {
@@ -10,14 +10,15 @@
 
     Welcome.$inject = ["$timeout", "sessionService", "userService"];
     function Welcome($timeout, sessionService, userService) {
-        var vm = this;
+        const vm = this;
 
         vm.info = userService.info;
 
-        sessionService.isLogged().then(function (userId) {
-            var userRef = firebase.database().ref("/users/" + userId + "/name");
-            userRef.once("value").then(function (snapshot) {
-                $timeout(function () {
+        sessionService.isLogged().then(userId => {
+            const userRef = firebase.database().ref(`/users/${userId}/name`);
+
+            userRef.once("value").then(snapshot => {
+                $timeout(() => {
                     userService.info.name = snapshot.val();
                 });
             });

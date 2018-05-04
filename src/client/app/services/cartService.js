@@ -1,6 +1,6 @@
 "use strict";
 
-(function () {
+(function() {
     angular
         .module("piadinamia")
         .factory("cartService", cartService);
@@ -8,44 +8,43 @@
     cartService.$inject = ["$timeout", "sessionService"];
 
     function cartService($timeout, sessionService) {
-        var service = {
-                getItems: getItems,
-                saveItem: saveItem,
-                getTotalCount: getTotalCount,
-                getTotalPrice: getTotalPrice,
-                addItem: addItem,
-                clearItem: clearItem
-            },
-            cartUrl,
-            cartRef,
-            myCart = [];
+        const service = {
+            getItems,
+            saveItem,
+            getTotalCount,
+            getTotalPrice,
+            addItem,
+            clearItem
+        };
+        const myCart = [];
+
+        let cartUrl;
+        let cartRef;
 
         sessionService.isLogged().then(activate);
 
         return service;
 
         function activate(userId) {
-            var catalogNameRef = firebase.database().ref("/users/" +
-                    userId + "/catalog");
+            const catalogNameRef = firebase.database().ref(`/users/${userId}/catalog`);
 
-            catalogNameRef.on("value", function (catalogNameSnapshot) {
-                var catalogName = catalogNameSnapshot.val();
+            catalogNameRef.on("value", catalogNameSnapshot => {
+                const catalogName = catalogNameSnapshot.val();
 
-                cartUrl = "/users/" + userId + "/catalogs/" +
-                    catalogName + "/cart";
+                cartUrl = `/users/${userId}/catalogs/${catalogName}/cart`;
                 cartRef = firebase.database().ref(cartUrl);
-                cartRef.on("value", function (snapshot) {
-                    var cart = snapshot.val(),
+                cartRef.on("value", snapshot => {
+                    const cart = snapshot.val(),
                         items = [];
 
                     if (cart) {
-                        Object.keys(cart).forEach(function (item) {
+                        Object.keys(cart).forEach(item => {
                             cart[item].$id = item;
                             items.push(cart[item]);
                         });
                     }
 
-                    $timeout(function () {
+                    $timeout(() => {
                         myCart.length = 0;
                         angular.extend(myCart, items);
                     });
@@ -58,7 +57,7 @@
         }
 
         function saveItem(index) {
-            var itemRef = cartRef.child(myCart[index].$id),
+            const itemRef = cartRef.child(myCart[index].$id),
                 newData = angular.copy(myCart[index]);
 
             delete newData.$id;
@@ -66,9 +65,9 @@
         }
 
         function getTotalCount() {
-            var total = 0;
+            let total = 0;
 
-            myCart.forEach(function (item) {
+            myCart.forEach(item => {
                 total += item.qty;
             });
 
@@ -76,9 +75,9 @@
         }
 
         function getTotalPrice() {
-            var total = 0;
+            let total = 0;
 
-            myCart.forEach(function (item) {
+            myCart.forEach(item => {
                 total += item.price * item.qty;
             });
 
@@ -86,20 +85,20 @@
         }
 
         function addItem(item, price, qty) {
-            var found = false,
+            let found = false,
                 newItem,
                 newItemKey,
                 newItemRef;
 
-            qty = qty || 1;
+            const myQty = qty || 1;
 
-            myCart.every(function (el, index) {
-                var cart = myCart[index];
+            myCart.every((el, index) => {
+                const cart = myCart[index];
 
                 if (el.item === item) {
                     found = true;
 
-                    cart.qty += qty;
+                    cart.qty += myQty;
 
                     if (cart.qty === 0) {
                         service.clearItem(index);
@@ -116,8 +115,8 @@
 
             if (!found) {
                 newItem = {
-                    item: item,
-                    price: price,
+                    item,
+                    price,
                     qty: 1,
                     total: price
                 };
@@ -131,7 +130,7 @@
         }
 
         function clearItem(index) {
-            var itemRef = cartRef.child(myCart[index].$id);
+            const itemRef = cartRef.child(myCart[index].$id);
 
             itemRef.remove();
             myCart.splice(index, 1);

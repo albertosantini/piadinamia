@@ -1,6 +1,6 @@
 "use strict";
 
-(function () {
+(function() {
     angular
         .module("piadinamia")
         .factory("catalogService", catalogService);
@@ -8,27 +8,28 @@
     catalogService.$inject = ["$timeout", "$q", "sessionService"];
 
     function catalogService($timeout, $q, sessionService) {
-        var myId,
-            catalog = {},
-            catNameRef,
-            catsRef,
+        const catalog = {},
             catsList = [],
             service = {
-                getCatalog: getCatalog,
-                getMyCatalogs: getMyCatalogs,
-                addItem: addItem,
-                removeItem: removeItem,
-                addCatalog: addCatalog,
-                removeCatalog: removeCatalog,
-                selectCatalog: selectCatalog
+                getCatalog,
+                getMyCatalogs,
+                addItem,
+                removeItem,
+                addCatalog,
+                removeCatalog,
+                selectCatalog
             };
+
+        let myId,
+            catNameRef,
+            catsRef;
 
         sessionService.isLogged().then(activate);
 
         return service;
 
         function activate(id) {
-            var defaultCat = {
+            const defaultCat = {
                 name: "piadinamia",
                 description: "Piadina Mia",
                 items: {
@@ -38,7 +39,7 @@
                     "Piadina integrale crudo": 4.80,
                     "Acqua naturale": 1.50,
                     "Acqua frizzante": 2.00,
-                    "Bibita": 2.50
+                    Bibita: 2.50
                 },
                 cart: [
                     {
@@ -50,7 +51,7 @@
                 ],
                 subscribers: [
                     {
-                        id: id
+                        id
                     }
 
                 ]
@@ -58,28 +59,28 @@
 
             myId = id;
 
-            catNameRef = firebase.database().ref("/users/" + myId + "/catalog");
-            catsRef = firebase.database().ref("/users/" + myId + "/catalogs");
+            catNameRef = firebase.database().ref(`/users/${myId}/catalog`);
+            catsRef = firebase.database().ref(`/users/${myId}/catalogs`);
 
-            catsRef.on("value", function (snapshot) {
-                var cats = snapshot.val();
+            catsRef.on("value", snapshot => {
+                let cats = snapshot.val();
 
                 if (!cats) {
                     cats = {};
                     cats.piadinamia = defaultCat;
 
-                    catsRef.set(cats).then(function () {
-                        $timeout(function () {
+                    catsRef.set(cats).then(() => {
+                        $timeout(() => {
                             angular.extend(catalog, defaultCat);
                         });
                     });
                 } else {
                     angular.extend(catsList, Object.keys(cats));
 
-                    catNameRef.on("value", function (snapshotCatName) {
-                        var catName = snapshotCatName.val();
+                    catNameRef.on("value", snapshotCatName => {
+                        const catName = snapshotCatName.val();
 
-                        $timeout(function () {
+                        $timeout(() => {
                             if (cats.hasOwnProperty(catName)) {
                                 if (!cats[catName].hasOwnProperty("items")) {
                                     cats[catName].items = {};
@@ -103,7 +104,7 @@
         }
 
         function addItem(price, item) {
-            var itemsRef = catsRef.child(catalog.name + "/items"),
+            const itemsRef = catsRef.child(`${catalog.name}/items`),
                 newItem = {};
 
             newItem[item] = price;
@@ -112,7 +113,7 @@
         }
 
         function removeItem(item) {
-            var itemRef = catsRef.child(catalog.name + "/items/" + item);
+            const itemRef = catsRef.child(`${catalog.name}/items/${item}`);
 
             itemRef.remove();
             delete catalog.items[item];
@@ -123,7 +124,7 @@
         }
 
         function removeCatalog(name) {
-            var index;
+            let index;
 
             if (name && catsList.length > 1) {
                 index = catsList.indexOf(name);
@@ -140,13 +141,13 @@
         }
 
         function add(name, desc) {
-            var cats = {};
+            const cats = {};
 
             cats[name] = {
                 cart: {},
                 description: desc,
                 items: {},
-                name: name,
+                name,
                 subscribers: {
                     0: {
                         id: myId
@@ -156,10 +157,10 @@
 
             catsList.push(name);
 
-            catsRef.update(cats).then(function () {
+            catsRef.update(cats).then(() => {
                 catNameRef.set(name);
 
-                $timeout(function () {
+                $timeout(() => {
                     angular.extend(catalog, cats[name]);
                 });
             });

@@ -1,6 +1,6 @@
 "use strict";
 
-(function () {
+(function() {
     angular
         .module("piadinamia")
         .component("sharedcart", {
@@ -11,7 +11,7 @@
     SharedCart.$inject = ["sharedCartService"];
 
     function SharedCart(sharedCartService) {
-        var vm = this;
+        const vm = this;
 
         vm.sharedCart = sharedCartService;
     }
