@@ -81,8 +81,8 @@
                         const catName = snapshotCatName.val();
 
                         $timeout(() => {
-                            if (cats.hasOwnProperty(catName)) {
-                                if (!cats[catName].hasOwnProperty("items")) {
+                            if (Object.prototype.hasOwnProperty.call(cats, catName)) {
+                                if (!Object.prototype.hasOwnProperty.call(cats[catName], "items")) {
                                     cats[catName].items = {};
                                 }
 
