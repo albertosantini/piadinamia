@@ -1,6 +1,6 @@
 PIADINAMIA
 ==========
-![](https://github.com/albertosantini/argo/workflows/CI/badge.svg)
+![](https://github.com/albertosantini/piadinamia/workflows/CI/badge.svg)
 
 Piadinamia is a social shopping cart app based on [AngularJS](https://angularjs.org/)
 and [Firebase](https://www.firebase.com/).
